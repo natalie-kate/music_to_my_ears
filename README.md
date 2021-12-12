@@ -59,41 +59,45 @@ This website was created for Milestone 4
 
    ### User Stories
 
-   - #### First Time Visitor 
+   - #### Unregistered Visitor
+        1. As an unregistered visitor, I want to be able to add products to my cart
+        2. As an unregistered visitor, I want to be able to view my cart
+        3. As an unregistered visitor, I want to be able to edit my cart
+        4. As an unregistered visitor, I want to be able to checkout
+        5. As an unregistered visitor, I want to see an order confirmation
+        6. As an unregistered visitor, I expect the site to look good on my mobile device.
+        7. As an unregistered visitor, I want to easily search the vinyls.
 
-        1. As a first time visitor, I want to easily understand the main purpose of the site. 
+   - #### First Time Visitor (in addition to above)
+        1. As a first time visitor, I want to easily understand the main purpose of the site.
         2. As a first time visitor, I want to be able to intuitively use the site.
         3. As a first time visitor, I expect to see an attractive, visually appealing site.
         4. As a first time visitor, I expect an accessible site.
         5. As a first time visitor, I expect the site to look good on my mobile device.
-        6. As a first time visitor, I want to easily search the books.
-        7. As a first time visitor, I want to easily register.
+        6. As a first time visitor, I want to easily register.
 
-   - #### Returning Visitor Goals
-
-        1. As a returning visitor, I want to add books to my "bookshelves".
-        2. As a returning visitor, I want to follow on social media so I can hear of any new features.
-        3. As a returning visitor, I want to be able to add books to the applications library.
-        4. As a returning visitor, I want to be able to change my password.
-        5. As a returning visitor, I want to be able to rate the app.
-        6. As a returning visitor, I want to get feedback so I know that something has went through or if i've been redirected, why.
-
-   - #### Frequent Visitor Goals
-
-        1. As a frequent visitor, I want to be able to edit a book that I've added to the applications library.
-        2. As a frequent visitor, I want to be able to contact the owner with suggestions.
-        3. As a frequent visitor, I want to be able to move or delete books on my "bookshelves".
-        4. As a frequent visitor, I want to be able to update my profile.
-        5. As a frequent visitor, I want to be able to change my account information
+   - #### Registered Returning Visitor Goals
+        1. As a returning visitor, I want to be able to view and add to the event board.
+        2. As a returning visitor, I want to follow on social media so I can hear of any new products.
+        3. As a returning visitor, I want to be able to change my password.
+        4. As a returning visitor, I want to be able to save my details
+        5. As a returning visitor, I want to get feedback so I know that something has went through.
+      
+   - #### Registered Frequent Visitor Goals
+        1. As a frequent visitor, I want to be able to edit an event I’ve added to the event board.
+        2. As a frequent visitor, I want to be able to contact the owner.
+        3. As a frequent visitor, I want to be able to edit my profile information.
+        4. As a frequent visitor, I want to be able to delete my account
+        5. As a frequent visitor, I want to be able to see my order history
         6. As a frequent visitor, I don't want to have never ending scrolling up or down.
 
    - #### Admin goals
-      
-        1. As admin, I want to be able to add, delete or edit a book.
-        2. As admin, I want to be able to add, delete or edit a genre.
-        3. As admin, I want to be able to delete a user.
-        4. As admin, I want to be able to make another user an admin.
-        5. As admin, I want to be able to reset a users password if they're having trouble logging in.
+        1. As admin, I want to be able to add, delete or edit a product.
+        2. As admin, I want to be able to add a genre.
+        3. As admin, I want to be able to delete or edit an event on the event board
+        4. As admin, I want to be able to delete a user.
+        5. As admin, I want to be able to make another user an admin.
+        6. As admin, I don’t want users to be able to order product if there is none left in stock.
 
    ### Scope
 
@@ -310,7 +314,7 @@ Testing and results can be found [here](TESTING.md)
     - Click enable automatic deployment, below that in manual deploy section, you can pick and deploy a branch to ensure everything is et up correctly. 
 
       ![Image showing automatic and manual deploy](static/images/readme-images/deployment/deploy.png)
-      
+
 ## Credits
 
 ### Code
