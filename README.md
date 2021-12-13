@@ -115,39 +115,31 @@ This website was created for Milestone 4
 
 -   Interactive elements
 
--   Social Links (build up media presence)
+-   Social Links 
 
 -   Ability to contact owner via contact page.
 
 -   Contact form prefills the personal information for logged in users.
 
--   Flash messages for feedback
+-   Changing nav menu and footer links and buttons in depending on the users log in status, admin status and what event if any they have added.
 
--   Confirmation modal and email on submission of contact form
-
--   Tooltips on registration form to help users complete it correctly
-
--   Changing nav menu and footer links and buttons in library depending on the users log in status, admin status and what books they have added.
-
--   Search bar in home/library can be used to search for genre, title, author, added_by and series name.
+-   Search bar for products and events.
 
 -   'Back to top' footer link on each page, saves users from having to scroll up to Nav bar especially on mobile devices.
 
--   Logged in users can add books to the Library.
+-   Logged in users can add events to event board.
 
--   Logged in user can add any book from library on home page to their profile.
+-   Logged in user can save their payment information and delivery address.
 
--   User can edit books in library that they themselves added. 
+-   User can edit events on event board that they themselves added. 
 
--   User can move or delete books on their profile. Can move books they have read from the 'Books To Read' bookshelf to the 'Read Books' bookshelf and vice versa. Books they don't own can be added to 'Books I Own' bookshelf.
+-   User can edit their own profile information
 
--   User can edit their own account via the 'Edit Account' footer link. Put this in footer because I hate having to hunt for this on other sites. Here they can change their password, email address etc or delete their account if they so wish.
+-   Admin users can add, edit and delete any products.
 
--   Admin users can add, edit and delete any books.
+-   Admin user can add, edit and delete any event.
 
--   Admin user can add, edit and delete any genre.
-
--   Admin user can search for other admins or for a username on Manage Genre page. They can make other users admin, reset another users password and edit their email if required.
+-   When product stock quantity is 0, add to cart buttons are not available and will display 'Out of Stock'.
 
 -   Before anything is deleted a confirmation is required preventing accidental deletion.
 
