@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+/*---- General ----*/
+body{
+    font-family: 'Special Elite', cursive;
+}
+
+.title-container {
+    height: 75vh;
+    background: url("/media/record-small.jpg") no-repeat center center;
+    background-size: cover;
+    padding: 0;
+    border-radius: 10px;
+}
