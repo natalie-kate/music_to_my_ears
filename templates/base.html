@@ -7,7 +7,7 @@
 <meta name="Description" content="Enter your description here"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="/static/css/base.css">
 <title>Title</title>
 </head>
 <body class="container-fluid">
@@ -15,7 +15,7 @@
     <header>
         <nav class="navbar navbar-expand-md">
             <a class="navbar-brand" href="" aria-label="Logo and link to home">
-                Pocket Bookcase</a>
+                <i class="fas fa-record-vinyl"></i></a>
             <!-- Dropdown menu button for smaller screens -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navdropdownmenu"
                 aria-controls="navdropdownmenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,23 +28,23 @@
                         <a class="nav-link" href="" aria-label="link to home page">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('about') }}" aria-label="link to about page">About</a>
+                        <a class="nav-link" href="" aria-label="link to about page">About</a>
                     </li>
                     <!-- Shown only for signed in users -->
                     {% if session.user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('profile', username=session['user']) }}" aria-label="link to profile page">Profile</a>
+                        <a class="nav-link" href="" aria-label="link to profile page">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('sign_out') }}" aria-label="link to sign out">Sign Out</a>
+                        <a class="nav-link" href="" aria-label="link to sign out">Sign Out</a>
                     </li>
                     <!-- Shown only for admin users -->
                     {% if admin %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('manage_genre') }}" aria-label="link to manage genres page">Manage Genres</a>
+                        <a class="nav-link" href="" aria-label="link to manage genres page">Manage Genres</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('manage_users') }}" aria-label="link to manage users page">Manage Users</a>
+                        <a class="nav-link" href="" aria-label="link to manage users page">Manage Users</a>
                     </li>
                     {% endif %}
                     <!-- Shown if not signed in -->
@@ -65,6 +65,15 @@
         </nav>
     </header>
 
+     <!-- Individual page header on an image background gets inserted here -->
+     {% block image %}
+
+     {% endblock %}
+
+    <!-- Individual page content will be inserted here -->
+    {% block content %}
+
+    {% endblock %}
     <footer>
         <div class="row">
             <!-- Social Links -->
@@ -83,8 +92,8 @@
                 <p>Useful Links</p>
                 <!-- If user not signed these links will be displayed -->
                 {% if not session.user %}
-                <p><a class="footer-link" href="{{ url_for ('register') }}" aria-label="link to sign up page">Sign Up Page</a></p>
-                <p><a class="footer-link" href="{{ url_for ('sign_in') }}" aria-label="link to sign in page">Sign In Page</a></p>
+                <p><a class="footer-link" href="" aria-label="link to sign up page">Sign Up Page</a></p>
+                <p><a class="footer-link" href="" aria-label="link to sign in page">Sign In Page</a></p>
                 {% endif %}
 
                 <!-- Individual page "back to top" link will be inserted -->
@@ -94,8 +103,8 @@
 
                 <!-- If user logged in these links will be displayed -->
                 {% if session.user %}
-                <p><a class="footer-link" href="{{ url_for ('sign_out') }}" aria-label="link to sign out page">Sign Me Out</a></p>
-                <p><a class="footer-link" href="{{ url_for ('edit_account') }}" aria-label="link to edit account">Edit account</a></p>
+                <p><a class="footer-link" href="" aria-label="link to sign out page">Sign Me Out</a></p>
+                <p><a class="footer-link" href="" aria-label="link to edit account">Edit account</a></p>
                 {% endif %}
             </div>
         </div>
@@ -104,5 +113,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+  <!-- Any individual page scripts to be inserted here -->
+  {% block script %}
+
+  {% endblock %}
 </body>
 </html>
