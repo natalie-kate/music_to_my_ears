@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<title>Title</title>
+</head>
+<body class="container-fluid">
+    <!-- Header and Nav, modified bootstrap nav -->
+    <header>
+        <nav class="navbar navbar-expand-md">
+            <a class="navbar-brand" href="" aria-label="Logo and link to home">
+                Pocket Bookcase</a>
+            <!-- Dropdown menu button for smaller screens -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navdropdownmenu"
+                aria-controls="navdropdownmenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span><i class="fas fa-bars"></i></span>
+            </button>
+            <!-- Nav links -->
+            <div class="collapse navbar-collapse" id="navdropdownmenu">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="" aria-label="link to home page">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('about') }}" aria-label="link to about page">About</a>
+                    </li>
+                    <!-- Shown only for signed in users -->
+                    {% if session.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('profile', username=session['user']) }}" aria-label="link to profile page">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('sign_out') }}" aria-label="link to sign out">Sign Out</a>
+                    </li>
+                    <!-- Shown only for admin users -->
+                    {% if admin %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('manage_genre') }}" aria-label="link to manage genres page">Manage Genres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('manage_users') }}" aria-label="link to manage users page">Manage Users</a>
+                    </li>
+                    {% endif %}
+                    <!-- Shown if not signed in -->
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="" aria-label="link to sign in page">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" aria-label="link to sign up page">Register</a>
+                    </li>
+                    {% endif %}
+                    <!-- Last nav link shown for everyone -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="" aria-label="link to contact us page">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <footer>
+        <div class="row">
+            <!-- Social Links -->
+            <div class="col-6 col-lg-3 offset-lg-3 text-center">
+                <p>Social Links</p>
+                <p><a class="social" href="https://www.instagram.com" target="_blank" rel="noopener"><span class="sr-only">Link will open
+                        Instagram in a new page.</span>Instagram</a></p>
+                <p><a class="social" href="https://www.spotify.com" target="_blank" rel="noopener"><span class="sr-only">Link will open
+                        Spotify in a new page.</span>Spotify</a></p>
+                <p><a class="social" href="https://www.twitter.com" target="_blank" rel="noopener"><span class="sr-only">Link will open
+                        Twitter in a new page.</span>Twitter</a></p>
+            
+            </div>
+            <!-- Nav Links -->
+            <div class="col-6 col-lg-3 text-center footer-links">
+                <p>Useful Links</p>
+                <!-- If user not signed these links will be displayed -->
+                {% if not session.user %}
+                <p><a class="footer-link" href="{{ url_for ('register') }}" aria-label="link to sign up page">Sign Up Page</a></p>
+                <p><a class="footer-link" href="{{ url_for ('sign_in') }}" aria-label="link to sign in page">Sign In Page</a></p>
+                {% endif %}
+
+                <!-- Individual page "back to top" link will be inserted -->
+                {% block link %}
+
+                {% endblock %}
+
+                <!-- If user logged in these links will be displayed -->
+                {% if session.user %}
+                <p><a class="footer-link" href="{{ url_for ('sign_out') }}" aria-label="link to sign out page">Sign Me Out</a></p>
+                <p><a class="footer-link" href="{{ url_for ('edit_account') }}" aria-label="link to edit account">Edit account</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+</html>
