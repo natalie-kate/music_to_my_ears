@@ -4,7 +4,7 @@ Here is a link to the live project. ()
 
 This website was created for Milestone 4 
 
-![Image showing the website displayed on different screen sizes](/static/images/readme-images/responsive.png)
+![Image showing the website displayed on different screen sizes]()
 
 ## Contents 
 
@@ -32,9 +32,9 @@ This website was created for Milestone 4
    * [Creation](#creation)
    * [Forking](#forking)
    * [Clone](#clone)
-   * [Setting up MongoDB](#setting-up-mongodb)
+   * [Setting up AWS](#setting-up-aws)
+   * [Setting Up Stripe](#setting-up-stripe)
    * [Setting Up App](#setting-up-app)
-   * [Connecting to MongoDB](#connecting-to-mongodb)
    * [Heroku Deployment](#heroku-deployment)
 
 - [Credits](#credits)
@@ -162,15 +162,15 @@ This website was created for Milestone 4
 
 
 - Created a database schema using [dbdiagram](https://dbdiagram.io/home), see below. 
-![database schema](/static/images/readme-images/database-schema.png)
+![database schema]()
 
 ### Skeleton 
 
 Wireframes were created on Balsamiq (see links below)
 
-* [Mobile]()
-* [Tablet]()
-* [Desktop]()
+* [Mobile](/static/readme_assets/wireframes/ms4-mobile.pdf)
+* [Tablet](/static/readme_assets/wireframes/ms4-tablet.pdf)
+* [Desktop](/static/readme_assets/wireframes/ms4-desktop.pdf)
 
 ### Surface
 
