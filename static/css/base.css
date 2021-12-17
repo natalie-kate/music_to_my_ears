@@ -27,7 +27,7 @@ body{
 }
 
 .hover:hover {
-    background-color: my name;
+    background-color: #225e6c;
     color: rgb(241 135 135);
 }
 
@@ -50,11 +50,15 @@ body{
     }
 }
  
-.nav-link,
-.footer-link,
-.social {
-    color: #225e6c;
+.footer-links p {
     font-size: 24px;
+}
+
+.social,
+.nav-link,
+.footer-link {
+    color: #225e6c;
+    font-size: 20px;
 }
 
 .navbar-brand {
@@ -64,15 +68,18 @@ body{
     padding: 0px
 }
 
-.navbar-brand:hover {
+.navbar-brand:hover,
+.shopping-bag:hover {
     color: #225e6c;
+    text-decoration: none;
 }
 
 .nav-link:hover,
 .footer-link:hover,
-.social:hover {
+.social:hover,
+.shopping-bag {
     color: rgb(239 112 102);
-    text-decoration: wavy;
+    text-decoration-style: wavy;
 }
 
 .text-left {
@@ -80,7 +87,7 @@ body{
 }
 
 .banner {
-    background-color: rgb(239 112 102);
+    background-color: #f39c8a;
     border-radius: 8px;
     border: 5px solid #225e6c;
 
@@ -90,5 +97,20 @@ body{
     color: black;
     font-size: 24px;
     margin: 0;
+}
+
+hr {
+    width: 70vw;
+    background-color: rgb(239 112 102);
+    height: 5px;
+    border-radius: 5px;
+}
+
+.shopping-bag {
+    padding-top: 15px;
+}
+
+.shopping-bag p {
+    margin: 0px;
 }
 
