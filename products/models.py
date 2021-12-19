@@ -34,7 +34,8 @@ class Image(models.Model):
     """ Creates Image table in database """
     vinyl = models.ForeignKey(Vinyl, on_delete=models.CASCADE)
     image = models.ImageField()
+    image_name = models.CharField(max_length=254, null=True, blank=True)
     default = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.image
+        return self.image_name
