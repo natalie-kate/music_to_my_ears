@@ -5,7 +5,6 @@
 <div class="image-container">
     <div class="row">
       <div class="col-12 text-center">
-        <img href="" alt="">
       </div>
     </div>
 </div>
@@ -13,11 +12,20 @@
   
 {% block content %}
   <h2 class="text-center mt-4"> Shop Vinyls </h2>
+  <form id="search-form" method="POST" action="{% url 'shop' %}">
+    <div class="row search-box">
+      <div class="col-12 mb-5 text-center">
+        <input type="text" name="search" id="search" placeholder="e.g genre or title" aria-label="Search" required>
+        <button type="submit" class="btn btn-md my-btn hover">Search <i class="fas fa-search"
+            aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </form>
   <div class="row">
         {% for genre in genres %}
         <div class="col-8 offset-2 col-md-6 offset-md-0 col-lg-4" id="{{ genre }}_div">
         <h3>Browse {{ genre.friendly_name }}</h3>
-          <div id="{{ genre }}" class="carousel slide" data-ride="carousel">
+          <div id="{{ genre }}" class="carousel slide mb-3" data-ride="carousel">
             <div class="carousel-inner">
             {% for product in products %}
               {% if product.genre == genre %}
