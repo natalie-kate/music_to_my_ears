@@ -31,6 +31,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home' %}" aria-label="link to home page">Home</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'shop' %}" aria-label="link to shop page">Shop</a>
+                    </li>
                     <!-- Shown only for signed in users -->
                     {% if request.user.is_authenticated %}
                     <li class="nav-item">
@@ -135,8 +138,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 
   <!-- Any individual page scripts to be inserted here -->
-  {% block script %}
+{% block postloadjs %}
 
-  {% endblock %}
+{% endblock %}
 </body>
 </html>
