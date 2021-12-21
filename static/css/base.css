@@ -37,6 +37,7 @@ body{
 }
 
 .spinning-record {
+    background-color:#f39c8a;
     border-radius: 50%;
     border: 5px solid rgb(241 135 135);
     animation: record 5s linear infinite;
@@ -121,10 +122,6 @@ hr {
 
 .shopping-bag p {
     margin: 0px;
-}
-
-.search-box {
-    width: 100%;
 }
 
 /*---- Media Queries ----*/
