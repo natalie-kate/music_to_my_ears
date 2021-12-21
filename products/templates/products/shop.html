@@ -3,64 +3,80 @@
 
 {% block image %}
 <div class="image-container">
-    <div class="row">
-      <div class="col-12 text-center">
-      </div>
-    </div>
-</div>
-{% endblock %}
-  
-{% block content %}
-  <h2 class="text-center mt-4"> Shop Vinyls </h2>
-  <form id="search-form" method="POST" action="{% url 'shop' %}">
-    <div class="row search-box">
-      <div class="col-12 mb-5 text-center">
-        <input type="text" name="search" id="search" placeholder="e.g genre or title" aria-label="Search" required>
-        <button type="submit" class="btn btn-md my-btn hover">Search <i class="fas fa-search"
-            aria-hidden="true"></i></button>
-      </div>
-    </div>
-  </form>
   <div class="row">
-        {% for genre in genres %}
-        <div class="col-8 offset-2 col-md-6 offset-md-0 col-lg-4" id="{{ genre }}_div">
-        <h3>Browse {{ genre.friendly_name }}</h3>
-          <div id="{{ genre }}" class="carousel slide mb-3" data-ride="carousel">
-            <div class="carousel-inner">
-            {% for product in products %}
-              {% if product.genre == genre %}
-                {% for image in images %} 
-                  {% if image.default and image.vinyl == product %}
-                    <div class="carousel-item">
-                      <a href=""><img src="/media/{{ image.image }}" class="d-block w-100" alt="Cover image of {{ product.title }} record" ></a>
-                    </div>
-                  {% endif %}
-                {% endfor %}
-              {% endif %}
-            {% endfor %}
-            </div>
-            <a class="carousel-control-prev" href="#{{ genre }}" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#{{ genre}} " role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </div>
-        </div>
-        {% endfor%}
+    <div class="col-12 text-center">
     </div>
   </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<h2 class="text-center mt-4"> Shop Vinyls </h2>
+<form id="product-search-form" method="GET" action="{% url 'shop' %}">
+  <div class="row search-box">
+    <div class="col-12 mb-5 text-center">
+      <input type="text" name="search" id="search" placeholder="e.g artist, album or song" aria-label="Search" required>
+      <button type="submit" class="btn btn-md my-btn hover">Search <i class="fas fa-search"
+          aria-hidden="true"></i></button>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  {% if search %}
+    {% for product in products %}
+    <div class="col-8 offset-2 col-md-6 offset-md-0 col-lg-4">
+      {% for image in images %}
+        {% if image.default and image.vinyl == product %}
+          <a href=""><img src="/media/{{ image.image }}" class="d-block w-100"
+              alt="Cover image of {{ product.title }} record"></a>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% endfor %}
+  {% endif %}
+
+  {% if not search %}
+  {% for genre in genres %}
+  <div class="col-8 offset-2 col-md-6 offset-md-0 col-lg-4" id="{{ genre }}_div">
+    <h3>Browse {{ genre.friendly_name }}</h3>
+    <div id="{{ genre }}" class="carousel slide mb-3" data-ride="carousel">
+      <div class="carousel-inner">
+        {% for product in products %}
+        {% if product.genre == genre %}
+        {% for image in images %}
+        {% if image.default and image.vinyl == product %}
+        <div class="carousel-item">
+          <a href=""><img src="/media/{{ image.image }}" class="d-block w-100"
+              alt="Cover image of {{ product.title }} record"></a>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+      </div>
+      <a class="carousel-control-prev" href="#{{ genre }}" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#{{ genre}} " role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+  {% endfor%}
+  {% endif %}
+</div>
 {% endblock %}
 
 {% block postloadjs %}
 {{ block.super }}
 
-  <script>
-  $(document).ready(function() {
+<script>
+  $(document).ready(function () {
     $(".carousel-inner").children([0]).addClass('active')
   });
-  </script>
+</script>
 
 {% endblock %}
