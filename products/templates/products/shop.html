@@ -28,8 +28,13 @@
     <div class="col-8 offset-2 col-md-6 offset-md-0 col-lg-4">
       {% for image in images %}
         {% if image.default and image.vinyl == product %}
-          <a href=""><img src="/media/{{ image.image }}" class="d-block w-100"
-              alt="Cover image of {{ product.title }} record"></a>
+          <img src="/media/{{ image.image }}" class="d-block w-100"
+              alt="Cover image of {{ product.title }} record">
+          <div class="text-center">
+            <h4 class="title">{{ product.title }}</h4>
+            <p class="artist">{{ product.artist }}</p>
+            <a href="{% url 'product' product.id %}" class='btn my-btn hover'>Details</a>
+          </div>
         {% endif %}
       {% endfor %}
     </div>
@@ -49,6 +54,11 @@
         <div class="carousel-item">
           <a href=""><img src="/media/{{ image.image }}" class="d-block w-100"
               alt="Cover image of {{ product.title }} record"></a>
+          <div class="text-center">
+            <h4 class="title">{{ product.title }}</h4>
+            <p class="artist">{{ product.artist }}</p>
+            <a href="{% url 'product' product.id %}" class='btn my-btn hover'>Details</a>
+          </div>
         </div>
         {% endif %}
         {% endfor %}
@@ -75,7 +85,7 @@
 
 <script>
   $(document).ready(function () {
-    $(".carousel-inner").children([0]).addClass('active')
+    $(".carousel-inner").children().first().addClass('active')
   });
 </script>
 
