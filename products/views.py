@@ -9,7 +9,7 @@ def open_shop(request):
 
     products = Vinyl.objects.all()
     genres = Genre.objects.all()
-    images = Image.objects.all()
+    images = Image.objects.filter(default=True)
     current_genres = []
     search = None
 
@@ -43,3 +43,17 @@ def open_shop(request):
     }
 
     return render(request, 'products/shop.html', context)
+
+
+def product(request, product_id):
+    product_info = get_object_or_404(Vinyl, pk=product_id)
+    images = Image.objects.filter(vinyl=product_id)
+    tracklist = product_info.track_list.split(",")
+
+    context = {
+        'product': product_info,
+        'images': images,
+        'tracklist': tracklist
+    }
+
+    return render(request, 'products/product.html', context)
