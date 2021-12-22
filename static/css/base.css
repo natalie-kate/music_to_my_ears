@@ -25,6 +25,14 @@ body{
     border-radius: 10px;
 }
 
+.header-container {
+    height: 25vh;
+    background: url("/media/guitar.jpg") no-repeat center center;
+    background-size: cover;
+    padding: 0;
+    border-radius: 10px;
+}
+
 .my-btn {
     background-color:#f39c8a;
     height: 30px;
@@ -122,6 +130,16 @@ hr {
 
 .shopping-bag p {
     margin: 0px;
+}
+
+strong {
+    font-weight: 800;
+    font-size: 20px;
+    color: #225e6c
+}
+
+.details .text-left {
+    padding-left: 0px;
 }
 
 /*---- Media Queries ----*/
