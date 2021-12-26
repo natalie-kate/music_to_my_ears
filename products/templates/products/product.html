@@ -33,21 +33,19 @@
             <span class="sr-only">Next</span>
             </a>
         </div>
-        <div class="text-center">
+        <div class="text-center add-to-basket">
         {% if product.stock_quantity > 0 %}
-          <a class="btn btn-md my-btn hover mr-3" href="">Add to basket</a>
-          <span><strong>Price: </strong>£{{ product.price }}</span>
-        {% elif product.stock_quantity == 1 %}
+          <p><strong>Price: </strong>£{{ product.price }}</p>
           <a class="btn btn-md my-btn hover" href="">Add to basket</a>
-          <span><strong>Price: </strong>£{{ product.price }}</span>
-          <span>Hurry only 1 left in stock! </span>
         {% else %}
-          <p>Sorry this is out of stock just now </p>
-        </div>
+        <p>Sorry this is out of stock just now </p>
         {% endif %}
+        {% if product.stock_quantity == 1 %}
+          <span>Hurry only 1 left in stock! </span>
+        {% endif %}
+        </div>
     </div>
-    </div>
-
+  
     <div class="col-10 offset-1 col-md-5 col-lg-4 details">
       <div class="text-left">
         <span class="title"><strong>Album Name: </strong> {{ product.title }}</span><br>
