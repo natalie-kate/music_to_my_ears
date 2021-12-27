@@ -24,7 +24,8 @@ class Vinyl(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField(null=True, blank=True)
     stock_quantity = models.IntegerField(default=1)
-    track_list = models.TextField(default='Add in tracklist e.g 1. Track Title')
+    track_list = models.TextField(
+        default='Add in tracklist e.g 1. Track Title')
 
     def __str__(self):
         return self.title
