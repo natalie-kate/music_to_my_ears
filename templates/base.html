@@ -70,8 +70,8 @@
                 </ul>
             </div>
             <div class="shopping-bag text-center">
-                <a class="shopping-bag" href="">
-                    <i class="fas fa-shopping-bag fa-lg"></i>
+                <a class="shopping-bag" href="{% url 'basket' %}">
+                    <i class="fas fa-shopping-basket fa-lg"></i>
                     <p>
                         {% if grand_total %}
                         ${{ grand_total|floatformat:2 }}
