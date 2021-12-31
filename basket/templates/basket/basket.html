@@ -12,9 +12,41 @@
 {% block content %}
 <h2 class="text-center mt-4"> Your Basket </h2>
 <div class="row">
-  <div class="col-10 offset-1">
-   
-  </div>
+    {% if basket_products %}
+        {% for item in basket_products %}
+        <div class="col-8 offset-2 col-md-3 offset-md-2 text-center">
+            {% for image in item.product_images %}
+              {% if image.default %}
+                <img src="/media/{{ image.image }}" class="w-75"
+                    alt="Cover image of {{ product.title }} record">
+              {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-10 offset-1 col-md-5 offset-md-0 item-details">
+            <p><strong>Product: </strong>{{ item.product.title }} by {{ item.product.artist }}</p>
+            <p><strong>Quantity: </strong>{{ item.quantity }} </p>
+            <p><strong>Price: </strong>£{{ item.product.price }}</p> 
+            <p>
+              <a class="mr-2"><i class="fas fa-pencil-alt"></i> Edit quantity </a> | 
+              <a class="ml-2"><i class="fas fa-trash-alt"></i> Remove Item</a>
+            </p>
+            <p class="text-right"><strong>Item Subtotal: </strong>£{{ item.item_total }}</p>
+        </div>
+        <div class="col-8 offset-2">
+           <hr class="light">
+        </div>
+        {% endfor %}
+    {% else %}
+    <p>You have nothing in your basket yet!</p>
+    <a href="{% url 'shop' %}">Continue Shopping </a>
+    {% endif %}
+    <div class="col-8 offset-2 text-right">
+      <p>
+        <strong>Numer of items: </strong>{{ product_count }}<br>
+        <strong>Subtotal: </strong>£{{ total }}<br>
+        <strong>Delivery: </strong>£{{ delivery }}<br>
+        <strong>Grand Total: </strong>£{{ grand_total }}
+      </p>
+    </div>
 </div>
-
 {% endblock %}
