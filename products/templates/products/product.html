@@ -36,7 +36,11 @@
         <div class="text-center add-to-basket">
         {% if product.stock_quantity > 0 %}
           <p><strong>Price: </strong>£{{ product.price }}</p>
-          <a class="btn btn-md my-btn hover" href="">Add to basket</a>
+          <form class="form" action="{% url 'add_to_basket' product.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-md my-btn hover" value="Add to Basket">
+            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+          </form>
         {% else %}
         <p>Sorry this is out of stock just now </p>
         {% endif %}
