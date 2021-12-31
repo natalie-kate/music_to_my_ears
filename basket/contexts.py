@@ -4,7 +4,6 @@ from products.models import Vinyl, Image
 
 
 def basket_contents(request):
-    image = Image.objects.all()
     basket_products = []
     total = 0
     product_count = 0
@@ -14,6 +13,7 @@ def basket_contents(request):
     for product_id, quantity in basket.items():
         product = get_object_or_404(Vinyl, pk=product_id)
         total += quantity * product.price
+        item_total = quantity * product.price
         product_count += quantity
         product_images = product.image_set.all()
         basket_products.append({
@@ -21,9 +21,10 @@ def basket_contents(request):
             'quantity': quantity,
             'product': product,
             'product_images': product_images,
+            'item_total': item_total
         })
 
-    grand_total = Decimal(total + delivery)
+    grand_total = round((total + Decimal(delivery)), 2)
 
     context = {
         'basket_products': basket_products,
