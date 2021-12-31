@@ -1,9 +1,11 @@
+""" Imports required for basket_contents """
 from decimal import Decimal
 from django.shortcuts import get_object_or_404
-from products.models import Vinyl, Image
+from products.models import Vinyl
 
 
 def basket_contents(request):
+    """ Make basket contents and totals available to all templates """
     basket_products = []
     total = 0
     product_count = 0
