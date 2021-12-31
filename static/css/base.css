@@ -124,6 +124,11 @@ hr {
     border-radius: 5px;
 }
 
+hr.light {
+    width: 25vw;
+    height: 2.5px;
+}
+
 .shopping-bag {
     padding-top: 15px;
 }
@@ -143,6 +148,12 @@ strong {
 }
 
 /*---- Media Queries ----*/
+
+@media(max-width: 350px) {
+    .product_details i {
+        display: none;
+    }
+}
 @media(min-width:750px){
     .image-container {
         height: 40vh;
