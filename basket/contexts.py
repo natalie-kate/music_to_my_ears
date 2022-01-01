@@ -14,16 +14,22 @@ def basket_contents(request):
 
     for product_id, quantity in basket.items():
         product = get_object_or_404(Vinyl, pk=product_id)
+        product_name = product.title.replace(" ", "_").lower
         total += quantity * product.price
         item_total = quantity * product.price
         product_count += quantity
         product_images = product.image_set.all()
+        stock_quantity_list = []
+        for value in range(1, (product.stock_quantity + 1)):
+            stock_quantity_list.append(value)
         basket_products.append({
             'product_id': product_id,
             'quantity': quantity,
             'product': product,
             'product_images': product_images,
-            'item_total': item_total
+            'item_total': item_total,
+            'product_name': product_name,
+            'stock_quantity_list': stock_quantity_list
         })
 
     grand_total = round((total + Decimal(delivery)), 2)
