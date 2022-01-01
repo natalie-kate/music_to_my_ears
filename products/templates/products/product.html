@@ -35,12 +35,29 @@
         </div>
         <div class="text-center add-to-basket">
         {% if product.stock_quantity > 0 %}
+          {% if basket_products %}
+            {% for item in basket_products %}
+              {% if item.product.id  == product.id %}
+                {% if item.quantity == product.stock_quantity %}
+                <p>You have all the available stock of {{ product.title }} already in your basket.</p> 
+                {% else %}
+                  <p><strong>Price: </strong>£{{ product.price }}</p>
+                  <form class="form" action="{% url 'add_to_basket' product.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-md my-btn hover" value="Add to Basket">
+                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                  </form>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% else %}
           <p><strong>Price: </strong>£{{ product.price }}</p>
           <form class="form" action="{% url 'add_to_basket' product.id %}" method="POST">
             {% csrf_token %}
             <input type="submit" class="btn btn-md my-btn hover" value="Add to Basket">
             <input type="hidden" name="redirect_url" value="{{ request.path }}">
           </form>
+          {% endif %}
         {% else %}
         <p>Sorry this is out of stock just now </p>
         {% endif %}
