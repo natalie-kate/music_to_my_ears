@@ -12,6 +12,9 @@
 
 {% block content %}
 <h2 class="text-center mt-4"> Product Details </h2>
+<p class="text-center">
+  <a href="{% url 'shop' %}">Back to Shop <i class="fas fa-step-backward"></i></a>
+</p>
 
 <div class="row">
     <div class="col-10 offset-1 col-md-5 col-lg-4 offset-lg-2">
@@ -42,7 +45,7 @@
               <p><strong>Price: </strong>£{{ product.price }}</p>
               <form class="form" action="{% url 'add_to_basket' product.id %}" method="POST">
                 {% csrf_token %}
-                <input type="submit" class="btn btn-md my-btn hover" value="Add to Basket">
+                <button type="submit" class="btn btn-md my-btn hover mb-2">Add to Basket</button>
                 <input type="hidden" name="redirect_url" value="{{ request.path }}">
               </form>
               {% endif %}
@@ -50,7 +53,7 @@
               <p><strong>Price: </strong>£{{ product.price }}</p>
               <form class="form" action="{% url 'add_to_basket' product.id %}" method="POST">
                 {% csrf_token %}
-                <input type="submit" class="btn btn-md my-btn hover" value="Add to Basket">
+                <button type="submit" class="btn btn-md my-btn hover mb-2">Add to Basket</button>
                 <input type="hidden" name="redirect_url" value="{{ request.path }}">
               </form>
           {% endif %}
