@@ -39,6 +39,15 @@ body{
     padding: 5px;
 }
 
+.checkout-btn {
+    height: 50px;
+    width: 200px;
+    font-weight: 800px;
+    font-size: 30px;
+    border-width: 3px;
+    border-color: #225e6c;
+}
+
 .hover:hover {
     background-color: #225e6c;
     color: rgb(241 135 135);
@@ -95,7 +104,8 @@ body{
 .nav-link:hover,
 .footer-link:hover,
 .social:hover,
-.shopping-bag {
+.shopping-bag,
+a:hover {
     color: rgb(239 112 102);
     text-decoration-style: wavy;
 }
@@ -145,6 +155,19 @@ strong {
 
 .details .text-left {
     padding-left: 0px;
+}
+
+a {
+    color: #225e6c;
+}
+
+.highlight {
+    color: red;
+    font-weight: 800px;
+}
+
+select.form-control {
+    width: 100px;
 }
 
 /*---- Media Queries ----*/
