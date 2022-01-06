@@ -70,11 +70,11 @@
                 </ul>
             </div>
             <div class="shopping-bag text-center">
-                <a class="shopping-bag" href="{% url 'basket' %}">
+                <a class="shopping-bag" href="{% url 'view_basket' %}">
                     <i class="fas fa-shopping-basket fa-lg"></i>
                     <p>
-                        {% if grand_total %}
-                        £{{ grand_total|floatformat:2 }}
+                        {% if basket_products %}
+                        £{{ grand_total|floatformat:2 }} Items: {{ product_count }}
                         {% else %}
                         £0.00
                         {% endif %}
