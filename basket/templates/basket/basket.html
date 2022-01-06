@@ -22,42 +22,59 @@
               {% endif %}
             {% endfor %}
         </div>
-        <div class="col-10 offset-1 col-md-5 offset-md-0 item-details">
+        <div class="col-10 offset-1 col-md-5 offset-md-0 item-details mt-3">
             <p><strong>Product: </strong>{{ item.product.title }} by {{ item.product.artist }}</p>
             <p><strong>Quantity: </strong>{{ item.quantity }} </p>
             <p><strong>Price: </strong>£{{ item.product.price }}</p> 
             <p>
               <a data-toggle="collapse" href="#{{ item.product_name }}_edit" class="mr-2" 
-              aria-label="Will open change password section"><i class="fas fa-pencil-alt"></i> Edit quantity </a> | 
-              <a class="ml-2"><i class="fas fa-trash-alt"></i> Remove Item</a>
+              aria-label="Will open edit quantity section"><i class="fas fa-pencil-alt"></i> Edit quantity </a> | 
+              <a data-toggle="collapse" href="#{{ item.product_name }}_delete" class="ml-2" 
+              aria-label="Will open remove product confirmation section"><i class="fas fa-trash-alt"></i> Remove Item</a>
             </p>
             <div id="{{ item.product_name }}_edit" class="collapse">
-              <form action="">
+              <form method="POST" action="{% url 'edit_quantity' item.product_id %}">
+                {% csrf_token %}
                 <label for="quantity_selector">Quantity:</label><br>
                 <select class="form-control" id="quantity_selector" name="quantity">
                   {% for quantity in item.stock_quantity_list %}
                   <option value="{{ quantity }}">{{ quantity }}</option>
                   {% endfor %}
                 </select>
+                <button type="submit">Update basket</button>
               </form>
+              <a data-toggle="collapse" href="#{{ item.product_name }}_edit" class="mr-2" 
+              aria-label="Will close edit quantity section">Cancel</a>
             </div>
-            <p class="text-right"><strong>Item Subtotal: </strong>£{{ item.item_total }}</p>
+            <div id="{{ item.product_name }}_delete" class="collapse">
+              <p>Are you sure you want to remove {{ item.product }} from your basket?</p>
+              <a href="{% url 'delete_item' item.product_id %}">Yes, I'm sure </a>
+              <a data-toggle="collapse" href="#{{ item.product_name }}_delete" class="ml-2" 
+              aria-label="Will close remove product confirmation section">Cancel</a>
+            </div>
+            {% if product_count > 1 %}
+              <p class="text-right"><strong>Item Subtotal: </strong>£{{ item.item_total }}</p>
+            {% endif %}
         </div>
-        <div class="col-8 offset-2">
+        <div class="col-6 offset-6">
            <hr class="light">
         </div>
         {% endfor %}
+        <div class="col-8 offset-2 text-right">
+          <p>
+            <strong>Number of items: </strong>{{ product_count }}<br>
+            <strong>Subtotal: </strong>£{{ total }}<br>
+            <strong>Delivery: </strong>£{{ delivery }}<br>
+            <strong>Grand Total: </strong>£{{ grand_total }}
+          </p>
+        </div>
     {% else %}
-    <p>You have nothing in your basket yet!</p>
-    <a href="{% url 'shop' %}">Continue Shopping </a>
+    <div class="col-12 text-center">
+      <p>You have nothing in your basket yet! <i class="far fa-sad-cry"></i></p>
+    </div>
     {% endif %}
-    <div class="col-8 offset-2 text-right">
-      <p>
-        <strong>Numer of items: </strong>{{ product_count }}<br>
-        <strong>Subtotal: </strong>£{{ total }}<br>
-        <strong>Delivery: </strong>£{{ delivery }}<br>
-        <strong>Grand Total: </strong>£{{ grand_total }}
-      </p>
+    <div class="col-12 text-center">
+      <a href="{% url 'shop' %}">Continue Shopping? </a>
     </div>
 </div>
 {% endblock %}
