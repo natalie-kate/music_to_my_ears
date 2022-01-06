@@ -15,9 +15,9 @@ def basket_contents(request):
     for product_id, quantity in basket.items():
         product = get_object_or_404(Vinyl, pk=product_id)
         product_name = product.title.replace(" ", "_").lower
-        total += quantity * product.price
-        item_total = quantity * product.price
-        product_count += quantity
+        total += Decimal(quantity) * product.price
+        item_total = Decimal(quantity) * product.price
+        product_count += int(quantity)
         product_images = product.image_set.all()
         stock_quantity_list = []
         for value in range(1, (product.stock_quantity + 1)):
