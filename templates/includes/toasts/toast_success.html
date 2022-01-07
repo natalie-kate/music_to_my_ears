@@ -1,0 +1,50 @@
+<div class="toast" role="alert" aria-live="polite" aria-atomic="true" data-autohide="false">
+    <div class="toast-header">
+      <i class="fas fa-record-vinyl success mr-3"></i>
+      <h3 class="mr-auto mt-3 mb-1"> Success! </h3>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body text-center">
+      {{ message }}
+    </div>
+    {% if basket_products and not is_basket %}
+    <div class="row">
+        {% for item in basket_products %}
+        <div class="col-4 text-center">
+            {% for image in item.product_images %}
+                {% if image.default %}
+                    <img src="/media/{{ image.image }}" class="w-75"
+                        alt="Cover image of {{ product.title }} record">
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-8 item-details mt-1">
+            {{ item.product.title }} by {{ item.product.artist }}<br>
+            {{ item.quantity }} x £{{ item.product.price }}
+            {% if product_count > 1 %}
+                <p><strong>Item Subtotal: </strong>£{{ item.item_total }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    
+        <div class="col-12 ml-1">
+            <h4 clas="mt-2">Total</h4>
+            <p>
+              <strong>Number of items: </strong>{{ product_count }}<br>
+              <strong>Subtotal: </strong>£{{ total }}<br>
+              <strong>Delivery: </strong>£{{ delivery }}<br>
+              <strong>Grand Total: </strong>£{{ grand_total }}
+            </p>
+          </div>
+          <div class="col-12 mb-2 text-center">
+            <a href="" class="my-btn btn checkout-btn hover">Checkout?</a>
+          </div>
+    </div>
+    {% endif %}
+    <div class="text-center">
+     <a class="btn my-btn hover text-center mb-3" data-dismiss="toast" aria-label="Close"> Close</a>
+    </div>
+</div>
+  
