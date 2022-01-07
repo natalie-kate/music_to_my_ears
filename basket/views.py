@@ -6,7 +6,10 @@ from products.models import Vinyl
 
 def view_basket(request):
     """ A view to return the shopping basket page """
-    return render(request, 'basket/basket.html')
+    context = {
+        'is_basket': True
+    }
+    return render(request, 'basket/basket.html', context)
 
 
 def add_to_basket(request, product_id):
