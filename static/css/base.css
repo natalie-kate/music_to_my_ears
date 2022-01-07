@@ -87,6 +87,7 @@ body{
 
 .toast {
     overflow: visible;
+    background-color: white;
 }
 
 .toast .item-details {
