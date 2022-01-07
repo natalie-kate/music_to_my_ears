@@ -10,7 +10,6 @@ def basket_contents(request):
     total = 0
     product_count = 0
     basket = request.session.get('basket', {})
-    delivery = 4.95
 
     for product_id, quantity in basket.items():
         product = get_object_or_404(Vinyl, pk=product_id)
@@ -32,6 +31,7 @@ def basket_contents(request):
             'stock_quantity_list': stock_quantity_list
         })
 
+    delivery = 4.95 + ((product_count - 1)/2)
     grand_total = round((total + Decimal(delivery)), 2)
 
     context = {
