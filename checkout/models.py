@@ -7,6 +7,7 @@ from products.models import Vinyl
 
 
 class Order(models.Model):
+    """ General order information """
     order_number = models.CharField(max_length=32, null=False, editable=False)
     first_name = models.CharField(max_length=30, null=False, blank=False)
     surname = models.CharField(max_length=30, null=False, blank=False)
@@ -35,6 +36,8 @@ class Order(models.Model):
         return order_number
 
     def save(self, *args, **kwargs):
+        """ Override the save method to ensure an order number
+        is generated """
         if not self.order_number:
             self.order_number = self._generate_order_number()
         super().save(*args, **kwargs)
@@ -54,6 +57,7 @@ class Order(models.Model):
 
 
 class OrderLineItem(models.Model):
+    """ Individual product details in order """
     order = models.ForeignKey(
         Order, null=False, blank=False,
         on_delete=models.CASCADE, related_name='lineitems')
@@ -72,4 +76,3 @@ class OrderLineItem(models.Model):
 
     def __str__(self):
         return f'{self.product.title} on order {self.order.order_number}'
- 
