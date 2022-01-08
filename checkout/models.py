@@ -26,7 +26,8 @@ class Order(models.Model):
     grand_total = models.DecimalField(
         max_digits=10, decimal_places=2, null=False, default=0)
     basket = models.TextField(null=False, blank=False, default='')
-    stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
+    stripe_pid = models.CharField(
+        max_length=254, null=False, blank=False, default='')
 
     def _generate_order_number(self):
         """ Generate an order number using UUID """
@@ -38,16 +39,30 @@ class Order(models.Model):
             self.order_number = self._generate_order_number()
         super().save(*args, **kwargs)
 
+    def update_total(self):
+        """ Update grand total each time a line item is added """
+        self.order_total = self.lineitems.aggregate(
+            Sum('lineitem_total'))['lineitem_total__sum'] or 0
+        number_of_products = self.lineitems.aggregate(
+            Sum('quantity'))['quantity__sum'] or 0
+        self.delivery_cost = 4.95 + ((number_of_products - 1)/2)
+        self.grand_total = self.order_total + self.delivery_cost
+        self.save()
+
+    def __str__(self):
+        return self.order_number
+
 
 class OrderLineItem(models.Model):
     order = models.ForeignKey(
         Order, null=False, blank=False,
         on_delete=models.CASCADE, related_name='lineitems')
     product = models.ForeignKey(
-        Vinyl, null=False, blank=False, on_delete=models.CASCADE) 
+        Vinyl, null=False, blank=False, on_delete=models.CASCADE)
     quantity = models.IntegerField(null=False, blank=False, default=0)
     lineitem_total = models.DecimalField(
-        max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
+        max_digits=6, decimal_places=2, null=False, blank=False,
+        editable=False)
 
     def save(self, *args, **kwargs):
         """ Override the save method to set the lineitem total
