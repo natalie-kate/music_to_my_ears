@@ -36,7 +36,7 @@
               <form method="POST" action="{% url 'edit_quantity' item.product_id %}">
                 {% csrf_token %}
                 <label for="quantity_selector">Quantity:</label><br>
-                <select class="form-control" id="quantity_selector" name="quantity">
+                <select class="form-control quantity" id="quantity_selector" name="quantity">
                   {% for quantity in item.stock_quantity_list %}
                   <option value="{{ quantity }}">{{ quantity }}</option>
                   {% endfor %}
@@ -70,7 +70,7 @@
           </p>
         </div>
         <div class="col-12 mb-2 text-center">
-          <a href="" class="btn checkout-btn">Checkout?</a>
+          <a href="{% url 'checkout' %}" class="btn checkout-btn">Checkout?</a>
         </div>
     {% else %}
     <div class="col-12 text-center">
