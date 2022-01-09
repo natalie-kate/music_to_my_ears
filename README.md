@@ -230,8 +230,9 @@ Wireframes were created on Balsamiq (see links below)
 
 ## Challenges 
    These are aspects of the development that took me a while to figure out due to inexperience.
-   - <br> 
-       + <span style="color: grey;">Solution: </span>      
+   - Changing product models after I'd initially migrated<br> 
+       + <span style="color: grey;">Solution: Deleted the added fields migrated and then added them again and remigrated </span>  
+   - Getting logic to work for only showing add to basket button if not in basket or quantity in basket was less than quantity available. Tried loads of different things including template tags and eventually doing it in view
 
 ## Testing
 
