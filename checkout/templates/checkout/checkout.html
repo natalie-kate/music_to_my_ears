@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block image %}
+<div class="image-container">
+  <div class="row">
+    <div class="col-12 text-center">
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<h2 class="text-center mt-4"> Checkout </h2>
+<div class="row">
+    <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+        <form method="POST" action="{% url 'checkout' %}" id="payment-form">
+            {% csrf_token %}
+            <fieldset class="col-10 offset-1">
+                <legend> Personal Details</legend>
+                {{ order_form.first_name | as_crispy_field }}
+                {{ order_form.surname | as_crispy_field }}
+                {{ order_form.email | as_crispy_field }}
+                {{ order_form.phone_number | as_crispy_field }}
+            </fieldset>
+            <fieldset class="col-10 col-md-5 offset-1 billing">
+                <legend> Billing Address </legend>
+                {{ order_form.street_address1 | as_crispy_field }}
+                {{ order_form.street_address2 | as_crispy_field }}
+                {{ order_form.town_or_city | as_crispy_field }}
+                {{ order_form.county | as_crispy_field }}
+                {{ order_form.country | as_crispy_field }}
+                {{ order_form.postcode | as_crispy_field }}
+            </fieldset>
+            <fieldset class="col-10 offset-1 col-md-5 offset-md-0 delivery">
+                <legend> Delivery Address <small>(if different)</small></legend>
+                {{ delivery_form.delivery_street_address1 | as_crispy_field }}
+                {{ delivery_form.delivery_street_address2 | as_crispy_field }}
+                {{ delivery_form.delivery_town_or_city | as_crispy_field }}
+                {{ delivery_form.delivery_county | as_crispy_field }}
+                {{ delivery_form.delivery_country | as_crispy_field }}
+                {{ delivery_form.delivery_postcode | as_crispy_field }}
+            </fieldset>
+            <fieldset class="col-10 col-md-5 offset-1 payment">
+                <legend class="fieldset-label small text-black px-2 w-auto">Payment <i class="far fa-credit-card"></i></legend>
+                <div class="mb-3" id="card-element"></div>
+                <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                <input type="hidden" value="{{ client_secret }}" name="client_secret">
+            </fieldset>
+            <fieldset class="col-10 offset-1 col-md-5 offset-md-0 total">
+                <legend>Total <i class="fas fa-calculator"></i></legend>
+                <p>
+                    <strong>Number of items: </strong>{{ product_count }}<br>
+                    <strong>Subtotal: </strong>£{{ total }}<br>
+                    <strong>Delivery: </strong>£{{ delivery }}<br>
+                    <strong>Grand Total: </strong>£{{ grand_total }}<br>
+                    <a href="{% url 'view_basket' %}"><i class="fas fa-backward"></i> Back to Basket</a>
+                </p>
+            </fieldset>
+            <div class="col-12 submit-button text-center">
+                <button id="submit-button" class="btn my-btn pay-btn hover">Complete Order</button>
+                <p class="small text-danger my-1">
+                    Your card will be charged £{{ grand_total|floatformat:2 }}
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="loading-overlay">
+    <div class="loading-spinner">
+        <span class="btn btn-lg hover spinning-record"><span> Won't be </span>
+        <i class="fas fa-circle"></i><span>Long</span></span>
+    </div>  
+</div>
+{% endblock %}
