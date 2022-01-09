@@ -29,7 +29,7 @@ class OrderAdmin(admin.ModelAdmin):
                     'order_total', 'delivery_cost',
                     'grand_total',)
 
-    ordering = ('-date',)
+    ordering = ('-order_date',)
 
 
 admin.site.register(Order, OrderAdmin)
