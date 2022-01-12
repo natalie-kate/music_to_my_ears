@@ -41,7 +41,16 @@
                 {{ delivery_form.delivery_country | as_crispy_field }}
                 {{ delivery_form.delivery_postcode | as_crispy_field }}
             </fieldset>
-           
+            <div class="col-12 text-center mb-2 save-info">
+                {% if user.is_authenticated %}
+                <label for="id-save-info">Save this information for next time?</label>
+                <input type="checkbox" id="save-info" name="save-info"
+                    checked>
+                {% else %}
+                <a href="{% url 'account_signup' %}">Register </a> or
+                <a href="{% url 'account_login' %}">Login</a> to save this information
+                {% endif %}
+            </div>
             <fieldset class="col-10 col-md-5 offset-1 payment">
                 <legend>Payment <i class="far fa-credit-card"></i></legend>
                 <label for="card-number">Card Number</label>
