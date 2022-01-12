@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block image %}
 <div class="image-container">
@@ -40,9 +41,15 @@
                 {{ delivery_form.delivery_country | as_crispy_field }}
                 {{ delivery_form.delivery_postcode | as_crispy_field }}
             </fieldset>
+           
             <fieldset class="col-10 col-md-5 offset-1 payment">
-                <legend class="fieldset-label small text-black px-2 w-auto">Payment <i class="far fa-credit-card"></i></legend>
-                <div class="mb-3" id="card-element"></div>
+                <legend>Payment <i class="far fa-credit-card"></i></legend>
+                <label for="card-number">Card Number</label>
+                <div class="mb-1" id="card-number"></div>
+                <label for="card-expiry">Expiry Date</label>
+                <div class="mb-1" id="card-expiry"></div>
+                <label for="card-cvc">CVC</label>
+                <div class="mb-1" id="card-cvc"></div>
                 <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                 <input type="hidden" value="{{ client_secret }}" name="client_secret">
             </fieldset>
@@ -71,4 +78,11 @@
         <i class="fas fa-circle"></i><span>Long</span></span>
     </div>  
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
 {% endblock %}
