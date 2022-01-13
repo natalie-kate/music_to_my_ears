@@ -13,10 +13,13 @@
 {% block content %}
 <h2 class="text-center mt-4"> Checkout </h2>
 <div class="row">
+    <div class="text-center col-12">
+        <a href="{% url 'view_basket' %}"><i class="fas fa-backward"></i> Back to Basket</a>
+    </div>
     <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
         <form method="POST" action="{% url 'checkout' %}" id="payment-form">
             {% csrf_token %}
-            <fieldset class="col-10 offset-1">
+            <fieldset class="col-10 offset-1 personal">
                 <legend> Personal Details</legend>
                 {{ order_form.first_name | as_crispy_field }}
                 {{ order_form.surname | as_crispy_field }}
@@ -51,33 +54,28 @@
                 <a href="{% url 'account_login' %}">Login</a> to save this information
                 {% endif %}
             </div>
-            <fieldset class="col-10 col-md-5 offset-1 payment">
-                <legend>Payment <i class="far fa-credit-card"></i></legend>
-                <label for="card-number">Card Number</label>
-                <div class="mb-1" id="card-number"></div>
-                <label for="card-expiry">Expiry Date</label>
-                <div class="mb-1" id="card-expiry"></div>
-                <label for="card-cvc">CVC</label>
-                <div class="mb-1" id="card-cvc"></div>
-                <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
-                <input type="hidden" value="{{ client_secret }}" name="client_secret">
-            </fieldset>
-            <fieldset class="col-10 offset-1 col-md-5 offset-md-0 total">
+            <fieldset class="col-10 col-md-5 offset-1 mb-2 pb-2 total">
                 <legend>Total <i class="fas fa-calculator"></i></legend>
                 <p>
                     <strong>Number of items: </strong>{{ product_count }}<br>
                     <strong>Subtotal: </strong>£{{ total }}<br>
                     <strong>Delivery: </strong>£{{ delivery }}<br>
                     <strong>Grand Total: </strong>£{{ grand_total }}<br>
-                    <a href="{% url 'view_basket' %}"><i class="fas fa-backward"></i> Back to Basket</a>
                 </p>
             </fieldset>
-            <div class="col-12 submit-button text-center">
-                <button id="submit-button" class="btn my-btn pay-btn hover">Complete Order</button>
-                <p class="small text-danger my-1">
+            <fieldset class="col-10 col-md-5 offset-1 offset-md-0 payment">
+                <legend>Payment <i class="far fa-credit-card"></i></legend>
+                <label for="#card-element">Card Details</label>
+                <div class="mb-2 form-control" id="card-element"></div>
+                <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                <input type="hidden" value="{{ client_secret }}" name="client_secret">
+                <div class="text-center text-md-left">
+                    <button id="submit-button" class="btn my-btn pay-btn hover">Complete Order</button>
+                    <p class="small text-danger my-1">
                     Your card will be charged £{{ grand_total|floatformat:2 }}
-                </p>
-            </div>
+                    </p>
+                </div>
+            </fieldset>
         </form>
     </div>
 </div>
