@@ -234,8 +234,11 @@ fieldset.total {
 
 fieldset.billing legend,
 fieldset.delivery legend,
-fieldset.payment legend {
-    font-size: 20px; 
+fieldset.payment legend,
+fieldset.total legend ,
+fieldset.personal legend {
+    font-size: 22px; 
+    color:  rgb(239 112 102);
 }
 
 #loading-overlay {
