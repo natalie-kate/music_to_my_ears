@@ -96,3 +96,18 @@ def checkout(request):
             'client_secret': intent.client_secret,
         }
         return render(request, template, context)
+
+
+def checkout_success(request, order_number):
+    save_info = request.session.get('save_info')
+    order = get_object_or_404(Order, order_number=order_number)
+    messages.success(request, f"Thanks, we've got your order! \
+    Your order number is {order_number}. A confirmation \
+    email will be sent to {order.email}.")
+    if 'basket' in request.session:
+        del request.session['basket']
+    template = 'checkout/checkout_success.html'
+    context = {
+        'order': order
+    }
+    return render(request, template, context)
