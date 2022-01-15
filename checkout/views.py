@@ -1,8 +1,10 @@
+import json
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 import stripe
 from basket.contexts import basket_contents
+from products.models import Vinyl
 from .forms import OrderForm, DeliveryForm
 from .models import Order, OrderLineItem
 
@@ -28,15 +30,47 @@ def checkout(request):
             'postcode': request.POST['postcode'],
         }
         delivery_data = {
-            'delivery_street_address1': request.POST['delivery_street_address1'],
-            'delivery_street_address2': request.POST['delivery_street_address2'],
+            'delivery_street_address1':
+            request.POST['delivery_street_address1'],
+            'delivery_street_address2':
+            request.POST['delivery_street_address2'],
             'delivery_town_or_city': request.POST['delivery_town_or_city'],
             'delivery_county': request.POST['delivery_county'],
             'delivery_country': request.POST['delvery_country'],
             'delivery_postcode': request.POST['delivery_postcode'],
         }
         order_form = OrderForm(form_data, delivery_data)
+        if order_form.is_valid():
+            order = order_form.save(commit=False)
+            pid = request.POST.get('client_secret').split('_secret')[0]
+            order.stripe_pid = pid
+            order.original_basket = json.dumps(basket)
+            order.save()
+            for item_id, quantity in basket.items():
+                try:
+                    product = Vinyl.objects.get(id=item_id)
+                    order_line_item = OrderLineItem(
+                        order=order,
+                        product=product,
+                        quantity=quantity,
+                    )
+                    order_line_item.save()
 
+                except Vinyl.DoesNotExist:
+                    messages.error(request, (
+                        "One of the products in your bag wasn't"
+                        " found in our database. "
+                        "Please call us for assistance!")
+                    )
+                    order.delete()
+                    return redirect(reverse('view_bag'))
+
+            request.session['save_info'] = 'save-info' in request.POST
+            return redirect(reverse(
+                'checkout_success', args=[order.order_number]))
+        else:
+            messages.error(request, 'There was an error with your form. \
+                Please double check your information.')
     else:
         basket = request.session.get('basket')
         if not basket:
