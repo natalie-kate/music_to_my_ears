@@ -36,7 +36,7 @@ def checkout(request):
             request.POST['delivery_street_address2'],
             'delivery_town_or_city': request.POST['delivery_town_or_city'],
             'delivery_county': request.POST['delivery_county'],
-            'delivery_country': request.POST['delvery_country'],
+            'delivery_country': request.POST['delivery_country'],
             'delivery_postcode': request.POST['delivery_postcode'],
         }
         order_form = OrderForm(form_data, delivery_data)
@@ -44,7 +44,7 @@ def checkout(request):
             order = order_form.save(commit=False)
             pid = request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
-            order.original_basket = json.dumps(basket)
+            order.basket = json.dumps(basket)
             order.save()
             for item_id, quantity in basket.items():
                 try:
@@ -101,9 +101,7 @@ def checkout(request):
 def checkout_success(request, order_number):
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
-    messages.success(request, f"Thanks, we've got your order! \
-    Your order number is {order_number}. A confirmation \
-    email will be sent to {order.email}.")
+    messages.success(request, f"Thanks for your order!")
     if 'basket' in request.session:
         del request.session['basket']
     template = 'checkout/checkout_success.html'
