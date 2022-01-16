@@ -11,6 +11,69 @@
 {% endblock %}
 
 {% block content %}
-<h2 class="text-center mt-4"> Success </h2>
+<h2 class="text-center mt-4"> Success! <span class="green"><i class="fas fa-check"></i></span></h2>
+<div class="row">
+  <div class="col-10 offset-1 col-md-8 offset-md-2">
+    <h3>Order Details </h3>
+    <p>Thanks for your order {{order.first_name }}, you'll recieve a confirmation email shortly to {{ order.email }}.<br>
+      Meanwhile you can see the order details below, if you're a registered user you can also find your 
+      order history on your profile.</p>
+    <p><strong>Order number: </strong>{{ order.order_number }}</p>
+    <p><strong>Order date: </strong>{{ order.order_date }}</p>
+    <p><strong>Order total: </strong>£{{ order.grand_total }}</p>
+    <p><strong>Delivery Address: </strong><br>
+      {% if order.delivery_street_address1 %}
+        {{ order.delivery_street_address1 }},<br>
+        {% if order.delivery_street_address2 %}
+          {{ order.delivery_street_address2 }},<br>
+        {% endif %}
+        {{ order.delivery_town_or_city }},<br>
+        {{ order.delivery_county }},<br>
+        {{ order.delivery_country }},<br>
+        {{ order.delivery_postcode }}
+      {% else %}
+        {{ order.street_address1 }},<br>
+        {% if order.street_address2 %}
+          {{ order.street_address2 }},<br>
+        {% endif %}
+        {{ order.town_or_city }},<br>
+        {{ order.county }},<br>
+        {{ order.country }},<br>
+        {{ order.postcode }}
+      {% endif %}
+    </p>
+    <p><strong>Vinyls ordered: </strong></p>
+    <table class="table table-sm">
+      <thead>
+          <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Artist</th>
+              <th scope="col">Price</th>
+              <th scope="col">Qty</th>
+              <th scope="col">Subtotal</th>
+          </tr>
+      </thead>
 
+      {% for item in order.lineitems.all %}
+          <tr>
+              <td>
+                  {{ item.product.title }}
+              </td>
+              <td>
+                  {{ item.product.artist }}
+              </td>
+              <td>
+                  <p>£{{ item.product.price }}</p>
+              </td>
+              <td>
+                <p>{{ item.quantity }}</p>
+            </td>
+              <td>
+                 {{ item.lineitem_total}}
+              </td>
+          </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
 {% endblock %}
