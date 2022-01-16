@@ -41,11 +41,35 @@ form.addEventListener('submit', function(ev) {
     ev.preventDefault();
     card.update({ 'disabled': true});
     $('#submit-button').attr('disabled', true);
-    $('#payment-form').fadeToggle(100);
-    $('#loading-overlay').fadeToggle(100);
+    $('#payment-form').hide();
+    $('#loading-overlay').show();
     stripe.confirmCardPayment(clientSecret, {
         payment_method: {
             card: card,
+            billing_details: {
+                name: $.trim(form.first_name.value) + $.trim(form.surname.value),
+                phone: $.trim(form.phone_number.value),
+                address: {
+                    line1: $.trim(form.street_address1.value),
+                    line2: $.trim(form.street_address2.value),
+                    city: $.trim(form.town_or_city.value),
+                    country: $.trim(form.country.value),
+                    postal_code: $.trim(form.postcode.value),
+                    state: $.trim(form.county.value),
+                }
+            }
+        },
+        shipping: {
+            name: $.trim(form.first_name.value) + $.trim(form.surname.value),
+            phone: $.trim(form.phone_number.value),
+            address: {
+                line1: $.trim(form.street_address1.value),
+                line2: $.trim(form.street_address2.value),
+                city: $.trim(form.town_or_city.value),
+                country: $.trim(form.country.value),
+                postal_code: $.trim(form.postcode.value),
+                state: $.trim(form.county.value),
+            }
         }
     }).then(function(result) {
         if (result.error) {
@@ -57,9 +81,9 @@ form.addEventListener('submit', function(ev) {
                 <span>${result.error.message}</span>`;
             $(errorDiv).html(html);
             card.update({ 'disabled': false});
+            $('#payment-form').show();
+            $('#loading-overlay').hide();
             $('#submit-button').attr('disabled', false);
-            $('#payment-form').fadeToggle(100);
-            $('#loading-overlay').fadeToggle(100);
         } else {
             if (result.paymentIntent.status === 'succeeded') {
                 form.submit();
