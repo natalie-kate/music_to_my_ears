@@ -1,8 +1,8 @@
 """ Imports required for basket_contents """
 from decimal import Decimal
 from django.shortcuts import get_object_or_404
-from products.models import Vinyl
 from django.contrib import messages
+from products.models import Vinyl
 
 
 def basket_contents(request):
