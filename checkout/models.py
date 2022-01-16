@@ -3,6 +3,7 @@ import uuid
 from django.db import models
 from django.db.models import Sum
 from django_countries.fields import CountryField
+from decimal import Decimal
 from products.models import Vinyl
 
 
@@ -58,7 +59,7 @@ class Order(models.Model):
             Sum('lineitem_total'))['lineitem_total__sum'] or 0
         number_of_products = self.lineitems.aggregate(
             Sum('quantity'))['quantity__sum'] or 0
-        self.delivery_cost = 4.95 + ((number_of_products - 1)/2)
+        self.delivery_cost = Decimal(4.95 + ((number_of_products - 1)/2))
         self.grand_total = self.order_total + self.delivery_cost
         self.save()
 
