@@ -27,14 +27,6 @@ def checkout(request):
             'county': request.POST['county'],
             'country': request.POST['country'],
             'postcode': request.POST['postcode'],
-            'delivery_street_address1':
-            request.POST['delivery_street_address1'],
-            'delivery_street_address2':
-            request.POST['delivery_street_address2'],
-            'delivery_town_or_city': request.POST['delivery_town_or_city'],
-            'delivery_county': request.POST['delivery_county'],
-            'delivery_country': request.POST['delivery_country'],
-            'delivery_postcode': request.POST['delivery_postcode'],
         }
 
         delivery_data = {
@@ -49,11 +41,27 @@ def checkout(request):
         }
 
         order_form = OrderForm(form_data)
+        delivery_form = DeliveryForm(delivery_data)
+
         if order_form.is_valid():
             order = order_form.save(commit=False)
             pid = request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
             order.basket = json.dumps(basket)
+            if delivery_data:
+                order.delivery_street_address1 = request.POST['delivery_street_address1']
+                order.delivery_street_address2 = request.POST['delivery_street_address2']
+                order.delivery_town_or_city = request.POST['delivery_town_or_city']
+                order.delivery_county = request.POST['delivery_county']
+                order.delivery_country = request.POST['delivery_country']
+                order.delivery_postcode = request.POST['delivery_postcode']
+            else:
+                order.delivery_street_address1 = request.POST['street_address1']
+                order.delivery_street_address2 = request.POST['street_address2']
+                order.delivery_town_or_city = request.POST['town_or_city']
+                order.delivery_county = request.POST['county']
+                order.delivery_country = request.POST['country']
+                order.delivery_postcode = request.POST['postcode']
             order.save()
             for item_id, quantity in basket.items():
                 try:
