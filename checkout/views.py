@@ -16,7 +16,6 @@ def checkout(request):
 
     if request.method == "POST":
         basket = request.session.get('basket', {})
-
         form_data = {
             'first_name': request.POST['first_name'],
             'surname': request.POST['surname'],
@@ -28,7 +27,16 @@ def checkout(request):
             'county': request.POST['county'],
             'country': request.POST['country'],
             'postcode': request.POST['postcode'],
+            'delivery_street_address1':
+            request.POST['delivery_street_address1'],
+            'delivery_street_address2':
+            request.POST['delivery_street_address2'],
+            'delivery_town_or_city': request.POST['delivery_town_or_city'],
+            'delivery_county': request.POST['delivery_county'],
+            'delivery_country': request.POST['delivery_country'],
+            'delivery_postcode': request.POST['delivery_postcode'],
         }
+
         delivery_data = {
             'delivery_street_address1':
             request.POST['delivery_street_address1'],
@@ -39,7 +47,8 @@ def checkout(request):
             'delivery_country': request.POST['delivery_country'],
             'delivery_postcode': request.POST['delivery_postcode'],
         }
-        order_form = OrderForm(form_data, delivery_data)
+
+        order_form = OrderForm(form_data)
         if order_form.is_valid():
             order = order_form.save(commit=False)
             pid = request.POST.get('client_secret').split('_secret')[0]
@@ -101,7 +110,7 @@ def checkout(request):
 def checkout_success(request, order_number):
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
-    messages.success(request, f"Thanks for your order!")
+    messages.success(request, "Thanks for your order!")
     if 'basket' in request.session:
         del request.session['basket']
     template = 'checkout/checkout_success.html'
