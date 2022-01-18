@@ -1,4 +1,8 @@
+import time
+import json
 from django.http import HttpResponse
+from products.models import Vinyl
+from .models import Order, OrderLineItem
 
 
 class StripeWH_Handler:
@@ -17,32 +21,68 @@ class StripeWH_Handler:
         """Handle the payment_intent.payment_succeeded webhook from Stripe """
         intent = event.data.object
         pid = intent.id
-        bag = intent.metadata.bag
+        basket = intent.metadata.basket
 
         billing_details = intent.charges.data[0].billing_details
-        shipping_details = intent.shipping
-        grand_total = round(intent.charges.data[0].amount / 100, 2)
+        delivery_details = intent.shipping
 
         order_exists = None
         attempt = 1
         while attempt <= 5:
             try:
-                order = Order.objects.get(stripe_pid_iexact=pid)
+                order = Order.objects.get(stripe_pid=pid)
                 order_exists = True
                 break
             except Order.DoesNotExist:
                 attempt += 1
                 time.sleep(1)
         if order_exists:
-            self._send_confirmation_email(order)
             return HttpResponse(
-                content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
+                content=f'Webhook received:{event["type"]},'
+                "SUCCESS: Verified order already in database",
                 status=200)
+        else:
+            order = None
+            try:
+                order = Order.objects.create(
+                    first_name=billing_details.name.split(" ")[0],
+                    surname=billing_details.name.split(" ")[1],
+                    email=billing_details.email,
+                    phone_number=billing_details.phone,
+                    street_address1=billing_details.address.line1,
+                    street_address2=billing_details.address.line2,
+                    town_or_city=billing_details.address.city,
+                    county=billing_details.address.state,
+                    country=billing_details.address.country,
+                    postcode=billing_details.address.postal_code,
+                    delivery_street_address1=delivery_details.address.line1,
+                    delivery_street_address2=delivery_details.address.line2,
+                    delivery_town_or_city=delivery_details.address.city,
+                    delivery_county=delivery_details.address.state,
+                    delivery_country=delivery_details.address.country,
+                    delivery_postcode=delivery_details.address.postal_code,
+                    basket=basket,
+                    stripe_pid=pid,
+                )
+                for item_id, quantity in json.loads(basket).items():
+                    product = Vinyl.objects.get(id=item_id)
+                    order_line_item = OrderLineItem(
+                        order=order,
+                        product=product,
+                        quantity=quantity,
+                    )
+                    order_line_item.save()
+
+            except Exception as error:
+                if order:
+                    order.delete()
+                return HttpResponse(
+                    content=f'Webhook received: {event["type"]}, '
+                    f'ERROR: {error}', status=500)
 
         return HttpResponse(
-            content=f'Webhook received: {event["type"]}',
-            status=200)
-
+            content=f'Webhook received: {event["type"]}, '
+            "SUCCESS: Created order in webhook", status=200)
 
     def handle_payment_intent_payment_failed(self, event):
         """Handle the payment_intent.payment_failed webhook from Stripe """
