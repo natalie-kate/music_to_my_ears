@@ -1,1 +1,22 @@
 {% extends "base.html" %}
+{% load static %}
+{% block image %}
+<div class="image-container">
+  <div class="row">
+    <div class="col-12 text-center">
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block content %}
+  
+<div class="row">
+    <div class="col-10 offset-1 col-md-6 offset-md-3">
+        <div>
+            {% block inner_content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+   
+{% endblock %} 
