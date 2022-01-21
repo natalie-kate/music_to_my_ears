@@ -1,13 +1,17 @@
 import json
-from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.shortcuts import (
+    render, redirect, reverse, get_object_or_404, HttpResponse)
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
 import stripe
 from basket.contexts import basket_contents
 from products.models import Vinyl
+from profiles.models import UserProfile
+from profiles.forms import UserProfileForm, AddAddressForm
 from .forms import OrderForm, DeliveryForm
 from .models import Order, OrderLineItem
+
 
 @require_POST
 def cache_checkout_data(request):
@@ -24,6 +28,7 @@ def cache_checkout_data(request):
         messages.error(request, 'Sorry, your payment cannot be \
             processed right now. Please try again later.')
         return HttpResponse(content=e, status=400)
+
 
 def checkout(request):
 
@@ -65,15 +70,20 @@ def checkout(request):
             order.stripe_pid = pid
             order.basket = json.dumps(basket)
             if delivery_data:
-                order.delivery_street_address1 = request.POST['delivery_street_address1']
-                order.delivery_street_address2 = request.POST['delivery_street_address2']
-                order.delivery_town_or_city = request.POST['delivery_town_or_city']
+                order.delivery_street_address1 = (
+                    request.POST['delivery_street_address1'])
+                order.delivery_street_address2 = (
+                    request.POST['delivery_street_address2'])
+                order.delivery_town_or_city = (
+                    request.POST['delivery_town_or_city'])
                 order.delivery_county = request.POST['delivery_county']
                 order.delivery_country = request.POST['delivery_country']
                 order.delivery_postcode = request.POST['delivery_postcode']
             else:
-                order.delivery_street_address1 = request.POST['street_address1']
-                order.delivery_street_address2 = request.POST['street_address2']
+                order.delivery_street_address1 = (
+                    request.POST['street_address1'])
+                order.delivery_street_address2 = (
+                    request.POST['street_address2'])
                 order.delivery_town_or_city = request.POST['town_or_city']
                 order.delivery_county = request.POST['county']
                 order.delivery_country = request.POST['country']
@@ -134,6 +144,42 @@ def checkout(request):
 def checkout_success(request, order_number):
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+        # Attach the user's profile to the order
+        order.user_profile = profile
+        order.save()
+
+        # Save the user's info
+        if save_info:
+            profile_data = {
+                'default_first_name': order.first_name,
+                'default_surname': order.surname,
+                'default_email': order.email,
+                'default_phone_number': order.phone_number,
+                'default_street_address1': order.street_address1,
+                'default_street_address2': order.street_address2,
+                'default_town_or_city': order.town_or_city,
+                'default_county': order.county,
+                'default_country': order.country,
+                'default_postcode': order.postcode,
+            }
+            save_address_data = {
+                'user': profile,
+                'saved_street_address1': order.street_address1,
+                'saved_street_address2': order.street_address2,
+                'saved_town_or_city': order.town_or_city,
+                'saved_county': order.county,
+                'saved_country': order.country,
+                'saved_postcode': order.postcode,
+            }
+            user_profile_form = UserProfileForm(profile_data, instance=profile)
+            if user_profile_form.is_valid():
+                user_profile_form.save()
+            save_address_form = AddAddressForm(save_address_data, instance=profile)
+            if save_address_form.is_valid():
+                save_address_form.save()
+
     messages.success(request, "Thanks for your order!")
     if 'basket' in request.session:
         del request.session['basket']
