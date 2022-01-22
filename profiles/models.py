@@ -35,7 +35,7 @@ class UserProfile(models.Model):
 
 
 class SavedAddress(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     saved_street_address1 = models.CharField(
         max_length=80, null=True, blank=True)
     saved_street_address2 = models.CharField(
