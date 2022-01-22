@@ -4,11 +4,11 @@ from checkout.models import Order
 
 
 def profile(request):
-    profile = get_object_or_404(UserProfile, user=request.user)
-    addresses = SavedAddress.objects.filter(user=profile)
-    orders = Order.objects.filter(user_profile=profile)
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    addresses = SavedAddress.objects.filter(user=request.user)
+    orders = Order.objects.filter(user_profile=user_profile)
     context = {
-        'profile': profile,
+        'profile': user_profile,
         'addresses': addresses,
         'orders': orders
     }
