@@ -9,7 +9,7 @@
     <div class="toast-body text-center">
       {{ message }}
     </div>
-    {% if basket_products and not is_basket %}
+    {% if basket_products and not is_basket and not on_profile_page %}
     <div class="row">
         {% for item in basket_products %}
         <div class="col-4 text-center">
