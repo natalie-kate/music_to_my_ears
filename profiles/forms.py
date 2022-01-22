@@ -28,7 +28,7 @@ class UserProfileForm(forms.ModelForm):
             self.fields[field].widget.attrs['placeholder'] = placeholder
 
 
-class AddAddressForm(forms.ModelForm):
+class SavedAddressForm(forms.ModelForm):
     class Meta:
         model = SavedAddress
         exclude = ('user',)
