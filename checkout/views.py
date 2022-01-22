@@ -7,8 +7,8 @@ from django.conf import settings
 import stripe
 from basket.contexts import basket_contents
 from products.models import Vinyl
-from profiles.models import UserProfile
-from profiles.forms import UserProfileForm, AddAddressForm
+from profiles.models import UserProfile, SavedAddress
+from profiles.forms import UserProfileForm, SavedAddressForm
 from .forms import OrderForm, DeliveryForm
 from .models import Order, OrderLineItem
 
@@ -165,20 +165,31 @@ def checkout_success(request, order_number):
                 'default_postcode': order.postcode,
             }
             save_address_data = {
-                'user': profile,
-                'saved_street_address1': order.street_address1,
-                'saved_street_address2': order.street_address2,
-                'saved_town_or_city': order.town_or_city,
-                'saved_county': order.county,
-                'saved_country': order.country,
-                'saved_postcode': order.postcode,
+                'saved_street_address1': order.delivery_street_address1,
+                'saved_street_address2': order.delivery_street_address2,
+                'saved_town_or_city': order.delivery_town_or_city,
+                'saved_county': order.delivery_county,
+                'saved_country': order.delivery_country,
+                'saved_postcode': order.delivery_postcode,
             }
             user_profile_form = UserProfileForm(profile_data, instance=profile)
             if user_profile_form.is_valid():
                 user_profile_form.save()
-            save_address_form = AddAddressForm(save_address_data, instance=profile)
+            save_address_form = SavedAddressForm(save_address_data)
             if save_address_form.is_valid():
-                save_address_form.save()
+                try:
+                    address = SavedAddress.objects.get(
+                        saved_street_address1__iexact=order.delivery_street_address1,
+                        user=request.user,
+                    )
+                    save_address = True
+                except SavedAddress.DoesNotExist:
+                    save_address = False
+                if not save_address:
+                    address = save_address_form.save(commit=False)
+                    address.user = request.user
+                    address.save()
+        messages.success(request, "Thats your information saved!")    
 
     messages.success(request, "Thanks for your order!")
     if 'basket' in request.session:
