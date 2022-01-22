@@ -120,6 +120,11 @@ body{
     color: orange;
     font-size: 30px;
 }
+
+.orders hr {
+    color:#f39c8a;
+    width: 10%;
+}
   
 @keyframes record {
     from {
