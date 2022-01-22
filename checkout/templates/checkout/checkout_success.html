@@ -11,6 +11,13 @@
 {% endblock %}
 
 {% block content %}
+{% if from_profile %}
+<h2 class="text-center mt-4">Order History </h2>
+<div class="row">
+  <div class="col-10 offset-1 col-md-8 offset-md-2">
+    <p>This is a previous order confirmation, you should have recieved a confirmation
+       email on {{ order.order_date|date:"D d M Y"}} to {{ order.email }}</p>
+{% else %}
 <h2 class="text-center mt-4"> Success! <span class="green"><i class="fas fa-check"></i></span></h2>
 <div class="row">
   <div class="col-10 offset-1 col-md-8 offset-md-2">
@@ -18,6 +25,7 @@
     <p>Thanks for your order {{order.first_name }}, you'll recieve a confirmation email shortly to {{ order.email }}.<br>
       Meanwhile you can see the order details below, if you're a registered user you can also find your 
       order history on your profile.</p>
+{% endif %}
     <p><strong>Order number: </strong>{{ order.order_number }}</p>
     <p><strong>Order date: </strong>{{ order.order_date }}</p>
     <p><strong>Order total: </strong>£{{ order.grand_total }}</p>
@@ -75,8 +83,12 @@
       {% endfor %}
     </table>
   </div>
-  <div class="text-center">
-    <a href="{% url 'shop' %}">Back to shop? </a>
+  <div class="col-10 offset-1 text-center">
+    {% if from_profile %}
+      <a class="btn my-btn pay-btn btn-md hover" href="{% url 'profile' %}">Back to Profile? </a>
+    {% else %}
+      <a class="btn my-btn pay-btn btn-md hover" href="{% url 'shop' %}">Back to shop? </a>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
