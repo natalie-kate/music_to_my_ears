@@ -175,6 +175,28 @@ def checkout_success(request, order_number):
             user_profile_form = UserProfileForm(profile_data, instance=profile)
             if user_profile_form.is_valid():
                 user_profile_form.save()
+                try:
+                    address = SavedAddress.objects.get(
+                        saved_street_address1__iexact=order.street_address1,
+                        user=request.user,
+                    )
+                    save_address = True
+                except SavedAddress.DoesNotExist:
+                    save_profile_address = {
+                        'saved_street_address1': order.delivery_street_address1,
+                        'saved_street_address2': order.street_address2,
+                        'saved_town_or_city': order.town_or_city,
+                        'saved_county': order.county,
+                        'saved_country': order.country,
+                        'saved_postcode': order.postcode,
+                    }
+                    save_address_form = SavedAddressForm(save_profile_address)
+                    save_address = False
+                if not save_address:
+                    address = save_address_form.save(commit=False)
+                    address.user = request.user
+                    address.save()
+
             save_address_form = SavedAddressForm(save_address_data)
             if save_address_form.is_valid():
                 try:
