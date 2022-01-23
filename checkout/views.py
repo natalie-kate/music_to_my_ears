@@ -129,7 +129,26 @@ def checkout(request):
             currency=settings.STRIPE_CURRENCY,
         )
 
-        order_form = OrderForm()
+        if request.user.is_authenticated:
+            try:
+                profile = UserProfile.objects.get(user=request.user)
+                order_form = OrderForm(initial={
+                    'first_name': profile.default_first_name,
+                    'surname':profile.default_surname,
+                    'email': profile.default_email,
+                    'phone_number': profile.default_phone_number,
+                    'street_address1': profile.default_street_address1,
+                    'street_address2': profile.default_street_address2,
+                    'town_or_city': profile.default_town_or_city,
+                    'county': profile.default_county,
+                    'country': profile.default_country,
+                    'postcode': profile.default_postcode,
+                })
+            except UserProfile.DoesNotExist:
+                order_form = OrderForm()
+        else:
+            order_form = OrderForm()
+
         delivery_form = DeliveryForm()
         template = 'checkout/checkout.html'
         context = {
@@ -183,7 +202,7 @@ def checkout_success(request, order_number):
                     save_address = True
                 except SavedAddress.DoesNotExist:
                     save_profile_address = {
-                        'saved_street_address1': order.delivery_street_address1,
+                        'saved_street_address1': order.street_address1,
                         'saved_street_address2': order.street_address2,
                         'saved_town_or_city': order.town_or_city,
                         'saved_county': order.county,
