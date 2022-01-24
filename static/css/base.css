@@ -126,6 +126,10 @@ body{
     width: 10%;
 }
   
+.admin {
+    font-size: 30px;
+}
+
 @keyframes record {
     from {
         transform: rotate(0);
