@@ -24,10 +24,10 @@ def cache_checkout_data(request):
             'username': request.user,
         })
         return HttpResponse(status=200)
-    except Exception as e:
+    except Exception as error:
         messages.error(request, 'Sorry, your payment cannot be \
             processed right now. Please try again later.')
-        return HttpResponse(content=e, status=400)
+        return HttpResponse(content=error, status=400)
 
 
 def checkout(request):
@@ -134,7 +134,7 @@ def checkout(request):
                 profile = UserProfile.objects.get(user=request.user)
                 order_form = OrderForm(initial={
                     'first_name': profile.default_first_name,
-                    'surname':profile.default_surname,
+                    'surname': profile.default_surname,
                     'email': profile.default_email,
                     'phone_number': profile.default_phone_number,
                     'street_address1': profile.default_street_address1,
@@ -220,7 +220,8 @@ def checkout_success(request, order_number):
             if save_address_form.is_valid():
                 try:
                     address = SavedAddress.objects.get(
-                        saved_street_address1__iexact=order.delivery_street_address1,
+                        saved_street_address1__iexact=(
+                            order.delivery_street_address1),
                         user=request.user,
                     )
                     save_address = True
@@ -230,7 +231,7 @@ def checkout_success(request, order_number):
                     address = save_address_form.save(commit=False)
                     address.user = request.user
                     address.save()
-        messages.success(request, "Thats your information saved!")    
+        messages.success(request, "Thats your information saved!")
 
     messages.success(request, "Thanks for your order!")
     if 'basket' in request.session:
