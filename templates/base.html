@@ -48,10 +48,7 @@
                     <!-- Shown only for admin users -->
                     {% if request.user.is_superuser %}
                     <li class="nav-item">
-                        <a class="nav-link" href="" aria-label="link to manage genres page">Add Product</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="" aria-label="link to manage users page">Edit Product</a>
+                        <a class="nav-link" href="" aria-label="link to add product page">Add Product</a>
                     </li>
                     {% endif %}
                     <!-- Shown if not signed in -->
@@ -136,16 +133,13 @@
                 <p><a class="footer-link" href="{% url 'account_signup' %}" aria-label="link to sign up page">Sign Up Page</a></p>
                 <p><a class="footer-link" href="{% url 'account_login' %}" aria-label="link to sign in page">Sign In Page</a></p>
                 {% endif %}
-
-                <!-- Individual page "back to top" link will be inserted -->
-                {% block link %}
-
-                {% endblock %}
-
+                <p><a class="footer-link btt-link" href="" aria-label="Link back totop of page">Back to Top</a></p>
                 <!-- If user logged in these links will be displayed -->
                 {% if request.user.is_authenticated %}
                 <p><a class="footer-link" href="{% url 'account_logout' %}" aria-label="link to sign out page">Sign Me Out</a></p>
-                <p><a class="footer-link" href="" aria-label="link to edit account">My Profile</a></p>
+                <p><a class="footer-link" href="{% url 'profile' %}" aria-label="link to edit account">My Profile</a></p>
+                <a href="" class="mr-2" 
+                    aria-label="Will open change password page"> Change Password </a>
                 {% endif %}
             </div>
         </div>
@@ -161,7 +155,10 @@
 {% block postloadjs %}
 <script type="text/javascript">
     $('.toast').toast('show');
-  </script>
+    $('.btt-link').click(function(e) {
+			window.scrollTo(0,0)
+		})
+</script>
 {% endblock %}
 </body>
 </html>
