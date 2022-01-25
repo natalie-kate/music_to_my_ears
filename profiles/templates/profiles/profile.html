@@ -41,7 +41,7 @@
   </div>
   <div id="delete_account" class="col-10 col-md-6 offset-1 offset-md-3 text-center collapse">
     <p>Are you sure you want to delete your account?</p>
-    <a class="btn btn-md my-btn hover" href="" class="mr-2" 
+    <a class="btn btn-md my-btn hover" href="{% url 'delete_user' user.id %}" class="mr-2" 
         aria-label="Will delete account"> Delete </a>
     <a data-toggle="collapse" href="#delete_account" class="ml-2" 
     aria-label="Will close delete account section">Cancel</a>
