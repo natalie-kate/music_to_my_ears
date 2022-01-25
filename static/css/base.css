@@ -241,11 +241,7 @@ fieldset.total {
     display: inline;
 }
 
-fieldset.billing legend,
-fieldset.delivery legend,
-fieldset.payment legend,
-fieldset.total legend ,
-fieldset.personal legend {
+fieldset legend {
     font-size: 22px; 
     color:  rgb(239 112 102);
 }
