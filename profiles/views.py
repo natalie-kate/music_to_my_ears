@@ -60,3 +60,9 @@ def order_history(request, order_number):
     }
 
     return render(request, template, context)
+
+def delete_user(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    user.delete()
+    messages.success(request, 'Account deleted!')
+    return redirect(reverse('shop'))
