@@ -73,28 +73,33 @@ def add_vinyl(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():
-            new_vinyl = form.save()
-            default_image = request.FILES.get('default_image')
-            vinyl_id = Vinyl.objects.get(pk=new_vinyl.id)
-            image_name = str(default_image).split('.', maxsplit=1)[0]
-            new_image = Image.objects.create(
-                vinyl=vinyl_id,
-                image=default_image,
-                image_name=image_name,
-                default=True,
-            )
-            new_image.save()
-            files = request.FILES.getlist('additional_images')
-            for file in files:
-                image_name = str(file).split('.', maxsplit=1)[0]
+            check_product = get_object_or_404(Vinyl, title=form.title)
+            if check_product:
+                new_vinyl = form.save()
+                default_image = request.FILES.get('default_image')
+                vinyl_id = Vinyl.objects.get(pk=new_vinyl.id)
+                image_name = str(default_image).split('.', maxsplit=1)[0]
                 new_image = Image.objects.create(
                     vinyl=vinyl_id,
-                    image=file,
-                    image_name=file,
-                    default=False,
+                    image=default_image,
+                    image_name=image_name,
+                    default=True,
                 )
-            messages.success(request, 'Successfully added product!')
-            return redirect(reverse('product', args=[new_vinyl.id]))
+                new_image.save()
+                files = request.FILES.getlist('additional_images')
+                for file in files:
+                    image_name = str(file).split('.', maxsplit=1)[0]
+                    new_image = Image.objects.create(
+                        vinyl=vinyl_id,
+                        image=file,
+                        image_name=file,
+                        default=False,
+                    )
+                messages.success(request, 'Successfully added product!')
+                return redirect(reverse('product', args=[new_vinyl.id]))
+            else:
+                messages.error(request, ('Product already exists in database.'))
+                return redirect(reverse('shop'))
         else:
             messages.error(
                 request, (
