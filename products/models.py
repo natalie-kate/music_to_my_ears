@@ -20,12 +20,11 @@ class Vinyl(models.Model):
     title = models.CharField(max_length=254)
     artist = models.CharField(max_length=254)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
-    release_year = models.IntegerField(null=True, blank=True)
+    release_year = models.CharField(max_length=4, null=True, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField(null=True, blank=True)
     stock_quantity = models.IntegerField(default=1)
-    track_list = models.TextField(
-        default='Add in tracklist e.g 1. Track Title')
+    track_list = models.TextField()
 
     def __str__(self):
         return self.title
