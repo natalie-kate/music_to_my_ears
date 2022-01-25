@@ -76,7 +76,7 @@ def add_vinyl(request):
             new_vinyl = form.save()
             default_image = request.FILES.get('default_image')
             vinyl_id = Vinyl.objects.get(pk=new_vinyl.id)
-            image_name = str(default_image).split('.')[0]
+            image_name = str(default_image).split('.', maxsplit=1)[0]
             new_image = Image.objects.create(
                 vinyl=vinyl_id,
                 image=default_image,
@@ -86,20 +86,23 @@ def add_vinyl(request):
             new_image.save()
             files = request.FILES.getlist('additional_images')
             for file in files:
-                image_name = str(file).split('.')[0]
+                image_name = str(file).split('.', maxsplit=1)[0]
                 new_image = Image.objects.create(
                     vinyl=vinyl_id,
                     image=file,
                     image_name=file,
                     default=False,
-            )
+                )
             messages.success(request, 'Successfully added product!')
             return redirect(reverse('product', args=[new_vinyl.id]))
         else:
-            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
+            messages.error(
+                request, (
+                    'Failed to add product. '
+                    'Please ensure the form is valid.'))
     else:
         form = ProductForm()
-        
+
     template = 'products/add_vinyl.html'
     context = {
         'form': form,
@@ -107,8 +110,9 @@ def add_vinyl(request):
 
     return render(request, template, context)
 
+
 def delete_product(request, product_id):
-    product = get_object_or_404(Vinyl, pk=product_id)
-    product.delete()
+    del_product = get_object_or_404(Vinyl, pk=product_id)
+    del_product.delete()
     messages.success(request, 'Product deleted!')
     return redirect(reverse('shop'))
