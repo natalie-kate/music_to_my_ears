@@ -51,15 +51,15 @@
           {% if product.genre == genre %}
             {% for image in images %}
               {% if image.vinyl == product %}
-              <div class="carousel-item">
-                <img src="/media/{{ image.image }}" class="d-block w-100"
-                    alt="Cover image of {{ product.title }} record">
-                <div class="text-center">
-                  <h4 class="title">{{ product.title }}</h4>
-                  <p class="artist">{{ product.artist }}</p>
-                  <a href="{% url 'product' product.id %}" class='btn my-btn hover'>Details</a>
+                <div class="carousel-item">
+                  <img src="/media/{{ image.image }}" class="d-block w-100"
+                      alt="Cover image of {{ product.title }} record">
+                  <div class="text-center">
+                    <h4 class="title">{{ product.title }}</h4>
+                    <p class="artist">{{ product.artist }}</p>
+                    <a href="{% url 'product' product.id %}" class='btn my-btn hover'>Details</a>
+                  </div>
                 </div>
-              </div>
               {% endif %}
             {% endfor %}
           {% endif %}
@@ -82,10 +82,11 @@
 
 {% block postloadjs %}
 {{ block.super }}
-
 <script>
   $(document).ready(function () {
-    $(".carousel-inner").children().first().addClass('active')
+    $(".carousel-inner" ).each(function( index ) {
+      $(this).children().first().addClass('active')
+    })
   });
 </script>
 
