@@ -48,7 +48,7 @@
                     <!-- Shown only for admin users -->
                     {% if request.user.is_superuser %}
                     <li class="nav-item">
-                        <a class="nav-link" href="" aria-label="link to add product page">Add Product</a>
+                        <a class="nav-link" href="{% url 'add_vinyl' %}" aria-label="link to add product page">Add Product</a>
                     </li>
                     {% endif %}
                     <!-- Shown if not signed in -->
