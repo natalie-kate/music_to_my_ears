@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
-from .models import UserProfile, SavedAddress
-from checkout.models import Order
-from .forms import UserProfileForm, SavedAddressForm
+from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.contrib.auth.models import User
 from django.contrib import messages
+from checkout.models import Order
+from .models import UserProfile, SavedAddress
+from .forms import UserProfileForm, SavedAddressForm
 
 
 def profile(request):
@@ -16,14 +17,17 @@ def profile(request):
             form.save()
             try:
                 address = SavedAddress.objects.get(
-                    saved_street_address1__iexact=user_profile.default_street_address1,
+                    saved_street_address1__iexact=(
+                        user_profile.default_street_address1),
                     user=request.user,
                 )
                 save_address = True
             except SavedAddress.DoesNotExist:
                 save_address_data = {
-                    'saved_street_address1': user_profile.default_street_address1,
-                    'saved_street_address2': user_profile.default_street_address2,
+                    'saved_street_address1': (
+                        user_profile.default_street_address1),
+                    'saved_street_address2': (
+                        user_profile.default_street_address2),
                     'saved_town_or_city': user_profile.default_town_or_city,
                     'saved_county': user_profile.default_county,
                     'saved_country': user_profile.default_country,
@@ -36,7 +40,7 @@ def profile(request):
                 address.user = request.user
                 address.save()
         messages.success(request, 'Profile updated successfully')
-    
+
     profile_form = UserProfileForm(instance=user_profile)
 
     context = {
@@ -60,6 +64,7 @@ def order_history(request, order_number):
     }
 
     return render(request, template, context)
+
 
 def delete_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
