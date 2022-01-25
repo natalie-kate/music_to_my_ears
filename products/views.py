@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
 from .models import Vinyl, Genre, Image
+from .forms import ProductForm
 
 
 def open_shop(request):
@@ -66,3 +67,42 @@ def product(request, product_id):
     }
 
     return render(request, 'products/product.html', context)
+
+
+def add_vinyl(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            new_vinyl = form.save()
+            default_image = request.FILES.get('default_image')
+            vinyl_id = Vinyl.objects.get(pk=new_vinyl.id)
+            image_name = str(default_image).split('.')[0]
+            new_image = Image.objects.create(
+                vinyl=vinyl_id,
+                image=default_image,
+                image_name=image_name,
+                default=True,
+            )
+            new_image.save()
+            files = request.FILES.getlist('additional_images')
+            for file in files:
+                image_name = str(file).split('.')[0]
+                new_image = Image.objects.create(
+                    vinyl=vinyl_id,
+                    image=file,
+                    image_name=file,
+                    default=False,
+            )
+            messages.success(request, 'Successfully added product!')
+            return redirect(reverse('product', args=[new_vinyl.id]))
+        else:
+            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
+    else:
+        form = ProductForm()
+        
+    template = 'products/add_vinyl.html'
+    context = {
+        'form': form,
+    }
+
+    return render(request, template, context)
