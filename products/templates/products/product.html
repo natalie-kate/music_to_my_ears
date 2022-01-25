@@ -82,7 +82,7 @@
       {% if request.user.is_superuser %}
       <h3 class="product-admin">Product Admin</h3>
       <a class="mr-3" href=""><i class="admin fas fa-pencil-alt"></i>Edit</a>
-      <a href=""><i class="admin fas fa-trash"></i>Delete</a>
+      <a href="{% url 'delete_product' product.id %}"><i class="admin fas fa-trash"></i>Delete</a>
       {% endif %}
     </div>
 </div>
