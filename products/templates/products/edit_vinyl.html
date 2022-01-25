@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block image %}
+<div class="image-container">
+  <div class="row">
+    <div class="col-12 text-center">
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<h2 class="text-center mt-4"> Edit Product </h2>
+<div class="row">
+    <div class="text-center col-12">
+        <a href="{% url 'add_vinyl' %}"><i class="fas fa-backward"></i> Need to Add a Product?</a>
+    </div>
+    <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+        <form method="POST" action="{% url 'edit_vinyl' product.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="col-10 offset-1">
+                <legend> Product Details</legend>
+                {% for field in form %}
+                   {{ field | as_crispy_field }}
+                {% endfor %}
+            </fieldset>
+            <fieldset class="col-10 offset-1">
+                <legend> Add more Images </legend>
+                <label class="mt-2" for="#additional_images">Additional Images (optional)</label><br>
+                <input id="additional_images" name="additional_images" type="file" multiple="True">
+            </fieldset>
+            <div class="text-center">
+                <button class="btn pay-btn my-btn btn-md hover mt-3" type="submit">Submit Changes</button><br>
+                <a href="{% url 'shop' %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
