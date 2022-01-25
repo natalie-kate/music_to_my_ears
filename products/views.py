@@ -116,6 +116,17 @@ def add_vinyl(request):
     return render(request, template, context)
 
 
+def edit_vinyl(request, product_id):
+    edit_product = get_object_or_404(Vinyl, pk=product_id)
+    template = 'products/edit_vinyl.html'
+    form = ProductForm(instance=edit_product)
+    context = {
+        'form': form,
+        'product': edit_product,
+    }
+    return render(request, template, context)
+
+
 def delete_product(request, product_id):
     del_product = get_object_or_404(Vinyl, pk=product_id)
     del_product.delete()
