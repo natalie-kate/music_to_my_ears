@@ -4,7 +4,13 @@ from django.contrib.auth.models import User
 
 class Contact(models.Model):
     """ Creates Contact table in database """
-    CHOICES = [('1 star'), ('2 Stars'), ('3 Stars'), ('4 Stars'), ('5 Stars')]
+    CHOICES = (
+        ('1', ' ',),
+        ('2', ' ',),
+        ('3', ' ',),
+        ('4', ' ',),
+        ('5', ' ',),
+    )
     user = models.ForeignKey(
         User, on_delete=models.SET_NULL,
         null=True, blank=True)
@@ -14,4 +20,5 @@ class Contact(models.Model):
     email = models.EmailField(max_length=254, null=False, blank=False)
     order_number = models.CharField(max_length=254, null=True, blank=True)
     query = models.TextField(null=True, blank=True)
-    rating = forms.ChoiceField(label='Rate Us', widget=forms.RadioSelect(choices=CHOICES))
+    rate_us = models.CharField(
+        choices=CHOICES, max_length=6, null=True, blank=True)
