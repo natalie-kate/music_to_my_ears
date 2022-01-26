@@ -1,6 +1,7 @@
 """ Imports required by products app """
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import Vinyl, Genre, Image
 from .forms import ProductForm
@@ -90,7 +91,12 @@ def product(request, product_id):
     return render(request, 'products/product.html', context)
 
 
+@login_required
 def add_vinyl(request):
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only admin can do that.')
+        return redirect(reverse('shop'))
+
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():
@@ -100,26 +106,26 @@ def add_vinyl(request):
                 default_image = request.FILES.get('default_image')
                 vinyl_id = Vinyl.objects.get(pk=new_vinyl.id)
                 image_name = str(default_image).split('.', maxsplit=1)[0]
-                new_image = Image.objects.create(
+                Image.objects.create(
                     vinyl=vinyl_id,
                     image=default_image,
                     image_name=image_name,
                     default=True,
                 )
-                new_image.save()
                 files = request.FILES.getlist('additional_images')
                 for file in files:
                     image_name = str(file).split('.', maxsplit=1)[0]
-                    new_image = Image.objects.create(
+                    Image.objects.create(
                         vinyl=vinyl_id,
                         image=file,
-                        image_name=file,
+                        image_name=image_name,
                         default=False,
                     )
                 messages.success(request, 'Successfully added product!')
                 return redirect(reverse('product', args=[new_vinyl.id]))
             else:
-                messages.error(request, ('Product already exists in database.'))
+                messages.error(request, (
+                    'Product already exists in database.'))
                 return redirect(reverse('shop'))
         else:
             messages.error(
@@ -137,7 +143,12 @@ def add_vinyl(request):
     return render(request, template, context)
 
 
+@login_required
 def edit_vinyl(request, product_id):
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only admin can do that.')
+        return redirect(reverse('shop'))
+
     edit_product = get_object_or_404(Vinyl, pk=product_id)
     if request.method == 'POST':
         form = ProductForm(request.POST, instance=edit_product)
@@ -151,17 +162,17 @@ def edit_vinyl(request, product_id):
         files = request.FILES.getlist('additional_images')
         for file in files:
             image_name = str(file).split('.', maxsplit=1)[0]
-            new_image = Image.objects.create(
-                vinyl=vinyl_id,
+            Image.objects.create(
+                vinyl=edit_product,
                 image=file,
-                image_name=file,
+                image_name=image_name,
                 default=False,
             )
         messages.success(request, 'Thats updated!')
         return redirect(reverse('product', args=[edit_product.id]))
-    else:   
+    else:
         form = ProductForm(instance=edit_product)
-        
+
     template = 'products/edit_vinyl.html'
     context = {
         'form': form,
@@ -170,7 +181,12 @@ def edit_vinyl(request, product_id):
     return render(request, template, context)
 
 
+@login_required
 def delete_product(request, product_id):
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only admin can do that.')
+        return redirect(reverse('shop'))
+
     del_product = get_object_or_404(Vinyl, pk=product_id)
     del_product.delete()
     messages.success(request, 'Product deleted!')
