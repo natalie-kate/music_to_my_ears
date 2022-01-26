@@ -47,6 +47,27 @@ def open_shop(request):
     return render(request, 'products/shop.html', context)
 
 
+def view_all_products(request):
+    products = Vinyl.objects.all()
+    genres = Genre.objects.all()
+    images = Image.objects.filter(default=True)
+    current_genres = []
+
+    for genre in genres:
+        filtered_products = Vinyl.objects.filter(genre=genre.pk)
+        if filtered_products:
+            current_genres.append(genre)
+
+    context = {
+        'products': products,
+        'genres': current_genres,
+        'images': images,
+        'search': True,
+    }
+
+    return render(request, 'products/shop.html', context)
+
+
 def product(request, product_id):
     """ Get product details """
     quantity_in_basket = 0
