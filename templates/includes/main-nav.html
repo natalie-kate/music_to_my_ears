@@ -1,0 +1,38 @@
+<ul class="navbar-nav ml-auto w-auto mx-auto">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}" aria-label="link to home page">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'shop' %}" aria-label="link to shop page">Shop</a>
+    </li>
+    <!-- Shown only for signed in users -->
+    {% if request.user.is_authenticated %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'profile' %}" aria-label="link to profile page">Profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="" aria-label="link to event page">Events</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'account_logout' %}" aria-label="link to sign out">Sign Out</a>
+    </li>
+    <!-- Shown only for admin users -->
+    {% if request.user.is_superuser %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'add_vinyl' %}" aria-label="link to add product page">Add Product</a>
+    </li>
+    {% endif %}
+    <!-- Shown if not signed in -->
+    {% else %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'account_login' %}" aria-label="link to sign in page">Sign In</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'account_signup' %}" aria-label="link to sign up page">Register</a>
+    </li>
+    {% endif %}
+    <!-- Last nav link shown for everyone -->
+    <li class="nav-item">
+        <a class="nav-link" href="" aria-label="link to contact us page">Contact Us</a>
+    </li>
+</ul>
