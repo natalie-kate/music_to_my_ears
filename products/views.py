@@ -116,6 +116,31 @@ def add_vinyl(request):
     return render(request, template, context)
 
 
+def edit_vinyl(request, product_id):
+    edit_product = get_object_or_404(Vinyl, pk=product_id)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=edit_product)
+        if form.is_valid():
+            form.save()
+        else:
+            messages.error(request, (
+                'Failed to update product. '
+                'Please ensure the form is valid.'))
+
+        files = request.FILES.getlist('additional_images')
+        for file in files:
+            image_name = str(file).split('.', maxsplit=1)[0]
+            new_image = Image.objects.create(
+                vinyl=vinyl_id,
+                image=file,
+                image_name=file,
+                default=False,
+            )
+        messages.success(request, 'Thats updated!')
+        return redirect(reverse('product', args=[edit_product.id]))
+    else:   
+        form = ProductForm(instance=edit_product)
+        
     template = 'products/edit_vinyl.html'
     context = {
         'form': form,
