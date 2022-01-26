@@ -2,69 +2,35 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<meta charset="UTF-8">
-<meta name="keywords" content="vinyl, shop, records, music">
-<meta name="author" content="Natalie Kate Alexander">
-<meta name="Description" content="Vinyl record shop"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet" href="{% static 'css/base.css' %}">
-<title>Music To My Ears</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <meta name="keywords" content="vinyl, shop, records, music">
+    <meta name="author" content="Natalie Kate Alexander">
+    <meta name="Description" content="Vinyl record shop" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <title>Music To My Ears</title>
 </head>
+
 <body class="container-fluid">
     <!-- Header and Nav, modified bootstrap nav -->
     <header>
         <nav class="navbar navbar-expand-md">
             <a class="navbar-brand fas fa-record-vinyl" href="{% url 'home' %}" aria-label="Logo and link to home"></a>
             <!-- Dropdown menu button for smaller screens -->
-            <button class="navbar-toggler text-center" type="button" data-toggle="collapse" data-target="#navdropdownmenu"
-                aria-controls="navdropdownmenu" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler text-center" type="button" data-toggle="collapse"
+                data-target="#navdropdownmenu" aria-controls="navdropdownmenu" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span><i class="fas fa-bars"></i></span>
             </button>
             <!-- Nav links -->
-            <div class="collapse navbar-collapse text-center" id="navdropdownmenu">
-                <ul class="navbar-nav ml-auto w-auto mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}" aria-label="link to home page">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'shop' %}" aria-label="link to shop page">Shop</a>
-                    </li>
-                    <!-- Shown only for signed in users -->
-                    {% if request.user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}" aria-label="link to profile page">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="" aria-label="link to event page">Events</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_logout' %}" aria-label="link to sign out">Sign Out</a>
-                    </li>
-                    <!-- Shown only for admin users -->
-                    {% if request.user.is_superuser %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'add_vinyl' %}" aria-label="link to add product page">Add Product</a>
-                    </li>
-                    {% endif %}
-                    <!-- Shown if not signed in -->
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_login' %}" aria-label="link to sign in page">Sign In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_signup' %}" aria-label="link to sign up page">Register</a>
-                    </li>
-                    {% endif %}
-                    <!-- Last nav link shown for everyone -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="" aria-label="link to contact us page">Contact Us</a>
-                    </li>
-                </ul>
+            <div class="collapse navbar-collapse text-center">
+                {% include 'includes/main-nav.html' %}
             </div>
             <div class="shopping-bag text-center">
                 <a class="shopping-bag" href="{% url 'view_basket' %}">
@@ -78,34 +44,41 @@
                     </p>
                 </a>
             </div>
+            <div class="col-12 collapse text-center" id="navdropdownmenu">
+                {% include 'includes/main-nav.html' %}
+            </div>
         </nav>
     </header>
     <div class="banner text-center">
+        {% if request.user.is_authenticated %}
+        <p>Check out our events page for live music events in your area!</p>
+        {% else %}
         <p>Register today for access to our events page! </p>
+        {% endif %}
     </div>
 
     {% if messages %}
     <div class="message-container">
-      {% for message in messages %}
+        {% for message in messages %}
         {% with message.level as level %}
-          {% if level == 40 %}
-            {% include 'includes/toasts/toast_error.html' %}
-          {% elif level == 30 %}
-            {% include 'includes/toasts/toast_warning.html' %}
-          {% elif level == 25 %}
-            {% include 'includes/toasts/toast_success.html' %}
-          {% else %}
-            {% include 'includes/toasts/toast_info.html' %}
-          {% endif %}
+        {% if level == 40 %}
+        {% include 'includes/toasts/toast_error.html' %}
+        {% elif level == 30 %}
+        {% include 'includes/toasts/toast_warning.html' %}
+        {% elif level == 25 %}
+        {% include 'includes/toasts/toast_success.html' %}
+        {% else %}
+        {% include 'includes/toasts/toast_info.html' %}
+        {% endif %}
         {% endwith %}
-      {% endfor %}
+        {% endfor %}
     </div>
-  {% endif %}
+    {% endif %}
 
-     <!-- Individual page header on an image background gets inserted here -->
-     {% block image %}
+    <!-- Individual page header on an image background gets inserted here -->
+    {% block image %}
 
-     {% endblock %}
+    {% endblock %}
 
     <!-- Individual page content will be inserted here -->
     {% block content %}
@@ -117,48 +90,54 @@
             <!-- Social Links -->
             <div class="col-6 col-lg-3 offset-lg-3 text-center footer-links">
                 <p>Social Links</p>
-                <p><a class="social" href="https://www.instagram.com" target="_blank" rel="noopener"><span class="sr-only">Link will open
-                        Instagram in a new page.</span>Instagram</a></p>
-                <p><a class="social" href="https://www.spotify.com" target="_blank" rel="noopener"><span class="sr-only">Link will open
-                        Spotify in a new page.</span>Spotify</a></p>
-                <p><a class="social" href="https://www.twitter.com" target="_blank" rel="noopener"><span class="sr-only">Link will open
-                        Twitter in a new page.</span>Twitter</a></p>
-            
+                <p><a class="social" href="https://www.instagram.com" target="_blank" rel="noopener"><span
+                            class="sr-only">Link will open
+                            Instagram in a new page.</span>Instagram</a></p>
+                <p><a class="social" href="https://www.spotify.com" target="_blank" rel="noopener"><span
+                            class="sr-only">Link will open
+                            Spotify in a new page.</span>Spotify</a></p>
+                <p><a class="social" href="https://www.twitter.com" target="_blank" rel="noopener"><span
+                            class="sr-only">Link will open
+                            Twitter in a new page.</span>Twitter</a></p>
+
             </div>
             <!-- Nav Links -->
             <div class="col-6 col-lg-3 text-center footer-links">
                 <p>Useful Links</p>
                 <!-- If user not signed these links will be displayed -->
                 {% if not request.user.is_authenticated %}
-                <p><a class="footer-link" href="{% url 'account_signup' %}" aria-label="link to sign up page">Sign Up Page</a></p>
-                <p><a class="footer-link" href="{% url 'account_login' %}" aria-label="link to sign in page">Sign In Page</a></p>
+                <p><a class="footer-link" href="{% url 'account_signup' %}" aria-label="link to sign up page">Sign Up
+                        Page</a></p>
+                <p><a class="footer-link" href="{% url 'account_login' %}" aria-label="link to sign in page">Sign In
+                        Page</a></p>
                 {% endif %}
                 <p><a class="footer-link btt-link" href="" aria-label="Link back totop of page">Back to Top</a></p>
                 <!-- If user logged in these links will be displayed -->
                 {% if request.user.is_authenticated %}
-                <p><a class="footer-link" href="{% url 'account_logout' %}" aria-label="link to sign out page">Sign Me Out</a></p>
-                <p><a class="footer-link" href="{% url 'profile' %}" aria-label="link to edit account">My Profile</a></p>
-                <a href="" class="mr-2" 
-                    aria-label="Will open change password page"> Change Password </a>
+                <p><a class="footer-link" href="{% url 'account_logout' %}" aria-label="link to sign out page">Sign Me
+                        Out</a></p>
+                <p><a class="footer-link" href="{% url 'profile' %}" aria-label="link to edit account">My Profile</a>
+                </p>
                 {% endif %}
             </div>
         </div>
     </footer>
 
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
-<script src="https://js.stripe.com/v3/"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
 
-  <!-- Any individual page scripts to be inserted here -->
-{% block postloadjs %}
-<script type="text/javascript">
-    $('.toast').toast('show');
-    $('.btt-link').click(function(e) {
-			window.scrollTo(0,0)
-		})
-</script>
-{% endblock %}
+    <!-- Any individual page scripts to be inserted here -->
+    {% block postloadjs %}
+    <script type="text/javascript">
+        $('.toast').toast('show');
+        $('.btt-link').click(function (e) {
+            window.scrollTo(0, 0)
+        })
+    </script>
+    {% endblock %}
 </body>
+
 </html>
