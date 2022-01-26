@@ -14,20 +14,23 @@
 <h2 class="text-center mt-4"> Shop Vinyls </h2>
 <form id="product-search-form" method="GET" action="{% url 'shop' %}">
   <div class="row search-box">
-    <div class="col-12 mb-5 text-center">
+    <div class="col-12 mb-1 text-center">
       <input type="text" name="search" id="search" placeholder="e.g artist, album or song" aria-label="Search" required>
       <button type="submit" class="btn btn-md my-btn hover">Search <i class="fas fa-search"
           aria-hidden="true"></i></button>
     </div>
   </div>
 </form>
+<div class="col-12 mb-5 text-center">
+  <a href="{% url 'view_all_products' %}">View All</a>
+</div>
 
 <div class="row">
   {% if search %}
     {% for product in products %}
     <div class="col-8 offset-2 col-md-6 offset-md-0 col-lg-4">
       {% for image in images %}
-        {% if image.default and image.vinyl == product %}
+        {% if image.vinyl == product %}
           <img src="/media/{{ image.image }}" class="d-block w-100"
               alt="Cover image of {{ product.title }} record">
           <div class="text-center">
