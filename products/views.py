@@ -73,8 +73,8 @@ def add_vinyl(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():
-            check_product = get_object_or_404(Vinyl, title=form.title)
-            if check_product:
+            check_product = Vinyl.objects.filter(title=form['title'].value())
+            if not check_product:
                 new_vinyl = form.save()
                 default_image = request.FILES.get('default_image')
                 vinyl_id = Vinyl.objects.get(pk=new_vinyl.id)
@@ -116,10 +116,7 @@ def add_vinyl(request):
     return render(request, template, context)
 
 
-def edit_vinyl(request, product_id):
-    edit_product = get_object_or_404(Vinyl, pk=product_id)
     template = 'products/edit_vinyl.html'
-    form = ProductForm(instance=edit_product)
     context = {
         'form': form,
         'product': edit_product,
