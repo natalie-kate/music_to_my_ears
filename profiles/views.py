@@ -1,11 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from checkout.models import Order
 from .models import UserProfile, SavedAddress
 from .forms import UserProfileForm, SavedAddressForm
 
 
+@login_required
 def profile(request):
     user_profile = get_object_or_404(UserProfile, user=request.user)
     addresses = SavedAddress.objects.filter(user=request.user)
@@ -54,6 +56,7 @@ def profile(request):
     return render(request, template, context)
 
 
+@login_required
 def order_history(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
 
@@ -66,7 +69,12 @@ def order_history(request, order_number):
     return render(request, template, context)
 
 
+@login_required
 def delete_user(request, user_id):
+    user = request.user.id
+    if not request.user.id == user:
+        messages.error(request, "Sorry, you can't do that.")
+        return redirect(reverse('account_login'))
     user = get_object_or_404(User, pk=user_id)
     user.delete()
     messages.success(request, 'Account deleted!')
