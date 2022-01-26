@@ -272,6 +272,20 @@ fieldset legend {
     margin: 0;
     height: 100%;
 }
+
+.form-check-label {
+    font-size: 24px;
+    color:  rgb(239 112 102);
+}
+
+input[name=rate_us],
+label[for=id_rate_us_0] {
+    display: none;
+}
+
+input[name=rate_us]:checked~label {
+    color:rgba(23, 162, 184, .85);
+}
 /*---- Media Queries ----*/
 
 @media(max-width: 350px) {
