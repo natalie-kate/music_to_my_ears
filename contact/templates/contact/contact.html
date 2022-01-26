@@ -22,10 +22,22 @@
     <form method="POST" action="{% url 'checkout' %}" id="payment-form">
         {% csrf_token %}
         {{ contact_form|crispy }}
-        <div class="text-center text-md-left">
+        <div class="text-center">
             <button id="submit-button" class="btn my-btn pay-btn hover">Send! </button>
         </div>
     </form>
 </div>
-
 {% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script>
+      $(document).ready(function () {
+        $("#id_rate_us_1").attr('checked', 'checked');
+        $(".form-check-label" ).each(function( index ) {
+          let html =("<i class='fas fa-record-vinyl'></i>")
+          $(this).html(html.repeat(index))
+        })
+      });
+    </script>
+{% endblock %}s
