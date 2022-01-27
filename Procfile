@@ -1,0 +1,1 @@
+web: gunicorn music_to_my_ears.wsgi:application
