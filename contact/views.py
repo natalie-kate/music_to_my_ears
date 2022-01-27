@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, reverse
+from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.conf import settings
+from django.template.loader import render_to_string
 from profiles.models import UserProfile
 from .forms import ContactForm
 
@@ -24,6 +27,7 @@ def contact(request):
                 user = User.objects.get(username=request.user)
                 user_contact.user = user
             user_contact.save()
+            send_confirmation_email(user_contact)
             messages.success(request, "That's sent, check your email for confirmation")
             return redirect(reverse('shop'))
         else:
@@ -48,3 +52,19 @@ def contact(request):
             'contact_form': contact_form
         }
         return render(request, template, context)
+
+
+def send_confirmation_email(user_contact):
+    """Send the user a confirmation email"""
+    cust_email = user_contact.email
+    subject = 'Thank you for your message to Music To My Ears'
+    body = render_to_string(
+            'contact/confirmation_emails/confirmation_email_body.txt',
+            {'contact': user_contact})
+
+    send_mail(
+        subject,
+        body,
+        settings.DEFAULT_FROM_EMAIL,
+        [cust_email]
+    )
