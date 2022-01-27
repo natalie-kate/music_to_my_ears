@@ -19,7 +19,7 @@
 </div>
 
 <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-    <form method="POST" action="{% url 'checkout' %}" id="payment-form">
+    <form method="POST" action="{% url 'contact' %}" id="contact-form">
         {% csrf_token %}
         {{ contact_form|crispy }}
         <div class="text-center">
