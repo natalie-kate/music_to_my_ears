@@ -50,8 +50,10 @@
         </nav>
     </header>
     <div class="banner text-center">
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated and not in_events %}
         <p>Check out our events page for live music events in your area!</p>
+        {% elif in_events %}
+        <p>Search for events in your area!</p>
         {% else %}
         <p>Register today for access to our events page! </p>
         {% endif %}
@@ -116,6 +118,8 @@
                 {% if request.user.is_authenticated %}
                 <p><a class="footer-link" href="{% url 'account_logout' %}" aria-label="link to sign out page">Sign Me
                         Out</a></p>
+                {% endif %}
+                {% if not on_profile_page %}
                 <p><a class="footer-link" href="{% url 'profile' %}" aria-label="link to edit account">My Profile</a>
                 </p>
                 {% endif %}
