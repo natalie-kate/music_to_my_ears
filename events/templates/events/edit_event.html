@@ -11,4 +11,24 @@
 
 {% block content %}
 <h2 class="text-center mt-4"> Edit Event  </h2>
+<div class="row">
+  <div class="text-center col-12">
+      <a href="{% url 'add_event' %}"><i class="fas fa-backward"></i> Need to Add an Event?</a>
+  </div>
+  <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+      <form method="POST" action="{% url 'edit_event' event.id %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <fieldset class="col-10 offset-1">
+              <legend> Event Details</legend>
+              {% for field in form %}
+                 {{ field | as_crispy_field }}
+              {% endfor %}
+          </fieldset>
+          <div class="text-center">
+              <button class="btn pay-btn my-btn btn-md hover mt-3" type="submit">Submit Changes</button><br>
+              <a href="{% url 'events' %}">Cancel</a>
+          </div>
+      </form>
+  </div>
+</div>
 {% endblock %}
