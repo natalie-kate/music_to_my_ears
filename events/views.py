@@ -7,6 +7,7 @@ from .forms import EventForm
 from .models import Event
 
 
+@login_required
 def view_events(request):
     # View to render the events page
     events = Event.objects.all()
@@ -39,6 +40,8 @@ def view_events(request):
     }
     return render(request, 'events/events.html', context)
 
+
+@login_required
 def add_event(request):
     form = EventForm()
     context = {
@@ -46,8 +49,16 @@ def add_event(request):
     }
     return render(request, 'events/add_event.html')
 
+
+@login_required
 def edit_event(request, event_id):
     return render(request, 'events/edit_event.html')
 
+
+@login_required
 def delete_event(request, event_id):
-    return render(request, 'events/delete_event.html')
+    # Delete event functionality
+    del_event = get_object_or_404(Event, pk=event_id)
+    del_event.delete()
+    messages.success(request, 'Event deleted!')
+    return redirect(reverse('events'))
