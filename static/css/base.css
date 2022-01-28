@@ -286,6 +286,12 @@ label[for=id_rate_us_0] {
 input[name=rate_us]:checked~label {
     color:rgba(23, 162, 184, .85);
 }
+
+.card-img-top {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
 /*---- Media Queries ----*/
 
 @media(max-width: 350px) {
