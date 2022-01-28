@@ -1,5 +1,5 @@
 # Imports and views required for events app.
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -52,7 +52,29 @@ def add_event(request):
 
 @login_required
 def edit_event(request, event_id):
-    return render(request, 'events/edit_event.html')
+    get_event = get_object_or_404(Event, pk=event_id)
+    if request.method == 'POST':
+        form = EventForm(request.POST, instance=get_event)
+        if form.is_valid():
+            form.save()
+        else:
+            messages.error(request, (
+                'Failed to update event. '
+                'Please ensure the form is valid.'))
+
+        messages.success(request, 'Thats updated!')
+        return redirect(reverse('events'))
+
+    else:
+        form = EventForm(instance=get_event)
+
+    template = 'events/edit_event.html'
+    context = {
+        'form': form,
+        'event': get_event,
+    }
+
+    return render(request, template, context)
 
 
 @login_required
