@@ -15,8 +15,9 @@ class EventForm(forms.ModelForm):
             'name': 'Open Mic Night',
             'date': '25th June 2022',
             'time': '19:30',
-            'location': "Red Lion, Main St, Prestwick, KA9 1LH",
-            'details': "Open Mic night, all welcome, we have everything bar your talent.",
+            'location': "Red Lion, Main St, Prestwick, Ayrshire",
+            'details': "Open Mic night, all welcome"
+            "we have everything bar your talent.",
             'ticket_price': "e.g 22.00 or 0 if free"
         }
         self.fields['name'].widget.attrs['autofocus'] = True
