@@ -24,10 +24,12 @@
             </fieldset>
             <fieldset class="col-10 offset-1">
                 <legend> Product Images </legend>
-                <label for="#default_image">Main default image</label><br>
-                <input id="default_image" name="default_image" type="file" required><br>
-                <label class="mt-2" for="#additional_images">Additional Images (optional)</label><br>
-                <input id="additional_images" name="additional_images" type="file" multiple="True">
+                <label for="#default-image">Main default image</label><br>
+                <input id="default-image" name="default_image" type="file" accept="image/*" required><br>
+                <div class="mt-2" id="default-img-preview"></div>
+                <label class="mt-2" for="#additional-images">Additional Images (optional)</label><br>
+                <input id="additional-images" name="additional_images" type="file" accept="image/*" multiple="True">
+                <div class="mt-2 "id="img-preview"></div>
             </fieldset>
             <div class="text-center">
                 <button class="btn pay-btn my-btn btn-md hover mt-3" type="submit">Add Product</button><br>
@@ -36,4 +38,10 @@
         </form>
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script src="{% static 'products/js/display_image.js' %}"></script>
+
 {% endblock %}

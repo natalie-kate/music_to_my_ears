@@ -27,8 +27,9 @@
             </fieldset>
             <fieldset class="col-10 offset-1">
                 <legend> Add more Images </legend>
-                <label class="mt-2" for="#additional_images">Additional Images (optional)</label><br>
-                <input id="additional_images" name="additional_images" type="file" multiple="True">
+                <label class="mt-2" for="#additional-images">Additional Images (optional)</label><br>
+                <input id="additional-images" name="additional_images" accept="image/*" type="file" multiple="True">
+                <div class="mt-2 "id="img-preview"></div>
             </fieldset>
             <div class="text-center">
                 <button class="btn pay-btn my-btn btn-md hover mt-3" type="submit">Submit Changes</button><br>
@@ -37,4 +38,10 @@
         </form>
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script src="{% static 'products/js/display_image.js' %}"></script>
+
 {% endblock %}
