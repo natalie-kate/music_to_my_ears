@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.conf import settings
 import stripe
 from basket.contexts import basket_contents
-from products.models import Vinyl
+from products.models import Vinyl, Image
 from profiles.models import UserProfile, SavedAddress
 from profiles.forms import UserProfileForm, SavedAddressForm
 from .forms import OrderForm, DeliveryForm
@@ -163,6 +163,14 @@ def checkout(request):
 def checkout_success(request, order_number):
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
+    order_products = OrderLineItem.objects.filter(order=order)
+    images = []
+
+    for product in order_products:
+        find_product = Vinyl.objects.get(title=product.product)
+        image = Image.objects.filter(vinyl=find_product, default=True)
+        images.append(image[0])
+
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
         # Attach the user's profile to the order
@@ -238,6 +246,7 @@ def checkout_success(request, order_number):
         del request.session['basket']
     template = 'checkout/checkout_success.html'
     context = {
-        'order': order
+        'order': order,
+        'images': images
     }
     return render(request, template, context)
