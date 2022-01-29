@@ -54,6 +54,7 @@
     <table class="table table-sm">
       <thead>
           <tr>
+              <th scope="col">Product</th>
               <th scope="col">Title</th>
               <th scope="col">Artist</th>
               <th scope="col">Price</th>
@@ -64,6 +65,13 @@
 
       {% for item in order.lineitems.all %}
           <tr>
+            {% for image in images %}
+            {% if image.vinyl == item.product %}
+              <td>
+                <img class="success-img" src="/media/{{ image.image }}" alt="Cover image of {{ item.title }} record">
+              </td>
+            {% endif %}
+            {% endfor %}
               <td>
                   {{ item.product.title }}
               </td>
