@@ -82,8 +82,16 @@
       {% if request.user.is_superuser %}
       <h3 class="product-admin">Product Admin</h3>
       <a class="mr-3" href="{% url 'edit_vinyl' product.id %}"><i class="admin fas fa-pencil-alt"></i>Edit</a>
-      <a href="{% url 'delete_product' product.id %}"><i class="admin fas fa-trash"></i>Delete</a>
+      <a data-toggle="collapse" href="#delete_product" aria-label="Will open delete product section">
+        <i class="admin fas fa-trash"></i> Delete</a>
       {% endif %}
+    </div>
+    <div id="delete_product" class="col-12 mt-4 text-center collapse">
+      <p>Are you sure you want to delete {{ product.title }}?</p>
+      <a class="btn btn-md my-btn hover" href="{% url 'delete_product' product.id %}" class="mr-2" 
+          aria-label="Will delete product"> Delete </a>
+      <a data-toggle="collapse" href="#delete_product" class="ml-2" 
+      aria-label="Will close delete product section">Cancel</a>
     </div>
 </div>
 
