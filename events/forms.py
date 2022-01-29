@@ -12,12 +12,12 @@ class EventForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         placeholders = {
-            'name': 'Open Mic Night',
-            'date': '25th June 2022',
-            'time': '19:30',
-            'location': "Red Lion, Main St, Prestwick, Ayrshire",
-            'details': "Open Mic night, all welcome"
-            "we have everything bar your talent.",
+            'name': 'e.g Open Mic Night',
+            'date': 'e.g 25th June 2022',
+            'time': 'e.g 19:30',
+            'location': "e.g Red Lion, Main St, Prestwick, Ayrshire",
+            'details': "e.g Open Mic night, all welcome"
+            " we have everything bar your talent.",
             'ticket_price': "e.g 22.00 or 0 if free"
         }
         self.fields['name'].widget.attrs['autofocus'] = True
