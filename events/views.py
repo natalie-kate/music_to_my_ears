@@ -1,6 +1,7 @@
 # Imports and views required for events app.
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .forms import EventForm
@@ -43,18 +44,46 @@ def view_events(request):
 
 @login_required
 def add_event(request):
-    form = EventForm()
+    if request.method == 'POST':
+        form = EventForm(request.POST, request.FILES)
+        if form.is_valid():
+            instance = form.save(commit=False)
+
+            try:
+                Event.objects.get(
+                    name__iexact=form.cleaned_data.get("name"),
+                    date__iexact=form.cleaned_data.get("date"),
+                    location__icontains=form.cleaned_data.get(
+                        "location").split(',')[0])
+                messages.error(request, (
+                    'Product already exists in database.'))
+                return redirect(reverse('events'))
+     
+            except Event.DoesNotExist:
+                instance.user = request.user
+                instance.save()
+                messages.success(request, 'Successfully added event!')
+                return redirect(reverse('events'))
+        else:
+            messages.error(
+                request, (
+                    'Failed to add event. '
+                    'Please ensure the form is valid.'))
+    else:
+        form = EventForm()
+
+    template = 'events/add_event.html'
     context = {
         'form': form,
     }
-    return render(request, 'events/add_event.html')
+    return render(request, template, context)
 
 
 @login_required
 def edit_event(request, event_id):
     get_event = get_object_or_404(Event, pk=event_id)
     if request.method == 'POST':
-        form = EventForm(request.POST, instance=get_event)
+        form = EventForm(request.POST, request.FILES, instance=get_event)
         if form.is_valid():
             form.save()
         else:
