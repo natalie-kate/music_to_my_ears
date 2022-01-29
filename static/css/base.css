@@ -142,6 +142,19 @@ body{
     width: 8vw;
 }
 
+#default-img-preview,
+#img-preview {
+    display: none;    
+}
+
+#default-img-preview img,
+#img-preview img {  
+    width: 75px;
+    height: auto; 
+    display: inline;  
+    margin-right: 5px; 
+}
+
 @keyframes record {
     from {
         transform: rotate(0);
