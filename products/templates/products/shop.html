@@ -21,7 +21,7 @@
     </div>
   </div>
 </form>
-<div class="col-12 mb-5 text-center">
+<div class="col-12 mb-4 text-center">
   <a href="{% url 'view_all_products' %}">View All</a>
 </div>
 
@@ -34,9 +34,9 @@
           <img src="/media/{{ image.image }}" class="d-block w-100"
               alt="Cover image of {{ product.title }} record">
           <div class="text-center">
-            <h4 class="title">{{ product.title }}</h4>
+            <h4 class="title mt-1">{{ product.title }}</h4>
             <p class="artist">{{ product.artist }}</p>
-            <a href="{% url 'product' product.id %}" class='btn my-btn hover'>Details</a>
+            <a href="{% url 'product' product.id %}" class='btn my-btn mb-3 hover'>Details</a>
           </div>
         {% endif %}
       {% endfor %}
@@ -47,7 +47,7 @@
   {% if not search %}
   {% for genre in genres %}
   <div class="col-8 offset-2 col-md-6 offset-md-0 col-lg-4" id="{{ genre }}_div">
-    <h3>Browse {{ genre.friendly_name }}</h3>
+    <h3><a href="{% url 'browse_genre' genre.id %}">Browse {{ genre.friendly_name }}</a></h3>
     <div id="{{ genre }}" class="carousel slide mb-3" data-ride="carousel">
       <div class="carousel-inner">
         {% for product in products %}
@@ -58,9 +58,9 @@
                   <img src="/media/{{ image.image }}" class="d-block w-100"
                       alt="Cover image of {{ product.title }} record">
                   <div class="text-center">
-                    <h4 class="title">{{ product.title }}</h4>
+                    <h4 class="title mt-1">{{ product.title }}</h4>
                     <p class="artist">{{ product.artist }}</p>
-                    <a href="{% url 'product' product.id %}" class='btn my-btn hover'>Details</a>
+                    <a href="{% url 'product' product.id %}" class='btn my-btn mb-3 hover'>Details</a>
                   </div>
                 </div>
               {% endif %}
