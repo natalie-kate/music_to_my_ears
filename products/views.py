@@ -6,14 +6,30 @@ from django.db.models import Q
 from .models import Vinyl, Genre, Image
 from .forms import ProductForm
 
+def genres():
+    # Gets those genres that currently have products
+    genres = Genre.objects.all()
+    current_genres = []
+    for genre in genres:
+        filtered_products = Vinyl.objects.filter(genre=genre.pk)
+        if filtered_products:
+            current_genres.append(genre)
+    return current_genres
+
+def default_images():
+    # Contingency plan in case superuser make 2 images default=True
+    products = Vinyl.objects.all()
+    image_list = []
+    for product in products:
+        image = Image.objects.filter(default=True, vinyl=product.id)
+        image_list.append(image[0])
+    return image_list
+
 
 def open_shop(request):
     """ A view to return the shopping page """
 
     products = Vinyl.objects.all()
-    genres = Genre.objects.all()
-    images = Image.objects.filter(default=True)
-    current_genres = []
     search = None
 
     if request.GET:
@@ -33,15 +49,10 @@ def open_shop(request):
                 request, "Oops you need to enter a search keyword first")
             return redirect(reverse('shop'))
 
-    for genre in genres:
-        filtered_products = Vinyl.objects.filter(genre=genre.pk)
-        if filtered_products:
-            current_genres.append(genre)
-
     context = {
         'products': products,
-        'genres': current_genres,
-        'images': images,
+        'genres': genres(),
+        'images': default_images(),
         'search': search,
     }
 
@@ -50,19 +61,23 @@ def open_shop(request):
 
 def view_all_products(request):
     products = Vinyl.objects.all()
-    genres = Genre.objects.all()
-    images = Image.objects.filter(default=True)
-    current_genres = []
-
-    for genre in genres:
-        filtered_products = Vinyl.objects.filter(genre=genre.pk)
-        if filtered_products:
-            current_genres.append(genre)
 
     context = {
         'products': products,
-        'genres': current_genres,
-        'images': images,
+        'genres': genres(),
+        'images': default_images(),
+        'search': True,
+    }
+
+    return render(request, 'products/shop.html', context)
+
+
+def browse_genre(request, genre_id):
+    products = Vinyl.objects.filter(genre=genre_id)
+
+    context = {
+        'products': products,
+        'images': default_images(),
         'search': True,
     }
 
