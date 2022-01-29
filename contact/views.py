@@ -24,8 +24,7 @@ def contact(request):
         if contact_form.is_valid():
             user_contact = contact_form.save(commit=False)
             if request.user.is_authenticated:
-                user = User.objects.get(username=request.user)
-                user_contact.user = user
+                user_contact.user = request.user
             user_contact.save()
             send_confirmation_email(user_contact)
             messages.success(request, "That's sent, check your email for confirmation")
