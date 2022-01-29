@@ -18,7 +18,19 @@
 </div>
 
 <div class="row">
-  <div class="col-10 col-md-6 offset-1 offset-md-3 text-center">
+  <div class="col-10 col-md-5 offset-1 text-center">
+    <h3 class="mt-4">My Account </h3>
+    <a href="{% url 'account_change_password' %}" class="mr-2" aria-label="Will open change password page"><strong>Change Password </strong></a><br>
+    <a data-toggle="collapse" href="#delete_account" class="mr-2" aria-label="Will open delete account section"><strong>Delete Account? </strong></a>
+  </div>
+  <div id="delete_account" class="col-10 col-md-6 offset-1 offset-md-3 text-center collapse">
+    <p>Are you sure you want to delete your account?</p>
+    <a class="btn btn-md my-btn hover" href="{% url 'delete_user' user.id %}" class="mr-2" 
+        aria-label="Will delete account"> Delete </a>
+    <a data-toggle="collapse" href="#delete_account" class="ml-2" 
+    aria-label="Will close delete account section">Cancel</a>
+  </div>
+  <div class="col-10 col-md-5 offset-1 offset-md-0 text-center">
     <h3 class="mt-4">My Info <a class="btn btn-md my-btn hover" data-toggle="collapse" href="#profile_edit" class="mr-2" 
     aria-label="Will open edit information section"><i class="fas fa-pencil-alt"></i> Edit info </a></h3>
     {% if profile.default_first_name %}
@@ -33,18 +45,6 @@
     {% else %}
         <p>No phone number has been added</p>
     {% endif %}
-  </div>
-  <div class="col-10 col-md-6 offset-1 offset-md-3 text-center">
-    <h3 class="mt-4">My Account </h3>
-    <a href="{% url 'account_change_password' %}" class="mr-2" aria-label="Will open change password page"> Change Password </a> |
-    <a data-toggle="collapse" href="#delete_account" class="mr-2" aria-label="Will open delete account section"> Delete Account? </a>
-  </div>
-  <div id="delete_account" class="col-10 col-md-6 offset-1 offset-md-3 text-center collapse">
-    <p>Are you sure you want to delete your account?</p>
-    <a class="btn btn-md my-btn hover" href="{% url 'delete_user' user.id %}" class="mr-2" 
-        aria-label="Will delete account"> Delete </a>
-    <a data-toggle="collapse" href="#delete_account" class="ml-2" 
-    aria-label="Will close delete account section">Cancel</a>
   </div>
   <div id="profile_edit" class="col-10 col-md-6 offset-1 offset-md-3 collapse">
     <form class="mt-3" action="{% url 'profile' %}" method="POST" id="profile-update-form">
@@ -61,10 +61,10 @@
 
 <div class="row">
   <div class="col-10 col-md-5 offset-1 text-center orders">
-    <h3>My Orders</h3>
+    <h3 class="mt-4">My Orders</h3>
     {% if orders %}
       {% for order in orders %}
-      <div class="text-left">
+      <div class="text-center">
         <p><strong>Order Date: </strong>{{ order.order_date|date:"D d M Y" }}<br>
         <strong>Order Number: </strong>
         <a href="{% url 'order_history' order.order_number %}" title="{{ order.order_number }}">
@@ -80,7 +80,7 @@
   </div>
 
   <div class="col-10 col-md-5 offset-1 offset-md-0 text-center">
-    <h3>Address Book</h3>
+    <h3 class="mt-4">Address Book</h3>
     <p><strong>Default Address</strong></p>
     {% if profile.default_street_address1 %}
       {{ profile.default_street_address1 }}
