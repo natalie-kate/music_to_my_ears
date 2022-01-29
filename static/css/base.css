@@ -138,6 +138,10 @@ body{
     font-size: 30px;
 }
 
+.success-img {
+    width: 8vw;
+}
+
 @keyframes record {
     from {
         transform: rotate(0);
