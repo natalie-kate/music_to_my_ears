@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block image %}
 <div class="contact-image-container">
@@ -17,9 +18,14 @@
           {% csrf_token %}
           <fieldset class="col-10 offset-1">
               <legend> Event Details</legend>
-              {% for field in form %}
-                 {{ field | as_crispy_field }}
-              {% endfor %}
+                 {{ form.name | as_crispy_field }}
+                 {{ form.date | as_crispy_field }}
+                 {{ form.time | as_crispy_field }}
+                 {{ form.image | as_crispy_field }}
+                 <div class="mt-2 mb-2" id="img-preview"></div>
+                 {{ form.ticket_price | as_crispy_field }}
+                 {{ form.details | as_crispy_field }}
+                 {{ form.location | as_crispy_field }}
           </fieldset>
           <div class="text-center">
               <button class="btn pay-btn my-btn btn-md hover mt-3" type="submit">Add Event</button><br>
@@ -28,4 +34,10 @@
       </form>
   </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script src="{% static 'events/js/image_display.js' %}"></script>
+
 {% endblock %}
