@@ -1,13 +1,15 @@
+""" Imports required for webhook handling """
 import time
 import json
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
 from products.models import Vinyl
-from .models import Order, OrderLineItem
 from profiles.models import UserProfile, SavedAddress
 from profiles.forms import UserProfileForm, SavedAddressForm
+from .models import Order, OrderLineItem
 
 
 class StripeWH_Handler:
@@ -25,7 +27,7 @@ class StripeWH_Handler:
         body = render_to_string(
             'checkout/confirmation_emails/confirmation_email_body.txt',
             {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
-        
+
         send_mail(
             subject,
             body,
@@ -52,7 +54,11 @@ class StripeWH_Handler:
         profile = None
         username = intent.metadata.username
         if username != 'AnonymousUser':
+            # If signed in user and saved info box ticked get and save address
+            # or address to users profile
+
             profile = UserProfile.objects.get(user__username=username)
+            user = User.objects.get(username=username)
             if save_info:
                 profile_data = {
                     'default_first_name': billing_details.name.split(" ")[0],
@@ -78,44 +84,61 @@ class StripeWH_Handler:
                     profile_data, instance=profile)
 
                 if user_profile_form.is_valid():
+                    # If user profile form is valid save the billing address as
+                    # users default address
+
                     user_profile_form.save()
+
+                    # Now create SavedAddress instance if it does not already
+                    # exist in db for this user
                     try:
                         address = SavedAddress.objects.get(
-                            saved_street_address1__iexact=order.street_address1,
-                            user=request.user,
+                            saved_street_address1__iexact=(
+                                billing_details.street_address1),
+                            user=user,
                         )
                         save_address = True
                     except SavedAddress.DoesNotExist:
                         save_profile_address = {
-                            'saved_street_address1': billing_details.address.line1,
-                            'saved_street_address2': billing_details.address.line2,
+                            'saved_street_address1': (
+                                billing_details.address.line1),
+                            'saved_street_address2': (
+                                billing_details.address.line2),
                             'saved_town_or_city': billing_details.address.city,
                             'saved_county': billing_details.address.state,
                             'saved_country': billing_details.address.country,
-                            'saved_postcode': billing_details.address.postal_code,
+                            'saved_postcode': (
+                                billing_details.address.postal_code),
                         }
-                        save_address_form = SavedAddressForm(save_profile_address)
+                        save_address_form = SavedAddressForm(
+                            save_profile_address)
                         save_address = False
                     if not save_address:
                         address = save_address_form.save(commit=False)
-                        address.user = request.user
+                        address.user = user
                         address.save()
 
+            # Now doing the same above but for the delivery address data
+            # from the form
             save_address_form = SavedAddressForm(save_address_data)
             if save_address_form.is_valid():
                 try:
                     address = SavedAddress.objects.get(
-                        saved_street_address1__iexact=order.delivery_street_address1,
-                        user=request.user,
+                        saved_street_address1__iexact=(
+                            delivery_details.delivery_street_address1),
+                        user=user,
                     )
                     save_address = True
                 except SavedAddress.DoesNotExist:
                     save_address = False
                 if not save_address:
                     address = save_address_form.save(commit=False)
-                    address.user = request.user
+                    address.user = user
                     address.save()
 
+        # Now for everyone non-registered and registered
+        # Check if order already exists in the database
+        # Try 5 times incase of delay before continuing.
         order_exists = None
         attempt = 1
         while attempt <= 5:
@@ -127,12 +150,14 @@ class StripeWH_Handler:
                 attempt += 1
                 time.sleep(1)
         if order_exists:
+            # If order exists send email and return httpresponse
             self._send_confirmation_email(order)
             return HttpResponse(
                 content=f'Webhook received:{event["type"]},'
                 "SUCCESS: Verified order already in database",
                 status=200)
         else:
+            # If order doesn't exist, create it
             order = None
             try:
                 order = Order.objects.create(
@@ -171,7 +196,8 @@ class StripeWH_Handler:
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]}, '
                     f'ERROR: {error}', status=500)
-                    
+
+        # If successful send conirmation email & return http response
         self._send_confirmation_email(order)
         return HttpResponse(
             content=f'Webhook received: {event["type"]}, '
