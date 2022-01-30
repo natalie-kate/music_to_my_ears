@@ -321,22 +321,24 @@ Testing and results can be found [here](TESTING.md)
 
 
 - ### Heroku deployment
-    - Log in to Heroku, click 'New' and select 'Create New App'. In window give the app a name and choose region closest to you and then click 'Create App'.
-    - In new app page select settings from menu, click reveal config vars and complete the following
+    - Log in to Heroku, click 'New' and select 'Create New App'. In window give the app a name and choose region closest to you and then click 'Create App'. Then in Resources under Add-ons, select Heroku Postgres.
+
+       ![Image showing the Heroku menu](docs/readme-assets/readme-images/heroku_menu.png)
+       ![Image showing the Add-on section](docs/readme-assets/readme-images/postgres_addon.png)
+
+    - In new app page select settings from menu, click reveal config vars and complete the following, see Stripe and AWS sections for where to get their secret key values. DATABASE_URL will have been pre-filled when you selected Postgres. USE_AWS value is True for when we have set up AWS. SECRET_KEY was generated as before with Django Secret Key generator.
       
-      ![Image showing the config vars required](static/images/readme-images/deployment/input-config.png)
+      ![Image showing the config vars required](docs/readme-assets/readme-images/config-vars.png)
 
     - Next select 'Deploy' from menu, three options of deployment are available. If you select Heroku Git, it gives you step by step of what you need to do.
 
-      ![Image showing the Heroku deployment methods](static/images/readme-images/deployment/deployment-methods.png)
+      ![Image showing the deployment options](docs/readme-assets/readme-images/deployment.png)
 
     - I chose to use Github, so you have to search and connect to your github repository. 
-
-      ![Image showing connect to github](static/images/readme-images/deployment/github-connect.png)
     
     - Click enable automatic deployment, below that in manual deploy section, you can pick and deploy a branch to ensure everything is et up correctly. 
 
-      ![Image showing automatic and manual deploy](static/images/readme-images/deployment/deploy.png)
+      ![Image showing manual deployment](docs/readme-assets/readme-images/manual_deploy.png)
 
 ## Credits
 
