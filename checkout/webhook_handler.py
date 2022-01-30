@@ -56,9 +56,8 @@ class StripeWH_Handler:
         if username != 'AnonymousUser':
             # If signed in user and saved info box ticked get and save address
             # or address to users profile
-
-            profile = UserProfile.objects.get(user__username=username)
             user = User.objects.get(username=username)
+            profile = UserProfile.objects.get(user=user.id)
             if save_info:
                 profile_data = {
                     'default_first_name': billing_details.name.split(" ")[0],
@@ -94,7 +93,7 @@ class StripeWH_Handler:
                     try:
                         address = SavedAddress.objects.get(
                             saved_street_address1__iexact=(
-                                billing_details.street_address1),
+                                billing_details.address.line1),
                             user=user,
                         )
                         save_address = True
@@ -125,7 +124,7 @@ class StripeWH_Handler:
                 try:
                     address = SavedAddress.objects.get(
                         saved_street_address1__iexact=(
-                            delivery_details.delivery_street_address1),
+                            delivery_details.address.line1),
                         user=user,
                     )
                     save_address = True
