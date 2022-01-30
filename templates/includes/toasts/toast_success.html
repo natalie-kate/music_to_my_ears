@@ -15,7 +15,7 @@
         <div class="col-4 text-center">
             {% for image in item.product_images %}
                 {% if image.default %}
-                    <img src="/media/{{ image.image }}" class="w-75"
+                    <img src="{{ MEDIA_URL }}{{ image.image }}" class="w-75"
                         alt="Cover image of {{ product.title }} record">
                 {% endif %}
             {% endfor %}
