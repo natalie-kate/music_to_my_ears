@@ -34,7 +34,7 @@ This website was created for Milestone 4
    * [Clone](#clone)
    * [Setting up AWS](#setting-up-aws)
    * [Setting Up Stripe](#setting-up-stripe)
-   * [Setting Up App](#setting-up-app)
+   * [Setting Up Project](#setting-up-project)
    * [Heroku Deployment](#heroku-deployment)
 
 - [Credits](#credits)
@@ -257,28 +257,29 @@ Testing and results can be found [here](TESTING.md)
     (a) Logging into Github and clicked the green new button.<br>
     (b) This took me to the page below. I selected the code institute template, input a repository name and clicked the green create repository button.<br>
 
-    ![image showing green new button](static/images/readme-images/deployment/new.png)
-    ![Image showing the create repository page](static/images/readme-images/deployment/new-repo.png)
+    ![image showing green new button](docs/readme-assets/readme-images/new.png)
+    ![Image showing the create repository page](docs/readme-assets/readme-images/new-repo.png)
 
     (c) Opened new repository and clicked green Gitpod button to create a workspace in Gitpod for editing.
 
   - ### Forking
-    (a) To fork my project sign in to Github and go to my [repository]()<br>
+    (a) To fork my project sign in to Github and go to my [repository](https://github.com/natalie-kate/music_to_my_ears)<br>
     (b) Above and to the right of the settings there are three options and the far right one says Fork, select this.<br>
     (c) The fork is now in your repositories.
 
-    ![Image showing fork button](static/images/readme-images/deployment/fork.png)
+    ![Image showing fork button](docs/readme-assets/readme-images/fork.png)
 
   - ### Clone
-    To clone my project sign in to Github and go to my [repository]()<br>
-    See [Setting up MongoDB](#setting-up-mongodb), [Setting Up App](#setting-up-app), [Connecting to MongoDB](#connecting-to-mongodb) and [Heroku Deployment](#heroku-deploment) for more information about what will be required to run Pocket Bookcase.
+    To clone my project sign in to Github and go to my [repository](https://github.com/natalie-kate/music_to_my_ears)<br>
+    See [Setting up AWS](#setting-up-aws), [Setting Up Stripe](#setting-up-stripe), [Setting Up Project](#setting-up-app)
+    and [Heroku Deployment](#heroku-deploment) for more information about what will be required to run Music to my ears.
 
     *  Clone using command line 
         +  Next to the green Gitpod button is a button that says code, select this. There is a few options as to how you 
         would like to clone, if you choose https, SSH or Github CLI, select the clipboard icon to copy the URL.
         +  In your workspace that you've created, in the terminal , type git clone, paste the URL and enter.
 
-        ![Image showing the cloning options](static/images/readme-images/deployment/clone.png)
+        ![Image showing the cloning options](docs/readme-assets/readme-images/clone.png)
 
     *  Desktop Github
         + If you choose to clone by selecting open with desktop Github, it will guide you through the clone with prompts.<br>
