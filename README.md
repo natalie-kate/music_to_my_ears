@@ -211,22 +211,20 @@ Wireframes were created on Balsamiq (see links below)
     - Required for some of the bootstrap elements such as collapsibles, modal and tooltips.
 12. [Heroku](https://dashboard.heroku.com/apps)
     - For deploying the application
-13. [MongoDB](https://www.mongodb.com/)
+13. [Postgres](https://www.postgresql.org/)
     - Database used for our data
-14. [Flask](https://flask.palletsprojects.com/en/2.0.x/)
-    - Micro framework for building applications.
-15. [Emailjs](https://www.emailjs.com/)
-    - Used to link the contact form to my emails
-16. [RandomKeygen](https://randomkeygen.com/)
+14. [Django](https://www.djangoproject.com/)
+    - Framework for building applications.
+15. [Stripe](https://stripe.com/gb)
+    - Used for our online payment system
+16. [Django Secret Key Generator](https://miniwebtool.com/django-secret-key-generator/)
     - Used to generate secret key
 17. [dbdiagram](https://dbdiagram.io/home)
     - Used to create the database schema.
-18. [Werkzeug](https://werkzeug.palletsprojects.com/en/2.0.x/)
-    - Dependency of Flask and used security helpers.
-19. [Jinja](https://jinja.palletsprojects.com/en/3.0.x/)
-    - Dependency of Flask, templating language used in all my pages.
-20. [convertingcolors.com](https://convertingcolors.com/color-bucket.html)
+18. [convertingcolors.com](https://convertingcolors.com/color-bucket.html)
     - For making my colour palette picture
+19. [AWS](https://aws.amazon.com/)
+    - For hosting the static and media files required by the project.
 
 ## Challenges 
    These are aspects of the development that took me a while to figure out due to inexperience.
@@ -288,19 +286,38 @@ Testing and results can be found [here](TESTING.md)
     For more information or troubleshooting see the Github documentation 
     [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#about-cloning-a-repository)
 
+- ### Setting Up Project
+   
+    - Install requirements in terminal using pip3 install, see requirements below. If you have cloned my project you can use   pip3 install -r requirements.txt which will install everything for you.
+    
+      ![Image showing the requirements](docs/readme-assets/readme-images/requirements.png)
+
+    - Create a SECRET_KEY for django to use. I used [Django Secret Key Generator](https://miniwebtool.com/django-secret-key-generator/) for this. My settings.py file is set up to collect keys from the environment so name your variables accordingly. In github you go into settings from your dashboard and then variables. And add the following. You can complete the rest when you go through these sections. DEVELOPMENT value is set to True. Scope you can set to your repository name meaning its only accessible by that project or you can set it to */* meaning all your repositories can access them. 
+
+        ![Image showing the github variable set up](docs/readme-assets/readme-images/githubvariables.png)
+
+    - Ensure you have requirements.txt file and Procfile. These are required by Heroku so ensure these are pushed to github prior to deployment. Ensure all requirements are saved by using pip3 freeze > requirements.txt
+
 - ### Setting up AWS
 
 - ### Setting up Stripe
+    - Register with stripe [here](https://stripe.com/gb) if you don't already have an account. Didn't activate account as will be using free tier.
+    - In dashboard from main menu and then select developers and then API keys. Here you will get the publishable and secret keys. These shouldn't go into version control so add them as variables in your github environment for development and in Config Vars in Heroku if you are deploying this project. 
 
-- ### Setting Up app
-   
-    - Install requirements in terminal using pip3 install, see requirements below. 
+        ![Image showing the Developer menu](docs/readme-assets/readme-images/stripe_keys.png)
+
+    - We are also using webhooks in this project and so below API keys in the menu there is a Webhooks option, click into it and then select add endpoint.
+
+        ![Image showing add endpoint button](docs/readme-assets/readme-images/addendpoint.png)
     
-      ![Image showing the requirements](static/images/readme-images/deployment/requirements.png)
+    - You'll be asked for a url, this is your github workspace url with /checkout/wh/ added onto the end. When you deploy to Heroko you'll want to create an endpoint for it also, again with the /checkout/wh/ at the end. You then need to select events you want webhooks for. You can select all events but we only really need payment_intent.succeeded and payment_intent.payment_failed. as this is what we have wrote webhandlers for. Select Add Events and then Add Endpoint.
 
-    - Create requirements.txt file and Procfile by typing below into the console. These are required by Heroku so ensure these are pushed to github prior to deployment.
+        ![Image showing add endpoint url](docs/readme-assets/readme-images/endpoint_url.png)
+        ![Image showing add webhook events](docs/readme-assets/readme-images/add_events.png)
 
-      ![Image showing the commands in console](static/images/readme-images/deployment/pip3-freeze.png)
+    - Now in your new webhook, reveal Signing secret, copy this and this is the value for the STRIPE_WH_SECRET variable in your github settings. When you make a new endpoint for Heroku you will get a another Signing Secret to use.
+
+        ![Image showing Reveal signing secret link](docs/readme-assets/readme-images/reveal_secret.png)
 
 
 - ### Heroku deployment
