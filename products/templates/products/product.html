@@ -22,8 +22,8 @@
             <div class="carousel-inner">
             {% for image in images %}
             <div class="carousel-item">
-                <img src="/media/{{ image.image }}" class="d-block w-100"
-                    alt="Cover image of {{ product.title }} record">
+                <img src="{{ MEDIA_URL }}{{ image.image }}" class="d-block w-100"
+                    alt="Image of {{ product.title }} record">
             </div>
             {% endfor %}
             </div>

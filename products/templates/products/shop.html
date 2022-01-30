@@ -31,7 +31,7 @@
     <div class="col-8 offset-2 col-md-6 offset-md-0 col-lg-4">
       {% for image in images %}
         {% if image.vinyl == product %}
-          <img src="/media/{{ image.image }}" class="d-block w-100"
+          <img src="{{ MEDIA_URL }}{{ image.image }}" class="d-block w-100"
               alt="Cover image of {{ product.title }} record">
           <div class="text-center">
             <h4 class="title mt-1">{{ product.title }}</h4>
@@ -55,7 +55,7 @@
             {% for image in images %}
               {% if image.vinyl == product %}
                 <div class="carousel-item">
-                  <img src="/media/{{ image.image }}" class="d-block w-100"
+                  <img src="{{ MEDIA_URL }}{{ image.image }}" class="d-block w-100"
                       alt="Cover image of {{ product.title }} record">
                   <div class="text-center">
                     <h4 class="title mt-1">{{ product.title }}</h4>
