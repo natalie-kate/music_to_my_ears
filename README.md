@@ -48,14 +48,13 @@ This website was created for Milestone 4
 
    ### Strategy 
    - User goals 
-     * As a user I want help keeping track of my books.
-     * As a user I want to save my money and time by not buying books I already own or have read. 
+     * As a user I want to be able to by Vinyls.
+     * As a user I want an attractive easy to use site.
 
    - Site owner/ business goals
      * As the site owner I want my site to be responsive to different screen sizes.
      * As the site owner I want my site to be accessible to my visitors.
-     * As the site owner I want to build up media presence, to ultimately build up users so that I can earn money from affiliate links.
-     * Ultimately though I want to use the application to track my own books.
+     * As the site owner I want to build up media presence, to ultimately build up customers.
 
    ### User Stories
 
@@ -123,13 +122,15 @@ This website was created for Milestone 4
 
 -   Changing nav menu and footer links and buttons in depending on the users log in status, admin status and what event if any they have added.
 
--   Search bar for products and events.
+-   Able to search products for song, artist or album name.
+
+-   Can search events for name of event, location or details.
 
 -   'Back to top' footer link on each page, saves users from having to scroll up to Nav bar especially on mobile devices.
 
 -   Logged in users can add events to event board.
 
--   Logged in user can save their payment information and delivery address.
+-   Logged in user can save their addresses and default address, pre-fills Checkout form
 
 -   User can edit events on event board that they themselves added. 
 
@@ -145,13 +146,16 @@ This website was created for Milestone 4
 
 -   Cancel buttons on edit pages in case user changed their mind or got there accidentally.
 
+-   Confirmation email on registration and on successful purchase.
+
 
    #### Features to implement in the future
 
-
+- To be able to select one of their saved addresses to prefill the checkout form. I knew I wanted user to be able to save multiple addresses incase sending as a gift etc, so I've started the groundwork. But generally users billing and delivery addresses are the same and thats what they'll mostly use and so not a priority for initial launch.
+- To be able to change Vinyl default image from frontend rather than having to go into admin panel. Decided this wasn't a priority as more often than not the default image would be the front of the record so you really wouldn't want to change it unless you accidentally uploaded the wrong image but thats why I added the image previews for file input fields.
+- Would like to add customer reviews of vinyls and of the site.
 
 ### Structure
-
 
 - Created a database schema using [dbdiagram](https://dbdiagram.io/home), see below. 
 ![database schema]()
