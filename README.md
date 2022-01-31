@@ -298,7 +298,42 @@ Testing and results can be found [here](TESTING.md)
 
     - Ensure you have requirements.txt file and Procfile. These are required by Heroku so ensure these are pushed to github prior to deployment. Ensure all requirements are saved by using pip3 freeze > requirements.txt
 
+    - If using in development you will need to Run migrations usimg command python3 manage.py makemigrations and then python3 manage.py migrate. To create a superuser in the terminal to get access to admin panel, use command python3 manage.py createsuperuser and fill in details required.
+
 - ### Setting up AWS
+    - Register with AWS [here](https://aws.amazon.com/) if you don't already have an account, I'm just using the free tier. In AWS managment console, use the search box to find S3. Once selected click Create Bucket button, this will open a form, name your bucket and choose region nearest you, unselect block all public access checkbox and then Create Bucket.
+
+        ![Image showing the Create Bucket Button](docs/readme-assets/readme-images/new_bucket.png)
+        ![Image showing the Create Bucket form](docs/readme-assets/readme-images/create_bucket.png)
+
+    - Now in new bucket select Properties tab, scroll down to Static Website Hosting, click edit, select enable and down at index page, fill in index.html, this won't be used by us but its required by the bucket.
+
+        ![Image showing the bucket menu](docs/readme-assets/readme-images/bucket_menu.png)
+        ![Image showing the static website hosting section](docs/readme-assets/readme-images/static.png)
+
+    - Now in Permissions from the bucket menu, scroll down to CORS section and paste in below.
+
+        ![Image showing the CORS section](docs/readme-assets/readme-images/cors.png)
+    
+    - Still in permsssion select edit in bucket policy, then select Policy generator, fill in the following settings: Type- S3 Bucket Policy, Effect- Allow, Principal- *, AWS Service- Amazon S3, Actions- Get Object, Amazon Resource Name- paste in ARN number see example below.
+
+        ![Image showing the ARN number](docs/readme-assets/readme-images/bucket_policy.png)
+
+    - We now need to create a user to access the bucket. Using search box again search for IAM. Now in IAM select User Groups from menu, Create User Group, give it a name and Create Group.
+
+        ![Image showing the IAM menu](docs/readme-assets/readme-images/iam_menu.png)
+    
+    - Back in the menu select Policies, create Policy, then in json tab click Import Managed Policy link and select Amazon S3 Full Access. We want to edit the Resource section of it, so grab the ARN from your bucket and paste it in, and then again but with /* on the end, see example below. Now we can click next until we get to Revie policy page and give it a name and description and Create Policy.
+
+        ![Image showing the IAM policy](docs/readme-assets/readme-images/policy.png)
+
+    - In the User Group we just created , click Permissions and we can now attach the policy we just created
+    - Back in the IAM menu, select Users, add user, fill in a name, select Access Key- Programmatic Access, click Next. Add user to your new group by selecting it, Next and Create User. We now want to download and save our CSV file as this contains the keys we need and once you leave this page you can't get them again otherwise.
+
+        ![Image showing the Add User section](docs/readme-assets/readme-images/add_user.png)
+
+    - Now we have the AWS keys we can paste them in to our Heroku Config Vars. Now in projects settings.py, you'll need to replace the AWS_STORAGE_BUCKET_NAME with your own buckets name.
+    - Lastly we need to create a media file in our bucket. Back in your S3 home page, select your bucket, click Create Folder, folder name is media and create. You can now upload images to it.
 
 - ### Setting up Stripe
     - Register with stripe [here](https://stripe.com/gb) if you don't already have an account. Didn't activate account as will be using free tier.
@@ -328,7 +363,7 @@ Testing and results can be found [here](TESTING.md)
 
     - In new app page select settings from menu, click reveal config vars and complete the following, see Stripe and AWS sections for where to get their secret key values. DATABASE_URL will have been pre-filled when you selected Postgres. USE_AWS value is True for when we have set up AWS. SECRET_KEY was generated as before with Django Secret Key generator.
       
-      ![Image showing the config vars required](docs/readme-assets/readme-images/config-vars.png)
+      ![Image showing the config vars required](docs/readme-assets/readme-images/config_vars.png)
 
     - Next select 'Deploy' from menu, three options of deployment are available. If you select Heroku Git, it gives you step by step of what you need to do.
 
@@ -336,9 +371,11 @@ Testing and results can be found [here](TESTING.md)
 
     - I chose to use Github, so you have to search and connect to your github repository. 
     
-    - Click enable automatic deployment, below that in manual deploy section, you can pick and deploy a branch to ensure everything is et up correctly. 
+    - Click enable automatic deployment, below that in manual deploy section, you can pick and deploy a branch to ensure everything is set up correctly. 
 
       ![Image showing manual deployment](docs/readme-assets/readme-images/manual_deploy.png)
+    
+    - You will now need to migrate and create superuser as above in Setting Up Project section.
 
 ## Credits
 
