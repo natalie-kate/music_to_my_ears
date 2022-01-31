@@ -116,12 +116,12 @@
                 <p><a class="footer-link btt-link" href="" aria-label="Link back totop of page">Back to Top</a></p>
                 <!-- If user logged in these links will be displayed -->
                 {% if request.user.is_authenticated %}
-                <p><a class="footer-link" href="{% url 'account_logout' %}" aria-label="link to sign out page">Sign Me
-                        Out</a></p>
-                {% endif %}
-                {% if not on_profile_page %}
-                <p><a class="footer-link" href="{% url 'profile' %}" aria-label="link to edit account">My Profile</a>
-                </p>
+                    <p><a class="footer-link" href="{% url 'account_logout' %}" aria-label="link to sign out page">Sign Me
+                            Out</a></p>
+                    {% if not on_profile_page %}
+                    <p><a class="footer-link" href="{% url 'profile' %}" aria-label="link to edit account">My Profile</a>
+                    </p>
+                    {% endif %}
                 {% endif %}
             </div>
         </div>
