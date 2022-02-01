@@ -224,7 +224,7 @@ hr {
 }
 
 hr.light {
-    width: 25vw;
+    width: 35%;
     height: 2.5px;
 }
 
@@ -269,6 +269,11 @@ fieldset.total {
 fieldset legend {
     font-size: 22px; 
     color:  rgb(239 112 102);
+}
+
+h3,
+h4 {
+    color: rgb(239 112 102);
 }
 
 #loading-overlay {
