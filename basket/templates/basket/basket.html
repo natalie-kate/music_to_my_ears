@@ -14,10 +14,10 @@
 <div class="row">
     {% if basket_products %}
         {% for item in basket_products %}
-        <div class="col-8 offset-2 col-md-3 offset-md-2 text-center">
+        <div class="col-8 offset-2 col-md-3 offset-md-2 text-center mt-3">
             {% for image in item.product_images %}
               {% if image.default %}
-                <img src="/media/{{ image.image }}" class="w-75"
+                <img src="{{ MEDIA_URL }}{{ image.image }}" class="w-75"
                     alt="Cover image of {{ product.title }} record">
               {% endif %}
             {% endfor %}
@@ -30,7 +30,7 @@
               <a data-toggle="collapse" href="#{{ item.product_name }}_edit" class="mr-2" 
               aria-label="Will open edit quantity section"><i class="fas fa-pencil-alt"></i> Edit quantity </a> | 
               <a data-toggle="collapse" href="#{{ item.product_name }}_delete" class="ml-2" 
-              aria-label="Will open remove product confirmation section"><i class="fas fa-trash-alt"></i> Remove Item</a>
+              aria-label="Will open remove product confirmation section"><i class="fas fa-trash-alt"></i> Delete</a>
             </p>
             <div id="{{ item.product_name }}_edit" class="collapse">
               <form method="POST" action="{% url 'edit_quantity' item.product_id %}">
@@ -42,9 +42,9 @@
                   {% endfor %}
                 </select>
                 <button class="my-btn btn hover mt-2 mb-2" type="submit">Update basket</button>
+                <a data-toggle="collapse" href="#{{ item.product_name }}_edit" class="mr-2" 
+                  aria-label="Will close edit quantity section">Cancel</a>
               </form>
-              <a data-toggle="collapse" href="#{{ item.product_name }}_edit" class="mr-2" 
-              aria-label="Will close edit quantity section">Cancel</a>
             </div>
             <div id="{{ item.product_name }}_delete" class="collapse">
               <p>Are you sure you want to remove {{ item.product }} from your basket?</p>
@@ -53,14 +53,17 @@
               aria-label="Will close remove product confirmation section">Cancel</a>
             </div>
             {% if product_count > 1 %}
+              <div class="col-4 offset-8 mt-3">
+                <hr class="light">
+              </div>
               <p class="text-right"><strong>Item Subtotal: </strong>£{{ item.item_total }}</p>
             {% endif %}
         </div>
-        <div class="col-6 offset-6">
-           <hr class="light">
-        </div>
         {% endfor %}
-        <div class="col-8 offset-2 text-right">
+        <div class="col-4 offset-4 mt-3">
+          <hr class="light">
+       </div>
+        <div class="col-8 offset-2 col-md-4 offset-md-4 text-center">
           <h3>Total <i class="fas fa-calculator"></i></h3>
           <p>
             <strong>Number of items: </strong>{{ product_count }}<br>
