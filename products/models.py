@@ -1,5 +1,6 @@
 """ Imports for products app models"""
 from django.db import models
+from .validators import validate_tracklist
 
 
 class Genre(models.Model):
@@ -24,7 +25,7 @@ class Vinyl(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField(null=True, blank=True)
     stock_quantity = models.IntegerField(default=1)
-    track_list = models.TextField()
+    track_list = models.TextField(validators=[validate_tracklist])
 
     def __str__(self):
         return self.title
