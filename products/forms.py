@@ -1,6 +1,7 @@
 from django import forms
 from .models import Vinyl, Genre
-
+from .validators import validate_tracklist
+ 
 
 class ProductForm(forms.ModelForm):
 
@@ -17,4 +18,5 @@ class ProductForm(forms.ModelForm):
         self.fields['track_list'].widget.attrs['placeholder'] = (
             'Add in tracklist e.g 1. Track Title, '
             'separating titles with a comma!')
+        self.fields['track_list'].validators.append(validate_tracklist)
         self.fields['genre'].choices = friendly_names
