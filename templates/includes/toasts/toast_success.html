@@ -16,7 +16,8 @@
             {% for image in item.product_images %}
                 {% if image.default %}
                     <img src="{{ MEDIA_URL }}{{ image.image }}" class="w-75"
-                        alt="Cover image of {{ product.title }} record">
+                        alt="Cover image of {{ product.title }} record"
+                        onerror="this.onerror=null;this.src='{{ MEDIA_URL }}/backup-img.jpg'">>
                 {% endif %}
             {% endfor %}
         </div>
