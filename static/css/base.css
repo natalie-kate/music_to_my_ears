@@ -320,6 +320,17 @@ input[name=rate_us]:checked~label {
     height: 300px;
     object-fit: cover;
 }
+
+/*---- https://stackoverflow.com/questions/19794211
+/horizontal-scroll-on-overflow-of-table----*/
+table {
+    display: block;
+    font-size: 16px;
+    max-width: fit-content;
+    margin: 0 auto;
+    overflow-x: auto;
+  }
+
 /*---- Media Queries ----*/
 
 @media(max-width: 350px) {
