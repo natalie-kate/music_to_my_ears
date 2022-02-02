@@ -170,6 +170,8 @@ def checkout_success(request, order_number):
         find_product = Vinyl.objects.get(title=product.product)
         image = Image.objects.filter(vinyl=find_product, default=True)
         images.append(image[0])
+        find_product.stock_quantity -= product.quantity
+        find_product.save()
 
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
