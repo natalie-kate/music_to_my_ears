@@ -68,7 +68,7 @@
         <p><strong>Order Date: </strong>{{ order.order_date|date:"D d M Y" }}<br>
         <strong>Order Number: </strong>
         <a href="{% url 'order_history' order.order_number %}" title="{{ order.order_number }}">
-          {{ order.order_number | truncatechars:8 }}</a>
+          {{ order.order_number | truncatechars:4 }}</a>
         </p>
       </div>
       <hr>
