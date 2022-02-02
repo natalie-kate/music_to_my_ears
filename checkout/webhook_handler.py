@@ -188,6 +188,8 @@ class StripeWH_Handler:
                         quantity=quantity,
                     )
                     order_line_item.save()
+                    product.stock_quantity -= quantity
+                    product.save()
 
             except Exception as error:
                 if order:
