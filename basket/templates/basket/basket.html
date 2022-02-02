@@ -36,19 +36,20 @@
               <form method="POST" action="{% url 'edit_quantity' item.product_id %}">
                 {% csrf_token %}
                 <label for="quantity_selector">Quantity:</label><br>
-                <select class="form-control quantity" id="quantity_selector" name="quantity">
+                <select class="form-control quantity mb-2" id="quantity_selector" name="quantity">
                   {% for quantity in item.stock_quantity_list %}
                   <option value="{{ quantity }}">{{ quantity }}</option>
                   {% endfor %}
                 </select>
-                <button class="my-btn btn hover mt-2 mb-2" type="submit">Update basket</button>
-                <a data-toggle="collapse" href="#{{ item.product_name }}_edit" class="mr-2" 
+                <button class="btn-md my-btn btn hover" type="submit">Update basket</button>
+                <a data-toggle="collapse" href="#{{ item.product_name }}_edit" class="ml-2" 
                   aria-label="Will close edit quantity section">Cancel</a>
               </form>
             </div>
-            <div id="{{ item.product_name }}_delete" class="collapse">
+            <div id="{{ item.product_name }}_delete" class="collapse text-center">
               <p>Are you sure you want to remove {{ item.product }} from your basket?</p>
-              <a href="{% url 'delete_item' item.product_id %}">Yes, I'm sure </a>
+              <a class="btn btn-md my-btn hover" href="{% url 'delete_item' item.product_id %}"
+               aria-label="Will delete item from basket">Yes, I'm sure </a> 
               <a data-toggle="collapse" href="#{{ item.product_name }}_delete" class="ml-2" 
               aria-label="Will close remove product confirmation section">Cancel</a>
             </div>
