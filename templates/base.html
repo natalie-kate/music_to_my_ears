@@ -34,10 +34,10 @@
             </div>
             <div class="shopping-bag text-center">
                 <a class="shopping-bag" href="{% url 'view_basket' %}">
-                    <i class="fas fa-shopping-basket fa-lg"></i>
+                    <i class="fas fa-shopping-basket fa-lg"></i></small><sup>({{ product_count }})</sup>
                     <p>
                         {% if basket_products %}
-                        £{{ grand_total|floatformat:2 }} ({{ product_count }})
+                        <small>£{{ grand_total|floatformat:2 }}</small>
                         {% else %}
                         £0.00
                         {% endif %}
