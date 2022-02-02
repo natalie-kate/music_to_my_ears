@@ -29,7 +29,8 @@
         {% for event in events %}
         <div class="col-12 col-md-6 col-lg-4 mt-3">
             <div class="card">
-                <img src="{{ MEDIA_URL }}{{ event.image }}" class="card-img-top" alt="Poster for {{ event.name }} event">
+                <img src="{{ MEDIA_URL }}{{ event.image }}" class="card-img-top" alt="Poster for {{ event.name }} event"
+                onerror="this.onerror=null;this.src='{{ MEDIA_URL }}/openmmic.jpg'">
                 <div class="card-body">
                   <h3 class="card-title text-center">{{ event.name }}</h3>
                   <p>

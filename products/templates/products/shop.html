@@ -32,7 +32,8 @@
       {% for image in images %}
         {% if image.vinyl == product %}
           <img src="{{ MEDIA_URL }}{{ image.image }}" class="d-block w-100"
-              alt="Cover image of {{ product.title }} record">
+              alt="Cover image of {{ product.title }} record" 
+              onerror="this.onerror=null;this.src='{{ MEDIA_URL }}/backup-img.jpg'">
           <div class="text-center">
             <h4 class="title mt-1">{{ product.title }}</h4>
             <p class="artist">{{ product.artist }}</p>

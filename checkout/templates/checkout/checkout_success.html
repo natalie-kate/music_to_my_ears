@@ -68,7 +68,8 @@
             {% for image in images %}
             {% if image.vinyl == item.product %}
               <td>
-                <img class="success-img" src="{{ MEDIA_URL }}{{ image.image }}" alt="Cover image of {{ item.title }} record">
+                <img class="success-img" src="{{ MEDIA_URL }}{{ image.image }}" alt="Cover image of {{ item.title }} record"
+                onerror="this.onerror=null;this.src='{{ MEDIA_URL }}/backup-img.jpg'">
               </td>
             {% endif %}
             {% endfor %}
