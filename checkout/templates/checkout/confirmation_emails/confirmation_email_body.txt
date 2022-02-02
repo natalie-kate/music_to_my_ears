@@ -5,7 +5,7 @@ This is just to confirm your Music To My Ears order, which is detailed below.
 Order Number: {{ order.order_number }}
 Order Date: {{ order.order_date }}
 
-Order Total: £{{ order.order_total }}
+Order Total: £{{ order.order_total|floatformat:2 }}
 Delivery: £{{ order.delivery_cost|floatformat:2 }}
 Grand Total: £{{ order.grand_total|floatformat:2 }}
 
