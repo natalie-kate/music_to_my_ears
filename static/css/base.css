@@ -47,6 +47,10 @@ body{
     padding: 5px;
 }
 
+.nav-item .nav-link {
+    font-size: 18px;
+}
+
 .checkout-btn {
     height: 50px;
     width: 200px;
@@ -170,6 +174,7 @@ body{
 
 .social,
 .nav-link,
+.fa-bars,
 .footer-link {
     color: #225e6c;
     font-size: 20px;
@@ -190,6 +195,7 @@ body{
 }
 
 .nav-link:hover,
+.fa-bars,
 .footer-link:hover,
 .social:hover,
 .shopping-bag,
@@ -329,6 +335,9 @@ input[name=rate_us]:checked~label {
         padding: 0;
         border-radius: 10px;
     } 
+    .nav-item .nav-link {
+        font-size: 16px;
+    }
 }
 
 @media(min-width:1000px){
@@ -339,4 +348,20 @@ input[name=rate_us]:checked~label {
         padding: 0;
         border-radius: 10px;
     } 
+    .nav-item .nav-link {
+        font-size: 18px;
+    }
+}
+
+@media(min-width:1200px){
+    .image-container {
+        height: 40vh;
+        background: url("/media/record-shop.jpg") no-repeat bottom -200px center;
+        background-size: cover;
+        padding: 0;
+        border-radius: 10px;
+    } 
+    .nav-item .nav-link {
+        font-size: 20px;
+    }
 }
