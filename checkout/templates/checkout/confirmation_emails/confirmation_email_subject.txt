@@ -1,1 +1,1 @@
-Confirmation of Order Number: {{ order.order_number }} from Music To My Ears 
+Confirmation of Order Number: {{ order.order_number | truncatechars:5 }} from Music To My Ears 
