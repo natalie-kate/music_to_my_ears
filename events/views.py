@@ -11,7 +11,9 @@ from .models import Event
 @login_required
 def view_events(request):
     # View to render the events page
-    events = Event.objects.all()
+    events = Event.objects.all() 
+    if not events:
+        events = None
 
     if request.GET:
         # Returns any event search results
