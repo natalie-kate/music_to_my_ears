@@ -62,7 +62,8 @@ def add_event(request):
                 return redirect(reverse('events'))
      
             except Event.DoesNotExist:
-                instance.user = request.user
+                user = User.objects.get(username=request.user)
+                instance.user = user
                 instance.save()
                 messages.success(request, 'Successfully added event!')
                 return redirect(reverse('events'))
