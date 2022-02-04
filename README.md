@@ -1,10 +1,10 @@
 # Music To My Ears
 
-Here is a link to the live project. ()
+Here is a link to the live project. (https://music-to-my-ears-nka.herokuapp.com/)
 
 This website was created for Milestone 4 
 
-![Image showing the website displayed on different screen sizes]()
+![Image showing the website displayed on different screen sizes](docs/readme-assets/readme-images/responsive.png)
 
 ## Contents 
 
@@ -157,8 +157,9 @@ This website was created for Milestone 4
 
 ### Structure
 
-- Created a database schema using [dbdiagram](https://dbdiagram.io/home), see below. 
-![database schema]()
+- Created a database schema using [GraphizOnline](https://dreampuf.github.io/GraphvizOnline/), as per Emmets instructions on [slack](https://code-institute-room.slack.com/archives/C7HS3U3AP/p1642276160282900) see [here](/static/readme_assets/readme-images/db-schema.png) to view better.
+
+     ![image showing database schema](docs/readme-assets/readme-images/db-schema.png)
 
 ### Skeleton 
 
@@ -171,14 +172,20 @@ Wireframes were created on Balsamiq (see links below)
 ### Surface
 
  -   #### Colour Scheme
+    
+    Picked these colors from the landing page image using the colour picker from Chrome devtools. These colours create set the feel of the site, the teal is modern and trendy but the peach offsets that with a warm and welcoming accent. 
+    
+    ![image showing color scheme](docs/readme-assets/readme-images/color-palette.png)
         
-
 -   #### Typography
          
-      Used [Google Fonts](https://fonts.google.com/) to import the fonts used for this site.
+    Used [Google Fonts](https://fonts.google.com/) to import the fonts used for this site.
+    Picked Special Elite as it was reminiscent of the font used for the tracklist found on old vinyl record labels.
       
 -   #### Imagery
 
+    The images I've used on the top of each page were picked to create the feel and atmosphere of an old school music shop where you could leisurely peruse the music and pick out your next favourite band.
+    
 ## Technologies 
 
 ### Languages Used
@@ -223,7 +230,7 @@ Wireframes were created on Balsamiq (see links below)
     - Used for our online payment system
 16. [Django Secret Key Generator](https://miniwebtool.com/django-secret-key-generator/)
     - Used to generate secret key
-17. [dbdiagram](https://dbdiagram.io/home)
+17. [GraphizOnline](https://dreampuf.github.io/GraphvizOnline/)
     - Used to create the database schema.
 18. [convertingcolors.com](https://convertingcolors.com/color-bucket.html)
     - For making my colour palette picture
