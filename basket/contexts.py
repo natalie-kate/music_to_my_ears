@@ -39,11 +39,11 @@ def basket_contents(request):
                 'stock_quantity_list': stock_quantity_list
             })
         else:
-            # If stock nno longer available since user had added to basket
+            # If stock no longer available since user had added to basket
             # Error message shown to user and added to bin.
             messages.error(request, (
                 f'Sorry { product.title} no longer has { quantity }'
-                'left in stock.'))
+                ' left in stock.'))
             basket_bin.append(product_id)
 
     # If products in bin, remove from session 'basket'
