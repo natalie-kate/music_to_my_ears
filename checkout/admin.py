@@ -15,17 +15,18 @@ class OrderAdmin(admin.ModelAdmin):
     to edit in admin console for orders """
     inlines = (OrderLineItemAdminInline,)
 
-    readonly_fields = ('user_profile','order_number', 'order_date',
+    readonly_fields = ('user_profile', 'order_number', 'order_date',
                        'delivery_cost', 'order_total',
                        'grand_total', 'basket',
                        'stripe_pid')
 
-    fields = ('user_profile', 'order_date', 'order_number', 'first_name', 'surname',
-              'email', 'phone_number', 'street_address1', 'street_address2',
-              'town_or_city', 'county', 'country',  'postcode',
-              'delivery_street_address1', 'delivery_street_address2',
-              'delivery_town_or_city', 'delivery_county', 'delivery_country',
-              'delivery_postcode','order_total', 'delivery_cost',
+    fields = ('user_profile', 'order_date', 'order_number', 'first_name',
+              'surname', 'email', 'phone_number', 'street_address1',
+              'street_address2', 'town_or_city', 'county', 'country',
+              'postcode', 'delivery_street_address1',
+              'delivery_street_address2', 'delivery_town_or_city',
+              'delivery_county', 'delivery_country',
+              'delivery_postcode', 'order_total', 'delivery_cost',
               'grand_total', 'basket', 'stripe_pid')
 
     list_display = ('order_number', 'order_date', 'surname',
