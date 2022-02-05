@@ -14,11 +14,11 @@ body{
 }
 
 .title-container h1 {
-    margin-top: 25vh;
+    margin-top: 20vh;
 }
 
 .image-container {
-    height: 25vh;
+    height: 20vh;
     background: url("/media/record-shop.jpg") no-repeat bottom -50px center;
     background-size: cover;
     padding: 0;
@@ -26,7 +26,7 @@ body{
 }
 
 .header-container {
-    height: 25vh;
+    height: 20vh;
     background: url("/media/guitar.jpg") no-repeat center center;
     background-size: cover;
     padding: 0;
@@ -34,7 +34,7 @@ body{
 }
 
 .contact-image-container {
-    height: 25vh;
+    height: 20vh;
     background: url("/media/record-small.jpg") no-repeat center center;
     background-size: cover;
     padding: 0;
@@ -353,6 +353,10 @@ table {
         padding: 0;
         border-radius: 10px;
     } 
+    .header-container,
+    .contact-image-container {
+        height: 40vh;
+    }   
     .nav-item .nav-link {
         font-size: 16px;
     }
