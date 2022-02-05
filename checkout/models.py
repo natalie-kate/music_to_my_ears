@@ -1,9 +1,9 @@
 """ Imports required for checkout app models """
 import uuid
+from decimal import Decimal
 from django.db import models
 from django.db.models import Sum
 from django_countries.fields import CountryField
-from decimal import Decimal
 from products.models import Vinyl
 from profiles.models import UserProfile
 
