@@ -1,6 +1,7 @@
+<!-- Gets code from base.html  -->
 {% extends 'base.html' %}
-{% load static %}
 
+<!-- Page header image -->
 {% block image %}
 <div class="image-container">
   <div class="row">
@@ -10,36 +11,43 @@
 </div>
 {% endblock %}
 
+<!-- Page content -->
 {% block content %}
 {% if from_profile %}
+<!-- If coming from profile show alternative h2 and p -->
 <h2 class="text-center mt-4">Order History </h2>
 <div class="row">
   <div class="col-10 offset-1 col-md-8 offset-md-2">
     <p>This is a previous order confirmation, you should have recieved a confirmation
-       email on {{ order.order_date|date:"D d M Y"}} to {{ order.email }}</p>
+      email on {{ order.order_date|date:"D d M Y"}} to {{ order.email }}</p>
 {% else %}
+<!-- Otherwise use this header and paragraph-->
 <h2 class="text-center mt-4"> Success! <span class="green"><i class="fas fa-check"></i></span></h2>
 <div class="row">
   <div class="col-10 offset-1 col-md-8 offset-md-2">
     <h3>Order Details </h3>
-    <p>Thanks for your order {{order.first_name }}, you'll recieve a confirmation email shortly to {{ order.email }}.<br>
-      Meanwhile you can see the order details below, if you're a registered user you can also find your 
+    <p>Thanks for your order {{order.first_name }}, you'll recieve a confirmation email shortly to
+      {{ order.email }}.<br>
+      Meanwhile you can see the order details below, if you're a registered user you can also find your
       order history on your profile.</p>
 {% endif %}
+    <!-- Display order details-->
     <p><strong>Order number: </strong>{{ order.order_number }}</p>
     <p><strong>Order date: </strong>{{ order.order_date }}</p>
     <p><strong>Order total: </strong>£{{ order.grand_total }}</p>
     <p><strong>Delivery Address: </strong><br>
+       <!-- If there is delivery address use it -->
       {% if order.delivery_street_address1 %}
         {{ order.delivery_street_address1 }},<br>
-        {% if order.delivery_street_address2 %}
-          {{ order.delivery_street_address2 }},<br>
-        {% endif %}
+          {% if order.delivery_street_address2 %}
+            {{ order.delivery_street_address2 }},<br>
+          {% endif %}
         {{ order.delivery_town_or_city }},<br>
         {{ order.delivery_county }},<br>
         {{ order.delivery_country }},<br>
         {{ order.delivery_postcode }}
       {% else %}
+        <!-- If no seperate  delivery address use billing address -->
         {{ order.street_address1 }},<br>
         {% if order.street_address2 %}
           {{ order.street_address2 }},<br>
@@ -50,51 +58,54 @@
         {{ order.postcode }}
       {% endif %}
     </p>
+    <!-- Products ordered table -->
     <p><strong>Vinyls ordered: </strong></p>
     <table class="table table-responsive">
       <thead>
-          <tr>
-              <th scope="col">Product</th>
-              <th scope="col">Title</th>
-              <th scope="col">Artist</th>
-              <th scope="col">Price</th>
-              <th scope="col">Qty</th>
-              <th scope="col">Subtotal</th>
-          </tr>
+        <tr>
+          <th scope="col">Product</th>
+          <th scope="col">Title</th>
+          <th scope="col">Artist</th>
+          <th scope="col">Price</th>
+          <th scope="col">Qty</th>
+          <th scope="col">Subtotal</th>
+        </tr>
       </thead>
 
       {% for item in order.lineitems.all %}
-          <tr>
-            {% for image in images %}
-            {% if image.vinyl == item.product %}
-              <td>
-                <img class="success-img" src="{{ MEDIA_URL }}{{ image.image }}" alt="Cover image of {{ item.title }} record"
-                onerror="this.onerror=null;this.src='{{ MEDIA_URL }}/backup-img.jpg'">
-              </td>
-            {% endif %}
-            {% endfor %}
-              <td>
-                  {{ item.product.title }}
-              </td>
-              <td>
-                  {{ item.product.artist }}
-              </td>
-              <td>
-                  <p>£{{ item.product.price }}</p>
-              </td>
-              <td>
-                <p>{{ item.quantity }}</p>
-            </td>
-              <td>
-                 {{ item.lineitem_total}}
-              </td>
-          </tr>
+      <tr>
+        {% for image in images %}
+          {% if image.vinyl == item.product %}
+          <td>
+            <img class="success-img" src="{{ MEDIA_URL }}{{ image.image }}"
+              alt="Cover image of {{ item.title }} record"
+              onerror="this.onerror=null;this.src='{{ MEDIA_URL }}/backup-img.jpg'">
+          </td>
+          {% endif %}
+        {% endfor %}
+        <td>
+          {{ item.product.title }}
+        </td>
+        <td>
+          {{ item.product.artist }}
+        </td>
+        <td>
+          <p>£{{ item.product.price }}</p>
+        </td>
+        <td>
+          <p>{{ item.quantity }}</p>
+        </td>
+        <td>
+          {{ item.lineitem_total}}
+        </td>
+      </tr>
       {% endfor %}
     </table>
   </div>
+  <!-- Links back to profile or shop depending on where user came from -->
   <div class="col-10 offset-1 text-center">
     {% if from_profile %}
-      <a class="btn my-btn pay-btn btn-md hover" href="{% url 'profile' %}">Back to Profile? </a>
+     <a class="btn my-btn pay-btn btn-md hover" href="{% url 'profile' %}">Back to Profile? </a>
     {% else %}
       <a class="btn my-btn pay-btn btn-md hover" href="{% url 'shop' %}">Back to shop? </a>
     {% endif %}

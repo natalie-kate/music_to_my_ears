@@ -1,6 +1,8 @@
+<!-- Gets code from base.html and loads apps static files  -->
 {% extends 'base.html' %}
 {% load static %}
 
+<!-- Page header image -->
 {% block image %}
 <div class="image-container">
   <div class="row">
@@ -10,12 +12,14 @@
 </div>
 {% endblock %}
 
+<!-- Page content -->
 {% block content %}
 <h2 class="text-center mt-4"> Checkout </h2>
 <div class="row">
     <div class="text-center col-12">
         <a href="{% url 'view_basket' %}"><i class="fas fa-backward"></i> Back to Basket</a>
     </div>
+    <!-- Payment information form -->
     <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
         <form method="POST" action="{% url 'checkout' %}" id="payment-form">
             {% csrf_token %}
@@ -44,6 +48,7 @@
                 {{ delivery_form.delivery_country | as_crispy_field }}
                 {{ delivery_form.delivery_postcode | as_crispy_field }}
             </fieldset>
+             <!-- Save information checkbox with link to register or login to do so -->
             <div class="col-12 text-center mb-2 save-info">
                 {% if user.is_authenticated %}
                 <label for="#save-info">Save this information for next time?</label>
@@ -79,6 +84,7 @@
         </form>
     </div>
 </div>
+<!-- Loading overlay while payment being processed -->
 <div id="loading-overlay">
     <div class="loading-spinner">
         <span class="btn btn-lg hover spinning-record"><span> Won't be </span>
@@ -87,6 +93,7 @@
 </div>
 {% endblock %}
 
+ <!-- Page script -->
 {% block postloadjs %}
     {{ block.super }}
     {{ stripe_public_key|json_script:"id_stripe_public_key" }}

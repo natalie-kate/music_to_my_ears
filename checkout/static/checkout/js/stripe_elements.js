@@ -1,3 +1,4 @@
+// Declare variables
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 var clientSecret = $('#id_client_secret').text().slice(1, -1);
 var stripe = Stripe(stripePublicKey);
@@ -20,6 +21,8 @@ var style = {
 var card = elements.create('card', {style: style});
 card.mount('#card-element');
 
+// Add change event listener and display error message
+// if there is one.
 card.addEventListener('change', function(event) {
     var errorDiv = document.getElementById('card-errors');
     if (event.error) {
@@ -37,6 +40,9 @@ card.addEventListener('change', function(event) {
 // Handle form submit
 var form = document.getElementById('payment-form');
 
+// Add submit event listener to prevent default
+// Disable submit button, show overlay while payment
+// being processed
 form.addEventListener('submit', function(ev) {
     ev.preventDefault();
     card.update({ 'disabled': true});
@@ -53,6 +59,7 @@ form.addEventListener('submit', function(ev) {
     };
     var url = '/checkout/cache_checkout_data/';
 
+    // Get information from form and send to stripe
     $.post(url, postData).done(function () {
         stripe.confirmCardPayment(clientSecret, {
             payment_method: {
@@ -84,6 +91,8 @@ form.addEventListener('submit', function(ev) {
                 }
             },
         }).then(function(result) {
+            // If stripe returns an error, show form again, error message
+            // and reactivate submit button
             if (result.error) {
                 var errorDiv = document.getElementById('card-errors');
                 var html = `
@@ -97,13 +106,14 @@ form.addEventListener('submit', function(ev) {
                 $('#loading-overlay').hide();
                 $('#submit-button').attr('disabled', false);
             } else {
+                // If no error submit form to create order in our database
                 if (result.paymentIntent.status === 'succeeded') {
                     form.submit();
                 }
             }
         });
-    }) .fail(function() {
-        // just reload the page, the error will be in django messages
+    }).fail(function() {
+        // Reload the page if failure
         location.reload();
     })
 });
