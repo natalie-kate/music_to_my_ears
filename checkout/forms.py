@@ -1,9 +1,12 @@
+""" Imports required for forms """
 from django import forms
 from .models import Order
 
 
 class OrderForm(forms.ModelForm):
+    """ Create OrderForm class """
     class Meta:
+        """ Fields to render from model """
         model = Order
         fields = (
             'first_name', 'surname', 'email', 'phone_number',
@@ -12,10 +15,8 @@ class OrderForm(forms.ModelForm):
             )
 
     def __init__(self, *args, **kwargs):
-        """
-        Add placeholders and required attribute, remove auto-generated
-        labels and set autofocus on first field
-        """
+        """ Add placeholders and required attribute,
+        set autofocus on first field """
         super().__init__(*args, **kwargs)
         placeholders = {
             'first_name': 'Josephine',
@@ -41,7 +42,9 @@ class OrderForm(forms.ModelForm):
 
 
 class DeliveryForm(forms.ModelForm):
+    """ Create DeliveryForm class """
     class Meta:
+        """ Fields to render from model """
         model = Order
         fields = (
             'delivery_street_address1', 'delivery_street_address2',
