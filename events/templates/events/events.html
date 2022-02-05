@@ -15,7 +15,7 @@
   <a class="btn my-btn pay-btn hover" aria-label="Link to add event page" href="{% url 'add_event' %}">
     Add Event <i class="fas fa-plus"></i></a>
 </div>
-<form id="events-search-form" method="GET" action="{% url 'events' %}" class="mt-2">
+<form id="events-search-form" method="GET" action="{% url 'events' %}" class="mt-4">
     <div class="row search-box">
       <div class="col-12 mb-1 text-center">
         <input type="text" name="search" id="search" placeholder="e.g location" aria-label="Search" required>
@@ -58,9 +58,8 @@
         </div>
         {% endfor %}
     {% else %}
-    <div class="col-10 offset-1 text-center">
+    <div class="col-10 offset-1 text-center mt-4">
         <p>No events to show at the moment, why not add one!</p>
-        <a class="btn my-btn pay-btn hover" aria-label="Link to add event page" href="{% url 'add_event' %}">Add Event</a>
     </div>
     {% endif %}
 </div>
