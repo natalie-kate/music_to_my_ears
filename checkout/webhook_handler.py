@@ -7,12 +7,13 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
 from products.models import Vinyl
-from profiles.models import UserProfile, SavedAddress
-from profiles.forms import UserProfileForm, SavedAddressForm
+from profiles.models import UserProfile
+from profiles.forms import UserProfileForm
 from .models import Order, OrderLineItem
+from .views import save_address
 
 
-class StripeWH_Handler:
+class StripeWhHandler:
     """Handle Stripe webhooks"""
 
     def __init__(self, request):
@@ -71,6 +72,14 @@ class StripeWH_Handler:
                     'default_country': billing_details.address.country,
                     'default_postcode': billing_details.address.postal_code,
                 }
+                save_profile_address = {
+                    'saved_street_address1': billing_details.address.line1,
+                    'saved_street_address2': billing_details.address.line2,
+                    'saved_town_or_city': billing_details.address.city,
+                    'saved_county': billing_details.address.state,
+                    'saved_country': billing_details.address.country,
+                    'saved_postcode': billing_details.address.postal_code,
+                }
                 save_address_data = {
                     'saved_street_address1': delivery_details.address.line1,
                     'saved_street_address2': delivery_details.address.line2,
@@ -85,55 +94,13 @@ class StripeWH_Handler:
                 if user_profile_form.is_valid():
                     # If user profile form is valid save the billing address as
                     # users default address
-
                     user_profile_form.save()
 
-                    # Now create SavedAddress instance if it does not already
-                    # exist in db for this user
-                    try:
-                        address = SavedAddress.objects.get(
-                            saved_street_address1__iexact=(
-                                billing_details.address.line1),
-                            user=user,
-                        )
-                        save_address = True
-                    except SavedAddress.DoesNotExist:
-                        save_profile_address = {
-                            'saved_street_address1': (
-                                billing_details.address.line1),
-                            'saved_street_address2': (
-                                billing_details.address.line2),
-                            'saved_town_or_city': billing_details.address.city,
-                            'saved_county': billing_details.address.state,
-                            'saved_country': billing_details.address.country,
-                            'saved_postcode': (
-                                billing_details.address.postal_code),
-                        }
-                        save_address_form = SavedAddressForm(
-                            save_profile_address)
-                        save_address = False
-                    if not save_address:
-                        address = save_address_form.save(commit=False)
-                        address.user = user
-                        address.save()
-
-            # Now doing the same above but for the delivery address data
-            # from the form
-            save_address_form = SavedAddressForm(save_address_data)
-            if save_address_form.is_valid():
-                try:
-                    address = SavedAddress.objects.get(
-                        saved_street_address1__iexact=(
-                            delivery_details.address.line1),
-                        user=user,
-                    )
-                    save_address = True
-                except SavedAddress.DoesNotExist:
-                    save_address = False
-                if not save_address:
-                    address = save_address_form.save(commit=False)
-                    address.user = user
-                    address.save()
+                # Now create SavedAddress instance if it does not already
+                # exist in db for this user
+                save_address(user, save_profile_address)
+                if save_address_data:
+                    save_address(user, save_address_data)
 
         # Now for everyone non-registered and registered
         # Check if order already exists in the database
