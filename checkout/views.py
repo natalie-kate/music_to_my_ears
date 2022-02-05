@@ -1,6 +1,8 @@
+""" Imports required """
 import json
 from django.shortcuts import (
     render, redirect, reverse, get_object_or_404, HttpResponse)
+from django.contrib.auth.models import User
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
@@ -15,6 +17,7 @@ from .models import Order, OrderLineItem
 
 @require_POST
 def cache_checkout_data(request):
+    """ Modify the metadata we want to send in with payment intent """
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -31,11 +34,12 @@ def cache_checkout_data(request):
 
 
 def checkout(request):
-
+    """ Checkout view """
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
     if request.method == "POST":
+        # If method is POST save data to variables
         basket = request.session.get('basket', {})
         form_data = {
             'first_name': request.POST['first_name'],
@@ -61,15 +65,18 @@ def checkout(request):
             'delivery_postcode': request.POST['delivery_postcode'],
         }
 
+        # Raise instance of forms with data
         order_form = OrderForm(form_data)
         delivery_form = DeliveryForm(delivery_data)
 
         if order_form.is_valid():
+            # Check form is valid add pid and basket field data and save
             order = order_form.save(commit=False)
             pid = request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
             order.basket = json.dumps(basket)
             if delivery_data:
+                # If delivery_data add to order
                 order.delivery_street_address1 = (
                     request.POST['delivery_street_address1'])
                 order.delivery_street_address2 = (
@@ -80,6 +87,7 @@ def checkout(request):
                 order.delivery_country = request.POST['delivery_country']
                 order.delivery_postcode = request.POST['delivery_postcode']
             else:
+                # If not delivery_data use billing address
                 order.delivery_street_address1 = (
                     request.POST['street_address1'])
                 order.delivery_street_address2 = (
@@ -90,6 +98,7 @@ def checkout(request):
                 order.delivery_postcode = request.POST['postcode']
             order.save()
             for item_id, quantity in basket.items():
+                # Go through basket and generate lineitem instance.
                 try:
                     product = Vinyl.objects.get(id=item_id)
                     order_line_item = OrderLineItem(
@@ -98,7 +107,8 @@ def checkout(request):
                         quantity=quantity,
                     )
                     order_line_item.save()
-
+                # If error adding lineitem, delete order and display
+                # error message.
                 except Vinyl.DoesNotExist:
                     messages.error(request, (
                         "One of the products in your bag wasn't"
@@ -112,9 +122,11 @@ def checkout(request):
             return redirect(reverse(
                 'checkout_success', args=[order.order_number]))
         else:
+            # If form not valid, display error message
             messages.error(request, 'There was an error with your form. \
                 Please double check your information.')
     else:
+        # If method not POST create payment intent and render template
         basket = request.session.get('basket')
         if not basket:
             messages.error(request, "You need to add something to checkout!")
@@ -130,6 +142,8 @@ def checkout(request):
         )
 
         if request.user.is_authenticated:
+            # If user logged in, prefill form with saved information
+            # if available
             try:
                 profile = UserProfile.objects.get(user=request.user)
                 order_form = OrderForm(initial={
@@ -161,12 +175,15 @@ def checkout(request):
 
 
 def checkout_success(request, order_number):
+    """ View if checkout successful """
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
     order_products = OrderLineItem.objects.filter(order=order)
     images = []
 
     for product in order_products:
+        # For each product in order send default image to array for
+        # template and remove stock
         find_product = Vinyl.objects.get(title=product.product)
         image = Image.objects.filter(vinyl=find_product, default=True)
         images.append(image[0])
@@ -179,8 +196,8 @@ def checkout_success(request, order_number):
         order.user_profile = profile
         order.save()
 
-        # Save the user's info
         if save_info:
+            # Save the user's info if checked
             profile_data = {
                 'default_first_name': order.first_name,
                 'default_surname': order.surname,
@@ -193,6 +210,14 @@ def checkout_success(request, order_number):
                 'default_country': order.country,
                 'default_postcode': order.postcode,
             }
+            save_profile_address = {
+                'saved_street_address1': order.street_address1,
+                'saved_street_address2': order.street_address2,
+                'saved_town_or_city': order.town_or_city,
+                'saved_county': order.county,
+                'saved_country': order.country,
+                'saved_postcode': order.postcode,
+            }
             save_address_data = {
                 'saved_street_address1': order.delivery_street_address1,
                 'saved_street_address2': order.delivery_street_address2,
@@ -201,47 +226,15 @@ def checkout_success(request, order_number):
                 'saved_country': order.delivery_country,
                 'saved_postcode': order.delivery_postcode,
             }
+            user = User.objects.get(username=request.user)
             user_profile_form = UserProfileForm(profile_data, instance=profile)
             if user_profile_form.is_valid():
                 user_profile_form.save()
-                try:
-                    address = SavedAddress.objects.get(
-                        saved_street_address1__iexact=order.street_address1,
-                        user=request.user,
-                    )
-                    save_address = True
-                except SavedAddress.DoesNotExist:
-                    save_profile_address = {
-                        'saved_street_address1': order.street_address1,
-                        'saved_street_address2': order.street_address2,
-                        'saved_town_or_city': order.town_or_city,
-                        'saved_county': order.county,
-                        'saved_country': order.country,
-                        'saved_postcode': order.postcode,
-                    }
-                    save_address_form = SavedAddressForm(save_profile_address)
-                    save_address = False
-                if not save_address:
-                    address = save_address_form.save(commit=False)
-                    address.user = request.user
-                    address.save()
+            save_address(user, save_profile_address)
+            if save_address_data.get('saved_street_address1'):
+                save_address(user, save_address_data)
 
-            save_address_form = SavedAddressForm(save_address_data)
-            if save_address_form.is_valid():
-                try:
-                    address = SavedAddress.objects.get(
-                        saved_street_address1__iexact=(
-                            order.delivery_street_address1),
-                        user=request.user,
-                    )
-                    save_address = True
-                except SavedAddress.DoesNotExist:
-                    save_address = False
-                if not save_address:
-                    address = save_address_form.save(commit=False)
-                    address.user = request.user
-                    address.save()
-        messages.success(request, "Thats your information saved!")
+            messages.success(request, "Thats your information saved!")
 
     messages.success(request, "Thanks for your order!")
     if 'basket' in request.session:
@@ -252,3 +245,22 @@ def checkout_success(request, order_number):
         'images': images
     }
     return render(request, template, context)
+
+
+def save_address(user, address):
+    """ Save address's """
+    try:
+        # Check if address has been saved in saved addresses
+        SavedAddress.objects.get(
+            saved_street_address1__iexact=address.get('saved_street_address1'),
+            user=user,
+        )
+        exists = True
+    except SavedAddress.DoesNotExist:
+        save_address_form = SavedAddressForm(address)
+        exists = False
+    if not exists:
+        # Save address if not already in database
+        address = save_address_form.save(commit=False)
+        address.user = user
+        address.save()
