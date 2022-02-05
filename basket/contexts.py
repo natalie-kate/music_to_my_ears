@@ -13,14 +13,19 @@ def basket_contents(request):
     basket = request.session.get('basket', {})
     basket_bin = []
 
+    # Iterate through basket.items getting required info and adding to
+    # basket_products
     for product_id, quantity in basket.items():
         product = get_object_or_404(Vinyl, pk=product_id)
+        # Check stock still available and not been bought by someone else
+        # since added to basket.
         if quantity <= product.stock_quantity:
             product_name = product.title.replace(" ", "_").lower
             total += Decimal(quantity) * product.price
             item_total = Decimal(quantity) * product.price
             product_count += int(quantity)
             product_images = product.image_set.all()
+            # Get quantity available for quantity select input
             stock_quantity_list = []
             for value in range(1, (product.stock_quantity + 1)):
                 stock_quantity_list.append(value)
@@ -34,19 +39,24 @@ def basket_contents(request):
                 'stock_quantity_list': stock_quantity_list
             })
         else:
+            # If stock nno longer available since user had added to basket
+            # Error message shown to user and added to bin.
             messages.error(request, (
                 f'Sorry { product.title} no longer has { quantity }'
                 'left in stock.'))
             basket_bin.append(product_id)
 
+    # If products in bin, remove from session 'basket'
     if basket_bin:
         for product_id in basket_bin:
             basket.pop(product_id)
             request.session['basket'] = basket
 
+    # Calculate shipping based on number of items
     delivery = 4.95 + ((product_count - 1)/2)
     grand_total = round((total + Decimal(delivery)), 2)
 
+    # Info now available to our templates
     context = {
         'basket_products': basket_products,
         'total': total,
