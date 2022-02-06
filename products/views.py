@@ -6,15 +6,17 @@ from django.db.models import Q
 from .models import Vinyl, Genre, Image
 from .forms import ProductForm
 
+
 def genres():
     # Gets those genres that currently have products
-    genres = Genre.objects.all()
+    all_genres = Genre.objects.all()
     current_genres = []
-    for genre in genres:
+    for genre in all_genres:
         filtered_products = Vinyl.objects.filter(genre=genre.pk)
         if filtered_products:
             current_genres.append(genre)
     return current_genres
+
 
 def default_images():
     # Contingency plan in case superuser make 2 images default=True
