@@ -1,10 +1,12 @@
+""" Imports required for forms """
 from django import forms
 from .models import Contact
 
 
 class ContactForm(forms.ModelForm):
-    
+    """ Create ContactForm class """
     class Meta:
+        """ Fields to render from model """
         model = Contact
         exclude = ('user', 'email_date')
         widgets = {
@@ -12,6 +14,8 @@ class ContactForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        """ Add placeholders and required attribute,
+        set autofocus on first field """
         super().__init__(*args, **kwargs)
         placeholders = {
             'first_name': 'Josephine',
@@ -28,4 +32,4 @@ class ContactForm(forms.ModelForm):
                     self.fields[field].widget.attrs['required'] = True
                 else:
                     placeholder = placeholders[field]
-                self.fields[field].widget.attrs['placeholder'] = placeholder   
+                self.fields[field].widget.attrs['placeholder'] = placeholder
