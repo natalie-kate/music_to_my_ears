@@ -1,4 +1,4 @@
-# Imports and views required for events app.
+""" Imports and views required for events app."""
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -10,8 +10,8 @@ from .models import Event
 
 @login_required
 def view_events(request):
-    # View to render the events page
-    events = Event.objects.all() 
+    """ View to render the events page """
+    events = Event.objects.all()
     if not events:
         events = None
 
@@ -46,7 +46,10 @@ def view_events(request):
 
 @login_required
 def add_event(request):
+    """ Add event view """
     if request.method == 'POST':
+        # If post method check if event doesn't already exist
+        # and then add if it doesn't
         form = EventForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
@@ -60,7 +63,7 @@ def add_event(request):
                 messages.error(request, (
                     'Product already exists in database.'))
                 return redirect(reverse('events'))
-     
+
             except Event.DoesNotExist:
                 user = User.objects.get(username=request.user)
                 instance.user = user
@@ -68,11 +71,13 @@ def add_event(request):
                 messages.success(request, 'Successfully added event!')
                 return redirect(reverse('events'))
         else:
+            # If form not valid return error
             messages.error(
                 request, (
                     'Failed to add event. '
                     'Please ensure the form is valid.'))
     else:
+        # If not post method render template
         form = EventForm()
 
     template = 'events/add_event.html'
@@ -84,8 +89,10 @@ def add_event(request):
 
 @login_required
 def edit_event(request, event_id):
+    """ Edit event view"""
     get_event = get_object_or_404(Event, pk=event_id)
     if request.method == 'POST':
+        # If post method update event
         form = EventForm(request.POST, request.FILES, instance=get_event)
         if form.is_valid():
             form.save()
@@ -98,6 +105,7 @@ def edit_event(request, event_id):
         return redirect(reverse('events'))
 
     else:
+        # If not post method render template with prefilled form
         form = EventForm(instance=get_event)
 
     template = 'events/edit_event.html'
@@ -111,7 +119,7 @@ def edit_event(request, event_id):
 
 @login_required
 def delete_event(request, event_id):
-    # Delete event functionality
+    """ Delete event functionality """
     del_event = get_object_or_404(Event, pk=event_id)
     del_event.delete()
     messages.success(request, 'Event deleted!')
