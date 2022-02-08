@@ -21,6 +21,7 @@ class ImageAdmin(admin.ModelAdmin):
 
 
 class GenreAdmin(admin.ModelAdmin):
+    """Change genre display in admin """
     list_display = ('friendly_name',)
     ordering = ('friendly_name',)
 

@@ -1,9 +1,12 @@
+""" Imports required for forms """
 from django import forms
 from .models import UserProfile, SavedAddress
 
 
 class UserProfileForm(forms.ModelForm):
+    """ Create UserProfileForm """
     class Meta:
+        """ Fields to render from model """
         model = UserProfile
         exclude = ('user',)
 
@@ -29,7 +32,9 @@ class UserProfileForm(forms.ModelForm):
 
 
 class SavedAddressForm(forms.ModelForm):
+    """ Create SavedAddresseForm """
     class Meta:
+        """ Fields to render from model """
         model = SavedAddress
         exclude = ('user',)
 

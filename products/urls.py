@@ -1,3 +1,4 @@
+""" Imports required for products app urls """
 from django.urls import path
 from . import views
 
@@ -8,5 +9,6 @@ urlpatterns = [
     path('<int:product_id>/', views.product, name='product'),
     path('add/', views.add_vinyl, name='add_vinyl'),
     path('edit/<int:product_id>/', views.edit_vinyl, name='edit_vinyl'),
-    path('delete/<int:product_id>/', views.delete_product, name='delete_product'),
+    path('delete/<int:product_id>/',
+         views.delete_product, name='delete_product'),
 ]

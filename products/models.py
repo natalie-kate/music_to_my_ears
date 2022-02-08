@@ -9,7 +9,8 @@ class Genre(models.Model):
     friendly_name = models.CharField(max_length=254)
 
     def __str__(self):
-        return self.genre
+        """ Override default str method """
+        return "self.genre"
 
     def get_friendly_name(self):
         """ Returns a user friendly name for display purposes """
@@ -28,7 +29,8 @@ class Vinyl(models.Model):
     track_list = models.TextField(validators=[validate_tracklist])
 
     def __str__(self):
-        return self.title
+        """ Override default str method """
+        return "self.title"
 
 
 class Image(models.Model):
@@ -39,4 +41,5 @@ class Image(models.Model):
     default = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.image_name
+        """ Override default str method """
+        return "self.image_name"

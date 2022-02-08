@@ -8,7 +8,7 @@ from .forms import ProductForm
 
 
 def genres():
-    # Gets those genres that currently have products
+    """ Gets those genres that currently have products """
     all_genres = Genre.objects.all()
     current_genres = []
     for genre in all_genres:
@@ -19,7 +19,7 @@ def genres():
 
 
 def default_images():
-    # Contingency plan in case superuser make 2 images default=True
+    """ Contingency plan in case superuser make 2 images default=True """
     products = Vinyl.objects.all()
     image_list = []
     for product in products:

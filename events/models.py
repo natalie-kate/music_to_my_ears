@@ -1,3 +1,4 @@
+""" Imports required for models """
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -14,6 +15,7 @@ class Event(models.Model):
     ticket_price = models.DecimalField(max_digits=6, decimal_places=2)
     details = models.TextField(null=False, blank=False)
     location = models.TextField(null=False, blank=False)
-    
+
     def __str__(self):
-        return self.name
+        """ Overwrites default str method """
+        return 'self.name'
