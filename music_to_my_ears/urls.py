@@ -30,3 +30,6 @@ urlpatterns = [
     path('events/', include('events.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+HANDLER_404 = "music_to_my_ears.views.error_404"
+HANDLER_500 = "music_to_my_ears.views.error_500"
