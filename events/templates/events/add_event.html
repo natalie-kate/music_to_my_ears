@@ -1,6 +1,8 @@
+<!-- Gets code from base.html and loads apps static files  -->
 {% extends 'base.html' %}
 {% load static %}
 
+<!-- Page header image -->
 {% block image %}
 <div class="contact-image-container">
   <div class="row">
@@ -10,11 +12,13 @@
 </div>
 {% endblock %}
 
+<!-- Page content -->
 {% block content %}
 <h2 class="text-center mt-4"> Add Event </h2>
 <div class="row">
   <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
       <form method="POST" action="{% url 'add_event' %}" enctype="multipart/form-data">
+          <!-- Add event form -->
           {% csrf_token %}
           <fieldset class="col-10 offset-1">
               <legend> Event Details</legend>
@@ -28,6 +32,7 @@
                  {{ form.location | as_crispy_field }}
           </fieldset>
           <div class="text-center">
+              <!-- Add event button -->
               <button class="btn pay-btn my-btn btn-md hover mt-3" type="submit">Add Event</button><br>
               <a href="{% url 'events' %}">Cancel</a>
           </div>
@@ -36,6 +41,7 @@
 </div>
 {% endblock %}
 
+<!-- Postlload javascript -->
 {% block postloadjs %}
     {{ block.super }}
     <script src="{% static 'events/js/image_display.js' %}"></script>

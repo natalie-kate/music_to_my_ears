@@ -1,6 +1,8 @@
+<!-- Gets code from base.html and loads static -->
 {% extends 'base.html' %}
 {% load static %}
 
+<!-- Page header image -->
 {% block image %}
 <div class="image-container">
   <div class="row">
@@ -10,8 +12,10 @@
 </div>
 {% endblock %}
 
+<!-- Page content -->
 {% block content %}
 <h2 class="text-center mt-4"> Shop Vinyls </h2>
+<!-- Search Box -->
 <form id="product-search-form" method="GET" action="{% url 'shop' %}">
   <div class="row search-box">
     <div class="col-12 mb-1 text-center">
@@ -21,10 +25,12 @@
     </div>
   </div>
 </form>
+<!-- View all products link -->
 <div class="col-12 mb-4 text-center">
   <a href="{% url 'view_all_products' %}">View All</a>
 </div>
 
+<!-- Display products this way if search in context -->
 <div class="row">
   {% if search %}
     {% for product in products %}
@@ -45,9 +51,11 @@
     {% endfor %}
   {% endif %}
 
+  <!-- If search not in context display products in genre carousels -->
+  <!-- For each genre, get the products with that genre and then get the image for it -->
   {% if not search %}
   {% for genre in genres %}
-  <div class="col-8 offset-2 col-md-6 offset-md-0 col-lg-4" id="{{ genre }}_div">
+  <div class="col-10 offset-1 col-md-6 offset-md-0 col-lg-4" id="{{ genre }}_div">
     <h3><a href="{% url 'browse_genre' genre.id %}">Browse {{ genre.friendly_name }}</a></h3>
     <div id="{{ genre }}" class="carousel slide mb-3" data-ride="carousel">
       <div class="carousel-inner">
@@ -69,6 +77,7 @@
           {% endif %}
         {% endfor %}
       </div>
+      <!-- Carousel Controls -->
       <a class="carousel-control-prev" href="#{{ genre }}" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
@@ -84,14 +93,8 @@
 </div>
 {% endblock %}
 
+<!-- Page script -->
 {% block postloadjs %}
-{{ block.super }}
-<script>
-  $(document).ready(function () {
-    $(".carousel-inner" ).each(function( index ) {
-      $(this).children().first().addClass('active')
-    })
-  });
-</script>
-
+  {{ block.super }}
+  <script src="{% static 'products/js/carousel.js' %}"></script>
 {% endblock %}

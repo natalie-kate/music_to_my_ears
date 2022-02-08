@@ -1,5 +1,7 @@
+<!-- Gets code from base.html and loads apps static files  -->
 {% extends 'base.html' %}
 
+<!-- Page header image -->
 {% block image %}
 <div class="contact-image-container">
   <div class="row">
@@ -9,24 +11,27 @@
 </div>
 {% endblock %}
 
+<!-- Page content -->
 {% block content %}
 <h2 class="text-center mt-4"> Events Board </h2>
 <div class="col-10 offset-1 text-center">
   <a class="btn my-btn pay-btn hover" aria-label="Link to add event page" href="{% url 'add_event' %}">
     Add Event <i class="fas fa-plus"></i></a>
 </div>
+<!-- Search box -->
 <form id="events-search-form" method="GET" action="{% url 'events' %}" class="mt-4">
-    <div class="row search-box">
-      <div class="col-12 mb-1 text-center">
-        <input type="text" name="search" id="search" placeholder="e.g location" aria-label="Search" required>
-        <button type="submit" class="btn btn-md my-btn hover">Search <i class="fas fa-search"
-            aria-hidden="true"></i></button>
-      </div>
+  <div class="row search-box">
+    <div class="col-12 mb-1 text-center">
+      <input type="text" name="search" id="search" placeholder="e.g location" aria-label="Search" required>
+      <button type="submit" class="btn btn-md my-btn hover">Search <i class="fas fa-search"
+          aria-hidden="true"></i></button>
     </div>
-  </form>
+  </div>
+</form>
 <div class="row">
     {% if events %}
         {% for event in events %}
+        <!-- Event card -->
         <div class="col-12 col-md-6 col-lg-4 mt-3">
             <div class="card">
                 <img src="{{ MEDIA_URL }}{{ event.image }}" class="card-img-top" alt="Poster for {{ event.name }} event"
@@ -40,6 +45,7 @@
                     <strong>Ticket Price: </strong>
                     {% if event.ticket_price == 0.00 %} FREE {% else %} £{{ event.ticket_price }}{% endif %}
                   </p>
+                  <!-- Edit and delete links -->
                   <div class="text-center">
                     {% if request.user.is_superuser or request.user == event.user %}
                     <a class="mr-3" href="{% url 'edit_event' event.id %}"><i class="admin fas fa-pencil-alt"></i> Edit</a>
@@ -58,6 +64,7 @@
         </div>
         {% endfor %}
     {% else %}
+    <!-- If no events  -->
     <div class="col-10 offset-1 text-center mt-4">
         <p>No events to show at the moment, why not add one!</p>
     </div>
