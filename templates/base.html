@@ -49,6 +49,7 @@
             </div>
         </nav>
     </header>
+    <!-- Banner, text display changes depending on conditions -->
     <div class="banner text-center">
         {% if request.user.is_authenticated and not in_events %}
         <p>Check out our events page for live music events in your area!</p>
@@ -59,6 +60,7 @@
         {% endif %}
     </div>
 
+    <!-- Display messages -->
     {% if messages %}
     <div class="message-container">
         {% for message in messages %}
@@ -127,6 +129,7 @@
         </div>
     </footer>
 
+    <!-- Page scripts -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
@@ -135,13 +138,7 @@
 
     <!-- Any individual page scripts to be inserted here -->
     {% block postloadjs %}
-    <script type="text/javascript">
-        $('.toast').toast('show');
-        $('.btt-link').click(function (e) {
-            window.scrollTo(0, 0)
-        })
-    </script>
+        <script src="{% static 'js/base.js' %}"></script>
     {% endblock %}
 </body>
-
 </html>
