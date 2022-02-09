@@ -79,7 +79,8 @@
       <div class="text-center">
         <p><strong>Order Date: </strong>{{ order.order_date|date:"D d M Y" }}<br>
         <strong>Order Number: </strong>
-        <a href="{% url 'order_history' order.order_number %}" title="{{ order.order_number }}">
+        <a href="{% url 'order_history' order.order_number %}" title="{{ order.order_number }}"
+          aria-label="Will open previous order information">
           {{ order.order_number | truncatechars:4 }}</a>
         </p>
       </div>
@@ -87,7 +88,7 @@
       {% endfor %}
     {% else %}
       <p>You have no orders yet </p>
-      <a href="{% url 'shop' %}">Go Shopping!</a>
+      <a href="{% url 'shop' %}" aria-label="Opens shop page">Go Shopping!</a>
     {% endif %}
   </div>
 

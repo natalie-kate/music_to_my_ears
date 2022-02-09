@@ -17,8 +17,10 @@
 <h2 class="text-center mt-4"> Edit Product </h2>
 <div class="row">
     <div class="text-center col-12">
-        <a href="{% url 'add_vinyl' %}"><i class="fas fa-backward"></i> Need to Add a Product?</a> |
-        <a href="{% url 'product' product.id %}"><i class="fas fa-backward"></i> Cancel</a>
+        <a href="{% url 'add_vinyl' %}" aria-label="Opens add vinyl page">
+            <i class="fas fa-backward"></i> Need to Add a Product?</a> |
+        <a href="{% url 'product' product.id %}" aria-label="Takes you back to product page">
+            <i class="fas fa-backward"></i> Cancel</a>
     </div>
     <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
         <!-- Edit vinyl form -->
@@ -39,7 +41,7 @@
             <!-- Submit and cancel link -->
             <div class="text-center">
                 <button class="btn pay-btn my-btn btn-md hover mt-3" type="submit">Submit Changes</button><br>
-                <a href="{% url 'shop' %}">Cancel</a>
+                <a href="{% url 'shop' %}" aria-label="Takes you back to shop page">Cancel</a>
             </div>
         </form>
     </div>

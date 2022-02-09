@@ -84,10 +84,10 @@
         </div>
         <!-- Checkout Button and continue -->
         <div class="col-12 mb-2 text-center">
-          <a href="{% url 'checkout' %}" class="btn checkout-btn">Checkout?</a>
+          <a href="{% url 'checkout' %}" class="btn checkout-btn" aria-label="Will open checkout page">Checkout?</a>
         </div>
         <div class="col-12 text-center">
-          <a href="{% url 'shop' %}">Continue Shopping? </a>
+          <a href="{% url 'shop' %}" aria-label="Will take you back to shop page">Continue Shopping? </a>
         </div>
     {% else %}
     <!-- If nothing in basket show paragraph and link to shop -->
@@ -95,7 +95,7 @@
       <p>You have nothing in your basket yet! <i class="far fa-sad-cry"></i></p>
     </div>
     <div class="col-12 text-center">
-      <a href="{% url 'shop' %}">Lets find you something! </a>
+      <a href="{% url 'shop' %}" aria-label="Will take you to shop page">Lets find you something! </a>
     </div>
     {% endif %}
 </div>

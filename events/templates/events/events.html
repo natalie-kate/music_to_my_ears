@@ -48,8 +48,10 @@
                   <!-- Edit and delete links -->
                   <div class="text-center">
                     {% if request.user.is_superuser or request.user == event.user %}
-                    <a class="mr-3" href="{% url 'edit_event' event.id %}"><i class="admin fas fa-pencil-alt"></i> Edit</a>
-                    <a data-toggle="collapse" href="#delete-{{event.id}}" class="mr-2" aria-label="Will open delete event section"><i class="admin fas fa-trash"></i> Delete</a>
+                    <a class="mr-3" href="{% url 'edit_event' event.id %}" aria-label="Opens edit event page">
+                      <i class="admin fas fa-pencil-alt"></i> Edit</a>
+                    <a data-toggle="collapse" href="#delete-{{event.id}}" class="mr-2" aria-label="Will open delete event section">
+                      <i class="admin fas fa-trash"></i> Delete</a>
                     <div id="delete-{{event.id}}" class="col-10 offset-1 text-center collapse">
                       <p>Are you sure you want to delete this event?</p>
                       <a class="btn btn-md my-btn hover" href="{% url 'delete_event' event.id %}" class="mr-2" 

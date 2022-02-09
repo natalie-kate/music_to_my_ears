@@ -33,7 +33,7 @@
                 {% include 'includes/main-nav.html' %}
             </div>
             <div class="shopping-bag text-center">
-                <a class="shopping-bag" href="{% url 'view_basket' %}">
+                <a class="shopping-bag" href="{% url 'view_basket' %}" aria-label="View basket">
                     <i class="fas fa-shopping-basket fa-lg"></i></small><sup>({{ product_count }})</sup>
                     <p>
                         {% if basket_products %}
@@ -115,7 +115,7 @@
                 <p><a class="footer-link" href="{% url 'account_login' %}" aria-label="link to sign in page">Sign In
                         Page</a></p>
                 {% endif %}
-                <p><a class="footer-link btt-link" href="" aria-label="Link back totop of page">Back to Top</a></p>
+                <p><a class="footer-link btt-link" href="" aria-label="Link back to top of page">Back to Top</a></p>
                 <!-- If user logged in these links will be displayed -->
                 {% if request.user.is_authenticated %}
                     <p><a class="footer-link" href="{% url 'account_logout' %}" aria-label="link to sign out page">Sign Me

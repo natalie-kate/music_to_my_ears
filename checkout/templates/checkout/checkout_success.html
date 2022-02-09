@@ -105,9 +105,11 @@
   <!-- Links back to profile or shop depending on where user came from -->
   <div class="col-10 offset-1 text-center">
     {% if from_profile %}
-     <a class="btn my-btn pay-btn btn-md hover" href="{% url 'profile' %}">Back to Profile? </a>
+     <a class="btn my-btn pay-btn btn-md hover" href="{% url 'profile' %}" 
+      aria-label="Takes you back to profile page">Back to Profile? </a>
     {% else %}
-      <a class="btn my-btn pay-btn btn-md hover" href="{% url 'shop' %}">Back to shop? </a>
+      <a class="btn my-btn pay-btn btn-md hover" href="{% url 'shop' %}"
+      aria-label="Takes you back to shop page">>Back to shop? </a>
     {% endif %}
   </div>
 </div>

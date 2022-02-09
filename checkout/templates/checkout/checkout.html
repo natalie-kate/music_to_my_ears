@@ -17,7 +17,8 @@
 <h2 class="text-center mt-4"> Checkout </h2>
 <div class="row">
     <div class="text-center col-12">
-        <a href="{% url 'view_basket' %}"><i class="fas fa-backward"></i> Back to Basket</a>
+        <a href="{% url 'view_basket' %}" aria-label="Takes you back to basket">
+            <i class="fas fa-backward"></i> Back to Basket</a>
     </div>
     <!-- Payment information form -->
     <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
@@ -55,8 +56,8 @@
                 <input type="checkbox" id="save-info" name="save-info"
                     checked>
                 {% else %}
-                <a href="{% url 'account_signup' %}">Register </a> or
-                <a href="{% url 'account_login' %}">Login</a> to save this information
+                <a href="{% url 'account_signup' %}" aria-label="Opens register page">>Register </a> or
+                <a href="{% url 'account_login' %}" aria-label="Opens sign in page">Login</a> to save this information
                 {% endif %}
             </div>
             <fieldset class="col-10 col-md-5 offset-1 mb-2 pb-2 total">

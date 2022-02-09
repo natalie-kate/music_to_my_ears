@@ -27,7 +27,7 @@
 </form>
 <!-- View all products link -->
 <div class="col-12 mb-4 text-center">
-  <a href="{% url 'view_all_products' %}">View All</a>
+  <a href="{% url 'view_all_products' %}" aria-label="View all products">View All</a>
 </div>
 
 <!-- Display products this way if search in context -->
@@ -43,7 +43,8 @@
           <div class="text-center">
             <h4 class="title mt-1">{{ product.title }}</h4>
             <p class="artist">{{ product.artist }}</p>
-            <a href="{% url 'product' product.id %}" class='btn my-btn mb-3 hover'>Details</a>
+            <a href="{% url 'product' product.id %}" aria-label="Opens product details page" 
+              class='btn my-btn mb-3 hover'>Details</a>
           </div>
         {% endif %}
       {% endfor %}
@@ -52,11 +53,12 @@
   {% endif %}
 
   <!-- If search not in context display products in genre carousels -->
-  <!-- For each genre, get the products with that genre and then get the image for it -->
+  <!-- For each genre, get the products with that genre and then get the image for it --> 
   {% if not search %}
   {% for genre in genres %}
   <div class="col-10 offset-1 col-md-6 offset-md-0 col-lg-4" id="{{ genre }}_div">
-    <h3><a href="{% url 'browse_genre' genre.id %}">Browse {{ genre.friendly_name }}</a></h3>
+    <h3><a href="{% url 'browse_genre' genre.id %}" aria-label="Shows all products in {{ genre }}">
+      Browse {{ genre.friendly_name }}</a></h3>
     <div id="{{ genre }}" class="carousel slide mb-3" data-ride="carousel">
       <div class="carousel-inner">
         {% for product in products %}
@@ -69,7 +71,8 @@
                   <div class="text-center">
                     <h4 class="title mt-1">{{ product.title }}</h4>
                     <p class="artist">{{ product.artist }}</p>
-                    <a href="{% url 'product' product.id %}" class='btn my-btn mb-3 hover'>Details</a>
+                    <a href="{% url 'product' product.id %}" aria-label="Opens product details page" 
+                      class='btn my-btn mb-3 hover'>Details</a>
                   </div>
                 </div>
               {% endif %}
@@ -78,11 +81,11 @@
         {% endfor %}
       </div>
       <!-- Carousel Controls -->
-      <a class="carousel-control-prev" href="#{{ genre }}" role="button" data-slide="prev">
+      <a class="carousel-control-prev" href="#{{ genre }}" role="button" data-slide="prev" aria-label="Previous product">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
       </a>
-      <a class="carousel-control-next" href="#{{ genre}} " role="button" data-slide="next">
+      <a class="carousel-control-next" href="#{{ genre}} " role="button" data-slide="next" aria-label="Next product">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
