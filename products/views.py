@@ -22,8 +22,8 @@ def default_images():
     """ Contingency plan in case superuser make 2 images default=True """
     products = Vinyl.objects.all()
     image_list = []
-    for product in products:
-        image = Image.objects.filter(default=True, vinyl=product.id)
+    for vinyl in products:
+        image = Image.objects.filter(default=True, vinyl=vinyl.id)
         image_list.append(image[0])
     return image_list
 
@@ -62,6 +62,7 @@ def open_shop(request):
 
 
 def view_all_products(request):
+    """ View to return all products rather than in genre sorting """
     products = Vinyl.objects.all()
 
     context = {
@@ -75,6 +76,7 @@ def view_all_products(request):
 
 
 def browse_genre(request, genre_id):
+    """ View all products in a genre """
     products = Vinyl.objects.filter(genre=genre_id)
 
     context = {
@@ -110,16 +112,21 @@ def product(request, product_id):
 
 @login_required
 def add_vinyl(request):
+    """ Add new product view """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only admin can do that.')
         return redirect(reverse('shop'))
 
     if request.method == 'POST':
+        # If post method, check form is valid and if product
+        # already exists in database
         form = ProductForm(request.POST)
         if form.is_valid():
             check_product = Vinyl.objects.filter(title=form['title'].value())
             if not check_product:
+                # If product not already in database add it
                 new_vinyl = form.save()
+                # Get default image and add to database
                 default_image = request.FILES.get('default_image')
                 vinyl_id = Vinyl.objects.get(pk=new_vinyl.id)
                 image_name = str(default_image).split('.', maxsplit=1)[0]
@@ -129,15 +136,17 @@ def add_vinyl(request):
                     image_name=image_name,
                     default=True,
                 )
+                # If additional images add them to database
                 files = request.FILES.getlist('additional_images')
-                for file in files:
-                    image_name = str(file).split('.', maxsplit=1)[0]
-                    Image.objects.create(
-                        vinyl=vinyl_id,
-                        image=file,
-                        image_name=image_name,
-                        default=False,
-                    )
+                if files:
+                    for file in files:
+                        image_name = str(file).split('.', maxsplit=1)[0]
+                        Image.objects.create(
+                            vinyl=vinyl_id,
+                            image=file,
+                            image_name=image_name,
+                            default=False,
+                        )
                 messages.success(request, 'Successfully added product!')
                 return redirect(reverse('product', args=[new_vinyl.id]))
             else:
@@ -162,6 +171,7 @@ def add_vinyl(request):
 
 @login_required
 def edit_vinyl(request, product_id):
+    """ Edit product """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only admin can do that.')
         return redirect(reverse('shop'))
@@ -177,14 +187,15 @@ def edit_vinyl(request, product_id):
                 'Please ensure the form is valid.'))
 
         files = request.FILES.getlist('additional_images')
-        for file in files:
-            image_name = str(file).split('.', maxsplit=1)[0]
-            Image.objects.create(
-                vinyl=edit_product,
-                image=file,
-                image_name=image_name,
-                default=False,
-            )
+        if files:
+            for file in files:
+                image_name = str(file).split('.', maxsplit=1)[0]
+                Image.objects.create(
+                    vinyl=edit_product,
+                    image=file,
+                    image_name=image_name,
+                    default=False,
+                )
         messages.success(request, 'Thats updated!')
         return redirect(reverse('product', args=[edit_product.id]))
     else:
@@ -200,6 +211,7 @@ def edit_vinyl(request, product_id):
 
 @login_required
 def delete_product(request, product_id):
+    """ delete product from database """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only admin can do that.')
         return redirect(reverse('shop'))
