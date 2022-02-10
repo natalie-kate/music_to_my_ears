@@ -54,7 +54,7 @@
             </div>
             <!-- Delete from basket confirmation -->
             <div id="{{ item.product_name }}_delete" class="collapse text-center">
-              <p>Are you sure you want to remove {{ item.product }} from your basket?</p>
+              <p>Are you sure you want to remove {{ item.product.title }} from your basket?</p>
               <a class="btn btn-md my-btn hover" href="{% url 'delete_item' item.product_id %}"
                aria-label="Will delete item from basket">Yes, I'm sure </a> 
               <a data-toggle="collapse" href="#{{ item.product_name }}_delete" class="ml-2" 
