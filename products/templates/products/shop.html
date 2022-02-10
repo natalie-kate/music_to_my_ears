@@ -59,7 +59,7 @@
   <div class="col-10 offset-1 col-md-6 offset-md-0 col-lg-4" id="{{ genre }}_div">
     <h3><a href="{% url 'browse_genre' genre.id %}" aria-label="Shows all products in {{ genre }}">
       Browse {{ genre.friendly_name }}</a></h3>
-    <div id="{{ genre }}" class="carousel slide mb-3" data-ride="carousel">
+    <div id="{{ genre.genre }}" class="carousel slide mb-3" data-ride="carousel">
       <div class="carousel-inner">
         {% for product in products %}
           {% if product.genre == genre %}
@@ -81,11 +81,13 @@
         {% endfor %}
       </div>
       <!-- Carousel Controls -->
-      <a class="carousel-control-prev" href="#{{ genre }}" role="button" data-slide="prev" aria-label="Previous product">
+      <a class="carousel-control-prev" href="#{{ genre.genre }}" role="button" data-slide="prev"
+        aria-label="Previous product">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
       </a>
-      <a class="carousel-control-next" href="#{{ genre}} " role="button" data-slide="next" aria-label="Next product">
+      <a class="carousel-control-next" href="#{{ genre.genre }} " role="button" data-slide="next"
+        aria-label="Next product">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
