@@ -3,7 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from checkout.models import Order
+from checkout.models import Order, OrderLineItem
+from products.models import Vinyl, Image
 from .models import UserProfile, SavedAddress
 from .forms import UserProfileForm, SavedAddressForm
 
@@ -66,11 +67,21 @@ def profile(request):
 def order_history(request, order_number):
     """ Get users order and open with checkout-success template """
     order = get_object_or_404(Order, order_number=order_number)
+    order_products = OrderLineItem.objects.filter(order=order)
+    images = []
+
+    for product in order_products:
+        # For each product in order send default image to array for
+        # template and remove stock
+        find_product = Vinyl.objects.get(title=product.product.title)
+        image = Image.objects.filter(vinyl=find_product, default=True)
+        images.append(image[0])
 
     template = 'checkout/checkout_success.html'
     context = {
         'order': order,
         'from_profile': True,
+        'images': images,
     }
     return render(request, template, context)
 
