@@ -184,7 +184,7 @@ def checkout_success(request, order_number):
     for product in order_products:
         # For each product in order send default image to array for
         # template and remove stock
-        find_product = Vinyl.objects.get(title=product.product)
+        find_product = Vinyl.objects.get(title=product.product.title)
         image = Image.objects.filter(vinyl=find_product, default=True)
         images.append(image[0])
         find_product.stock_quantity -= product.quantity
