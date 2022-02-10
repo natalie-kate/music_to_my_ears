@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import handler404, handler500
 
 urlpatterns = [
     path('admin/', admin.site.urls, name="admin"),
@@ -31,5 +32,5 @@ urlpatterns = [
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-HANDLER_404 = "music_to_my_ears.views.error_404"
-HANDLER_500 = "music_to_my_ears.views.error_500"
+handler404 = "music_to_my_ears.views.error_404"
+handler500 = "music_to_my_ears.views.error_500"
