@@ -1,6 +1,8 @@
+<!-- Gets code from base.html and loads static -->
 {% extends 'base.html' %}
-{ load static }
+{% load static %}
 
+<!-- Page header image -->
 {% block image %}
 <div class="contact-image-container">
   <div class="row">
@@ -10,6 +12,7 @@
 </div>
 {% endblock %}
 
+<!-- Page content -->
 {% block content %}
 <h2 class="text-center mt-4"> Contact Us </h2>
 <div class="row">
@@ -19,6 +22,7 @@
   </div>
 </div>
 
+<!-- Contact form -->
 <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
     <form method="POST" action="{% url 'contact' %}" id="contact-form">
         {% csrf_token %}
@@ -30,7 +34,8 @@
 </div>
 {% endblock %}
 
+<!-- Page script -->
 {% block postloadjs %}
     {{ block.super }}
-    <script src="{% static 'contact/js/ratings.js' %}"></script>
+    <script src="{% static 'contact/js/rating.js' %}"></script>
 {% endblock %}s
