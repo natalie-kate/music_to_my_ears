@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{ load static }
 
 {% block image %}
 <div class="contact-image-container">
@@ -31,13 +32,5 @@
 
 {% block postloadjs %}
     {{ block.super }}
-    <script>
-      $(document).ready(function () {
-        $("#id_rate_us_1").attr('checked', 'checked');
-        $(".form-check-label" ).each(function( index ) {
-          let html =("<i class='fas fa-record-vinyl'></i>")
-          $(this).html(html.repeat(index))
-        })
-      });
-    </script>
+    <script src="{% static 'contact/js/ratings.js' %}"></script>
 {% endblock %}s
