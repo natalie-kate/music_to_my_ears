@@ -10,7 +10,7 @@ class Genre(models.Model):
 
     def __str__(self):
         """ Override default str method """
-        return "self.genre"
+        return self.genre
 
     def get_friendly_name(self):
         """ Returns a user friendly name for display purposes """
@@ -30,7 +30,7 @@ class Vinyl(models.Model):
 
     def __str__(self):
         """ Override default str method """
-        return "self.title"
+        return self.title
 
 
 class Image(models.Model):
@@ -42,4 +42,4 @@ class Image(models.Model):
 
     def __str__(self):
         """ Override default str method """
-        return "self.image_name"
+        return self.image_name

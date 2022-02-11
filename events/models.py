@@ -18,4 +18,4 @@ class Event(models.Model):
 
     def __str__(self):
         """ Overwrites default str method """
-        return 'self.name'
+        return self.name
