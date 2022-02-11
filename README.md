@@ -239,7 +239,7 @@ Wireframes were created on Balsamiq (see links below)
 
 ## Challenges 
    These are aspects of the development that took me a while to figure out due to inexperience.
-   - Changing product models after I'd initially migrated<br> 
+   - Changing product models after I'd initially migrated. I added more fields to two of my models, migrated and it didn't seem to register that this change had happened.<br> 
        + <span style="color: grey;">Solution: Deleted the added fields migrated and then added them again and remigrated </span>  
    - Getting logic to work for only showing add to basket button if not in basket or quantity in basket was less than quantity available. Tried loads of different things including template tags.
        + <span style="color: grey;">Solution: Got the infomration in views and passed in to template in context.
@@ -257,6 +257,8 @@ Wireframes were created on Balsamiq (see links below)
       + <span style="color: grey;">Solution: Re-do the javascript to target all the first children of each carousel-inner.</span> 
    - Could not get the confirmation email to work from contact page, checked my code against boutique and checked the django docs. Tried sending it without the text files and it worked but the formatting was horrible. The error i was getting was couldn't find template, which i was confused about as I wasn't counting a text file as a template but the names of the files matched. Eventually realised that my confirmation_emails folder was in templates folder but not actually inside the contact folder within that.
       + <span style="color: grey;">Solution: Moved file to the correct location.</span> 
+   - In my previous project I put rating stars in my contact form so wanted to do the same but with vinyls instead of stars. As the form is rendered by django I was struggling to acheive this by css. I then realised I would have to do it with js, changing the html to the icon when page loads. This worked but wanted 2 vinyl for a rating of 2 etc so it took me an age trying loops etc to repeat the html code per number required. 
+      + <span style="color: grey;">Solution: Used $(this).html(html.repeat(index))</span> 
    - User wasn't being assigned to events. Only realised this when I created a non superuser account and account couldn't edit events that I had just added with that account. Looked on admin panel and realised than only those that I created in the user panel had got a user and similarly same with contact records. So turns out in contact I had contact.user = users record rather than just request.user and in add_event I hadn't done instance = form.save(commit=False) and then instance.user, I was just doing form.user. So between them I had the right code.
    - After deploying and setting up AWS, I started to add genres and products and their images to the new database. Individually as didn't create a dataset just a couple in development to ensure code was working. I noticed that none of my images were appearing. I thought it was to do with my src attributes still saying /media/ and so i changed them to {{ MEDIA_URL }} in development which i had in my settings.py. This then broke it and i now wasn't seeing the images in development either. I googled how to see settings.py variables from within a template and it said I needed a context processor. Went back to boutique ado source code and yeah i'd missed the 'django.template.context_processors.media'.
      + <span style="color: grey;">Solution: Add context processor to settings.py</span> 
@@ -266,6 +268,8 @@ Wireframes were created on Balsamiq (see links below)
    - None keeps getting added to saved addresses when the optional delivery address isn't completed. I was getting any save_address_data from form and then if save_address_data create instance in database. So I tried if not Null and looked for empty fields etc, eventually got round to: if save_address_data.get('saved_street_address1') which worked.
    - While working on events page, it kept letting me add events that already existed, when I had used iexact to ensure that would't happen. I wasn't getting the value from the form properly so wasn't matching.
      + <span style="color: grey;">Solution: Clean form data.</span> 
+   - Carousel stopped working, and the edit and delete links in basket stopped working too. At the same time noticed in admin that the genres of the products said self.genre. One of the issues was in my attempt to get rid of pylint errors for __str__ does not return a string, I had in my wisdom put return "self.genre" and so I changed them all back. The carousel id's I changed from {genre} to {genre.genre} and that seemed to get them working again. The basket links not working seemed to only be for some products, specifically those with longer titles. Aretha Now for example worked but Sinatra's sinatra and 20 Golden Greats did not. Changed the id's to product_id which didn't work.
+    + <span style="color: grey;">Solution: ID's should only contain numbers, letters and underscores and should not start with a number. So changed id's to "prod_{{ item.product_id }}_edit"</span> 
 
 ## Testing
 
@@ -404,7 +408,9 @@ Testing and results can be found [here](TESTING.md)
 
 ### Code
 
+-   Code Institutes walk through project [Boutique Ado](https://github.com/Code-Institute-Solutions/boutique_ado_v1/tree/250e2c2b8e43cccb56b4721cd8a8bd4de6686546)
 -   [Bootstrap4](https://getbootstrap.com/docs/4.1/getting-started/introduction/): Bootstrap Library used for the layout and styling and modals.
+-   [Alligator](https://alligator.io/css/css-spinning-loader-animation/): Used this articles spinning loader to get my spinning vinyl started.
 -   [Coding For Entrepeneurs](https://www.codingforentrepreneurs.com/blog/the-simple-power-of-django-validators): Used for writing my own validator for checking that tracklist had a comma in it, if there is one it indicates that the tracklist has been entered with a comma after every track.
 -   [Ruddra on stack overflow](https://stackoverflow.com/questions/67419384/how-to-assign-a-user-to-a-new-object-with-django): Used for when I was having trouble saving user to my contact and events objects.
 -   [Hedde van der Heide on stack overflow](https://stackoverflow.com/questions/30799275/in-django-template-how-to-separate-date-and-time-from-datetimefield): Showing only order date in checkout_success and profile templates rather than date and time.
@@ -414,7 +420,13 @@ Testing and results can be found [here](TESTING.md)
 -   [Atta](https://attacomsian.com/blog/javascript-iterate-filelist): Used to convert files into a list so that I could iterate throught hem to display them in form prior to submission.
 -   [Learn About Electronics](http://www.learningaboutelectronics.com/Articles/How-to-retrieve-data-from-a-Django-form-Python.php#:~:text=Basically%20to%20extract%20data%20from,this%20function%20as%20a%20parameter.): To get information out of add events form.
 -   [Codegrepper](https://www.codegrepper.com/code-examples/whatever/how+to+keep+all+images+sizes+in+css+card): To ensure all event card images were the same size.
-
+-   [Programiz](https://www.programiz.com/python-programming/keywords-identifier): Helped with Id issues.
+-   [Codegrepper](https://www.codegrepper.com/code-examples/javascript/add+the+checked+attribute+to+a+radio+button+DOM+jquery): Adding checked attribute to django form input with javascript.
+-   [Stack Overflow](https://stackoverflow.com/questions/13592433/cant-assign-a-value-user-id-to-a-foreignkey-field): Helped me understand what I was doing wrong when trying to assign users to my contact and event objects.
+-   [Stack Overflow](https://stackoverflow.com/questions/1235179/simple-way-to-repeat-a-string):Used to get the ratings vinyls to repeat by the number of the index. 
+-   [Django Docs](https://docs.djangoproject.com/en/4.0/topics/forms/modelforms/): Helped with radio button CHOICES code for ratings section of contact page.
+-   [Juli Colombo](https://medium.com/ibisdev/upload-multiple-images-to-a-model-with-django-fd00d8551a1c): Helped me with dealing with product images. Knew that some products you would want more images than others e.g a special edition or multi disc album. So this article helped me decide to create a seperate image model. 
+-   [JQuery docs](https://api.jquery.com/each/): Used in display_image.js to send each file in the array to the displayImg function in turn.
 
 ### Content
 
@@ -427,13 +439,16 @@ Testing and results can be found [here](TESTING.md)
     * [byllsa](https://github.com/byIlsa/Aloy-from-outcast-to-heroine)
 
 ### Media
+-   Most of the product images were taken of my own collection and a friends who very kindly sent them to me.
+
+-   Some images were from wikipedia as I wanted to showcase more than two genres which seemed to be the majority of the products we had.
 
 -   * [Elviss Railijs Bitāns](https://www.pexels.com/photo/blue-vinyl-record-playing-on-turntable-1389429/): Landing pageimage.
     * [Ena Marinkovic](https://www.pexels.com/photo/acoustic-guitar-with-retro-disks-3721381/): Guitar page header image
     * [Mike](https://www.pexels.com/photo/beige-queen-folder-1181776/): Queen divider header image
     * [Lopsan](https://www.pexels.com/photo/makin-magic-album-sleeve-2191013/)
     * [Dominika Roseclay](https://www.pexels.com/photo/close-up-photography-of-microphone-1032000/): Microphone image on events page
-    * [Brett Sayles](https://www.pexels.com/photo/woman-playing-guitar-while-singing-beside-man-playing-bass-guitar-near-microphone-1309240/): Band playing image on ebents page.
+    * [Brett Sayles](https://www.pexels.com/photo/woman-playing-guitar-while-singing-beside-man-playing-bass-guitar-near-microphone-1309240/): Band playing image on events page.
     * [cottonbro](https://www.pexels.com/photo/books-on-brown-wooden-shelf-6862587/): Pile of vinyls used for backup image.
     * [Tuur Tisseghem](https://www.pexels.com/photo/man-playing-saxophone-613813/): Jazz band picture on events page.
 
@@ -443,5 +458,6 @@ Testing and results can be found [here](TESTING.md)
 -   Code Institute for Boutique Ado walk through project. Used the videos a fair bit to get me started.
 -   My mentor Spencer Barriball for his time and feedback.
 -   My mini feb 2021 team on slack for their feedback and support.
+-   Dave Horrocks for getting on the phone with me and helping me figure out my jquery issue. And along with Manny Suzy and Abi for allowing me to join their group. Knowing that they would offer help and recommend resources when I needed them took some of the stress away.
 -   The slack community.
 -   My partner for taking the lions share of raising our baby and the cooking so that I can study.
