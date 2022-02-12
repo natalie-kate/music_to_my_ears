@@ -112,13 +112,89 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
 
 ## Testing User Stories 
 
-   - #### First Time Visitor 
+   - #### Unregistered Visitor
+        1. As an unregistered visitor, I want to be able to add products to my cart
+           On the landing page, the spinning vinyl, call to action button opens shop page, aswell as there being a 
+           shop link in the nav menu.
 
+             ![Image showing landing page call to action button](/docs/readme-assets/testing_images/shop_btn.png)
+             ![Image showing Shop nav link](/docs/readme-assets/testing_images/nav.png)
 
-   - #### Frequent Visitor Goals
+        2. As an unregistered visitor, I want to be able to view my cart
+           The basket is on the top right of the page. When there are items the number is in 
+           brackets beside the basket. In addition when a product is added to the basket, success 
+           message contains a link to view basket.
 
+             ![Image showing basket in nav menu](/docs/readme-assets/testing_images/basket.png)
+             ![Image showing Success message view basket link](/docs/readme-assets/testing_images/view_basket.png)
+
+        3. As an unregistered visitor, I want to be able to edit my cart
+           In view basket page there are Update and Delete links that open collapsibles.
+
+             ![Image showing edit and delete links in basket](/docs/readme-assets/testing_images/edit_basket.png)
+
+        4. As an unregistered visitor, I want to be able to checkout
+           In view basket page and in success message upon adding a product there is a checkout 
+           button that takes user to checkout page.
+
+             ![Image showing checkout button in basket](/docs/readme-assets/testing_images/checkout_btn.png)
+             ![Image showing Success message checkout button](/docs/readme-assets/testing_images/message_checkout.png)
+
+        5. As an unregistered visitor, I want to see an order confirmation
+           When an order is put through, the checkout success page renders and the user will recieve 
+           a confirmation email.
+
+             ![Image showing checkout success page](/docs/readme-assets/testing_images/order_confirm.png)
+             ![Image showing order confirmation email](/docs/readme-assets/testing_images/order_email.png)
+
+        6. As an unregistered visitor, I expect the site to look good on my mobile device.
+           The site was designed with mobile first in mind
+
+             ![Image showing mobile home page](/docs/readme-assets/testing_images/home.png)
+             ![Image showing mobile nav menu page](/docs/readme-assets/testing_images/mobile_nav.png)
+             ![Image showing mobile shop page](/docs/readme-assets/testing_images/shop.png)
+             ![Image showing mobile product details page](/docs/readme-assets/testing_images/details.png)
+             ![Image showing mobile basket page](/docs/readme-assets/testing_images/basket_mobile.png)
+             ![Image showing checkout page](/docs/readme-assets/testing_images/checkout.png)
+             ![Image showing mobile contact page](/docs/readme-assets/testing_images/contact.png)
+
+        7. As an unregistered visitor, I want to easily search the vinyls.
+           The Shop page has the products grouped in genres of which the user can use the arrows to browse through.
+           The "Browse Genre" heading above each carousel is a link so that the user can see all products of a genre at once.
+           There is also a view all products link and a search box.
+           
+             ![Image showing browse genre, see all and search box](/docs/readme-assets/testing_images/browse_products.png)
+
+   - #### First Time Visitor (in addition to above)
+        1. As a first time visitor, I want to easily understand the main purpose of the site.
+        2. As a first time visitor, I want to be able to intuitively use the site.
+        3. As a first time visitor, I expect to see an attractive, visually appealing site.
+        4. As a first time visitor, I expect an accessible site.
+        5. As a first time visitor, I expect the site to look good on my mobile device.
+        6. As a first time visitor, I want to easily register.
+
+   - #### Registered Returning Visitor Goals
+        1. As a returning visitor, I want to be able to view and add to the event board.
+        2. As a returning visitor, I want to follow on social media so I can hear of any new products.
+        3. As a returning visitor, I want to be able to change my password.
+        4. As a returning visitor, I want to be able to save my details
+        5. As a returning visitor, I want to get feedback so I know that something has went through.
+      
+   - #### Registered Frequent Visitor Goals
+        1. As a frequent visitor, I want to be able to edit an event I’ve added to the event board.
+        2. As a frequent visitor, I want to be able to contact the owner.
+        3. As a frequent visitor, I want to be able to edit my profile information.
+        4. As a frequent visitor, I want to be able to delete my account
+        5. As a frequent visitor, I want to be able to see my order history
+        6. As a frequent visitor, I don't want to have never ending scrolling up or down.
 
    - #### Admin goals
+        1. As admin, I want to be able to add, delete or edit a product.
+        2. As admin, I want to be able to add a genre.
+        3. As admin, I want to be able to delete or edit an event on the event board
+        4. As admin, I want to be able to delete a user.
+        5. As admin, I want to be able to make another user an admin.
+        6. As admin, I don’t want users to be able to order product if there is none left in stock.
       
          
       
