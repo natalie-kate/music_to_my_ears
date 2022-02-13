@@ -17,7 +17,7 @@
 <h2 class="text-center mt-4"> Product Details </h2>
 <p class="text-center">
   <a href="{% url 'shop' %}" aria-label="Takes you back to shop page">Back to Shop 
-    <i class="fas fa-step-backward"></i></a>
+    <i class="fas fa-step-backward" aria-hidden="true"></i></a>
 </p>
 
 <div class="row">
@@ -71,12 +71,12 @@
       {% endif %}
     {% else %}
     <!-- If product stock quantity is 0 -->
-    <p>Sorry this is out of stock just now <i class="far fa-sad-cry"></i></p>
+    <p>Sorry this is out of stock just now <i class="far fa-sad-cry" aria-hidden="true"></i></p>
     {% endif %}
     
     <!-- If product stock quantity is 1 -->
     {% if product.stock_quantity == 1 %}
-      <span class="highlight">Hurry only 1 left in stock! <i class="fas fa-running"></i></span>
+      <span class="highlight">Hurry only 1 left in stock! <i class="fas fa-running" aria-hidden="true"></i></span>
     {% endif %}
     </div>
   </div>
@@ -100,9 +100,9 @@
     <div class="text-center">
     <h3 class="product-admin mt-2">Product Admin</h3>
     <a class="mr-3" href="{% url 'edit_vinyl' product.id %}" aria-label="Opens edit vinyl page">
-      <i class="admin fas fa-pencil-alt mb-4"></i>Edit</a>
+      <i class="admin fas fa-pencil-alt mb-4" aria-hidden="true"></i>Edit</a>
     <a data-toggle="collapse" href="#delete_product" aria-label="Will open delete product section">
-      <i class="admin fas fa-trash"></i> Delete</a>
+      <i class="admin fas fa-trash" aria-hidden="true"></i> Delete</a>
     </div>
     {% endif %}
 

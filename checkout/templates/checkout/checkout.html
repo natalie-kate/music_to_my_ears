@@ -18,7 +18,7 @@
 <div class="row">
     <div class="text-center col-12">
         <a href="{% url 'view_basket' %}" aria-label="Takes you back to basket">
-            <i class="fas fa-backward"></i> Back to Basket</a>
+            <i class="fas fa-backward" aria-hidden="true"></i> Back to Basket</a>
     </div>
     <!-- Payment information form -->
     <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
@@ -61,7 +61,7 @@
                 {% endif %}
             </div>
             <fieldset class="col-10 col-md-5 offset-1 mb-2 pb-2 total">
-                <legend>Total <i class="fas fa-calculator"></i></legend>
+                <legend>Total <i class="fas fa-calculator" aria-hidden="true"></i></legend>
                 <p>
                     <strong>Number of items: </strong>{{ product_count }}<br>
                     <strong>Subtotal: </strong>£{{ total }}<br>
@@ -70,7 +70,7 @@
                 </p>
             </fieldset>
             <fieldset class="col-10 col-md-5 offset-1 offset-md-0 payment">
-                <legend>Payment <i class="far fa-credit-card"></i></legend>
+                <legend>Payment <i class="far fa-credit-card" aria-hidden="true"></i></legend>
                 <label for="#card-element">Card Details</label>
                 <div class="mb-2 form-control" id="card-element"></div>
                 <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
@@ -89,7 +89,7 @@
 <div id="loading-overlay">
     <div class="loading-spinner">
         <span class="btn btn-lg hover spinning-record"><span> Won't be </span>
-        <i class="fas fa-circle"></i><span>Long</span></span>
+        <i class="fas fa-circle" aria-hidden="true"></i><span>Long</span></span>
     </div>  
 </div>
 {% endblock %}

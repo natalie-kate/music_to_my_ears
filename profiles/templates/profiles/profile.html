@@ -40,7 +40,7 @@
   <!-- My Information section -->
   <div class="col-10 col-md-5 offset-1 offset-md-0 text-center">
     <h3 class="mt-4">My Info <a class="btn btn-md my-btn hover" data-toggle="collapse" href="#profile_edit" class="mr-2" 
-    aria-label="Will open edit information section"><i class="fas fa-pencil-alt"></i> Edit info </a></h3>
+    aria-label="Will open edit information section"><i class="fas fa-pencil-alt" aria-hidden="true"></i> Edit info </a></h3>
     {% if profile.default_first_name %}
       <p>Name: {{ profile.default_first_name }} 
         {% if profile.default_surname %}{{ profile.default_surname }}{% endif %}</p>

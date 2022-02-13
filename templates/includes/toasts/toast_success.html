@@ -1,6 +1,6 @@
 <div class="toast" role="alert" aria-live="polite" aria-atomic="true" data-autohide="false">
     <div class="toast-header">
-      <i class="fas fa-record-vinyl success mr-3"></i>
+      <i class="fas fa-record-vinyl success mr-3" aria-hidden="true"></i>
       <h3 class="mr-auto mt-3 mb-1"> Success! </h3>
       <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -10,8 +10,8 @@
       {{ message }}
     </div>
     {% if basket_products and not is_basket and not on_profile_page %}
-    <div class="text-center">
-      <a href="{% url 'view_basket' %}" aria-label="Opens basket page" class="mb-4">View Basket</a>
+    <div class="text-center mb-4">
+      <a href="{% url 'view_basket' %}" aria-label="Opens basket page">View Basket</a>
     </div>
     <div class="row">
         {% for item in basket_products %}

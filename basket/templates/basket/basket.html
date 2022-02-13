@@ -33,9 +33,9 @@
             <p><strong>Price: </strong>£{{ item.product.price }}</p> 
             <p>
               <a data-toggle="collapse" href="#prod_{{ item.product_id }}_edit" class="mr-2" 
-              aria-label="Will open edit quantity section"><i class="fas fa-pencil-alt"></i> Edit quantity </a> | 
+              aria-label="Will open edit quantity section"><i class="fas fa-pencil-alt" aria-hidden="true"></i> Edit quantity </a> | 
               <a data-toggle="collapse" href="#prod_{{ item.product_id }}_delete" class="ml-2" 
-              aria-label="Will open remove product confirmation section"><i class="fas fa-trash-alt"></i> Delete</a>
+              aria-label="Will open remove product confirmation section"><i class="fas fa-trash-alt" aria-hidden="true"></i> Delete</a>
             </p>
             <!-- Edit quantity form -->
             <div id="prod_{{ item.product_id }}_edit" class="collapse">
@@ -74,7 +74,7 @@
        </div>
        <!-- Display subtotal, delivery cost and grand total -->
         <div class="col-8 offset-2 col-md-4 offset-md-4 text-center">
-          <h3>Total <i class="fas fa-calculator"></i></h3>
+          <h3>Total <i class="fas fa-calculator" aria-hidden="true"></i></h3>
           <p>
             <strong>Number of items: </strong>{{ product_count }}<br>
             <strong>Subtotal: </strong>£{{ total }}<br>
@@ -92,7 +92,7 @@
     {% else %}
     <!-- If nothing in basket show paragraph and link to shop -->
     <div class="col-12 text-center">
-      <p>You have nothing in your basket yet! <i class="far fa-sad-cry"></i></p>
+      <p>You have nothing in your basket yet! <i class="far fa-sad-cry" aria-hidden="true"></i></p>
     </div>
     <div class="col-12 text-center">
       <a href="{% url 'shop' %}" aria-label="Will take you to shop page">Lets find you something! </a>
