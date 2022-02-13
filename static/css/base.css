@@ -75,7 +75,8 @@ body{
     color: #225e6c;
 }
 
-.shopping-bag small {
+.shopping-bag small,
+.shopping-bag sup {
     color: #225e6c;
 }
 
@@ -209,6 +210,12 @@ a:hover,
     text-decoration-style: wavy;
 }
 
+h3 a {
+    color: rgba(23, 162, 184, .85);
+    text-decoration: underline;
+    text-decoration-style: wavy;
+}
+
 .text-left {
     padding-left: 12vw;
 }
@@ -217,12 +224,11 @@ a:hover,
     background-color: #f39c8a;
     border-radius: 8px;
     border: 5px solid #225e6c;
-
 }
 
-.banner p {
+.banner a {
     color: black;
-    font-size: 24px;
+    font-size: 20px;
     margin: 0;
 }
 
@@ -364,6 +370,11 @@ table {
     .nav-item .nav-link {
         font-size: 16px;
     }
+    .banner a {
+        color: black;
+        font-size: 24px;
+        margin: 0;
+    }
 }
 
 @media(min-width:1000px){
@@ -376,6 +387,10 @@ table {
     } 
     .nav-item .nav-link {
         font-size: 18px;
+    }
+    h3 a {
+        color: rgba(23, 162, 184, .85);
+        text-decoration: none;
     }
 }
 
