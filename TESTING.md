@@ -167,19 +167,78 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
 
    - #### First Time Visitor (in addition to above)
         1. As a first time visitor, I want to easily understand the main purpose of the site.
+           The landing page has a call to action button that says "Shop Vinyl", there is also an about 
+           section that explains what the site is for.
+            
+             ![Image showing call of action and about section](/docs/readme-assets/testing_images/about.png)
+
         2. As a first time visitor, I want to be able to intuitively use the site.
+           I have kept the basket on the top right, the logo on the top left, the nav menu at the top 
+           and other links in the footer where a user will expect to find them. This aids with single user
+           learning and therefore intuitive use.
+
+             ![Image showing nav bar](/docs/readme-assets/testing_images/nav_bar.png)
+             ![Image showing footer links](/docs/readme-assets/testing_images/links.png)
+
         3. As a first time visitor, I expect to see an attractive, visually appealing site.
+           Main landing page image colours are carried through the site for uniformity. The three images 
+           used at top of each page are all music themed but prevent the user getting bored of the same image.
+
+             ![Image showing shop page image](/docs/readme-assets/testing_images/shop_pic.png) 
+             ![Image showing profile page image](/docs/readme-assets/testing_images/profile_pic.png)
+             ![Image showing contact page image](/docs/readme-assets/testing_images/contact_pic.png)
+
         4. As a first time visitor, I expect an accessible site.
-        5. As a first time visitor, I expect the site to look good on my mobile device.
-        6. As a first time visitor, I want to easily register.
+           All links are aria labelled, all images have alternative text and the colour contrast ratio passes 
+           lighthouse testing.
+
+        5. As a first time visitor, I want to easily register.
+           Register link is in main nav menu and in footer links for non registered users. In addition the 
+           banner for non signed in users is a link to register page.
+
+            ![Image showing main nav link to register](/docs/readme-assets/testing_images/mobile_nav.png)
+            ![Image showing sign in link in the footer](/docs/readme-assets/testing_images/links.png)
+            ![Image showing banner registration link](/docs/readme-assets/testing_images/banner.png)
 
    - #### Registered Returning Visitor Goals
         1. As a returning visitor, I want to be able to view and add to the event board.
+           Link in the main nav menu and in the banner for logged in users. On the event page there 
+           is an Add event button at the top, this takes the user to the add event page.
+
+             ![Image showing event link in main nav menu](/docs/readme-assets/testing_images/event_link.png)
+             ![Image showing add event form](/docs/readme-assets/testing_images/add_event_form.png)
+             ![Image showing banner event page link](/docs/readme-assets/testing_images/event_banner.png)
+             ![Image showing add event button](/docs/readme-assets/testing_images/add_event.png)
+
         2. As a returning visitor, I want to follow on social media so I can hear of any new products.
+           In the footer of each page are Social media links.
+
+             ![Image showing social links](/docs/readme-assets/testing_images/social.png)
+           
         3. As a returning visitor, I want to be able to change my password.
+           On the users profile page, under My Account section is a link to change password.
+
+             ![Image showing change password link](/docs/readme-assets/testing_images/my_account.png)
+             ![Image showing change password page](/docs/readme-assets/testing_images/change_password.png)
+           
         4. As a returning visitor, I want to be able to save my details
+           User can save personal information via a button on the profile page that open a collapsible section
+           or when placing an order via the save my information link.
+
+             ![Image showing edit info button](/docs/readme-assets/testing_images/edit_info.png)
+             ![Image showing save info checkbox](/docs/readme-assets/testing_images/save_info.png)
+
         5. As a returning visitor, I want to get feedback so I know that something has went through.
-      
+           Whenever as user adds, adjusts or deletes an item from their basket a pop up message appears. 
+           In addition the user recieves emails upon registration, placing an order and submitting a contact form.
+           Upon submitting an order the user is also taken to an order confirmation page. 
+            
+             ![Image showing registration email](/docs/readme-assets/testing_images/registration_email.png)
+             ![Image showing order confirmation email](/docs/readme-assets/testing_images/order_email.png)
+             ![Image showing contact email](/docs/readme-assets/testing_images/contact_email.png)
+             ![Image showing success message](/docs/readme-assets/testing_images/view_basket.png)
+             ![Image showing order confirmation page](/docs/readme-assets/testing_images/order_confirm.png)
+             
    - #### Registered Frequent Visitor Goals
         1. As a frequent visitor, I want to be able to edit an event I’ve added to the event board.
         2. As a frequent visitor, I want to be able to contact the owner.
