@@ -184,7 +184,7 @@ Wireframes were created on Balsamiq (see links below)
       
 -   #### Imagery
 
-    The images I've used on the top of each page were picked to create the feel and atmosphere of an old school music shop where you could leisurely peruse the music and pick out your next favourite band.
+    The images I've used on the top of each page were picked to create the feel and atmosphere of an old school music shop where you could leisurely peruse the music and pick out your next favourite band. The image for account pages are the same, as are those to do with the shop and products. The event and contact share another image.
     
 ## Technologies 
 
@@ -243,7 +243,7 @@ Wireframes were created on Balsamiq (see links below)
        + <span style="color: grey;">Solution: Deleted the added fields migrated and then added them again and remigrated </span>  
    - Getting logic to work for only showing add to basket button if not in basket or quantity in basket was less than quantity available. Tried loads of different things including template tags.
        + <span style="color: grey;">Solution: Got the infomration in views and passed in to template in context.
-   - Blockpostload js with strip info and script with stripe_elements.js file, kept getting an error like I hadn't put in the appropraite block tags. 
+   - Blockpostload js with strip info and script with stripe_elements.js file, kept getting an error like I hadn't put in the appropriate block tags. 
       + <span style="color: grey;">Solution: Had forgotten to load static at top of template, karthikr on stack overflow https://stackoverflow.com/questions/22650371/django-is-it-impossible-to-static-tag-into-block-tag </span>  
    - Tried to do different elements for stripe to render the input fields rather than just the card element but then it got a bit confusing when it came to payment method, felt I wasn't going to have all the checks that happen in the card element automatically so reverted back.
    - Had been added in a few things after the intial webhook check and now the checkout button wasn't doing anything, deleted everything and started adding them back in one by one, fadeToggle on loading overlay and payment form wasn't working so changed to hide and show and then opposite in case of form error. Next I added back in the billing and shipping to pass into stripe, that was also breaking it, realised it was looking for full_name in form where mine was split into first_name and surname.
@@ -284,7 +284,7 @@ Testing and results can be found [here](TESTING.md)
     (b) This took me to the page below. I selected the code institute template, input a repository name and clicked the green create repository button.<br>
 
     ![image showing green new button](docs/readme-assets/readme-images/new.png)
-    ![Image showing the create repository page](docs/readme-assets/readme-images/new-repo.png)
+    ![Image showing the create repository page](docs/readme-assets/readme-images/new_repo.png)
 
     (c) Opened new repository and clicked green Gitpod button to create a workspace in Gitpod for editing.
 
