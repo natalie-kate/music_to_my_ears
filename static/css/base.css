@@ -75,6 +75,10 @@ body{
     color: #225e6c;
 }
 
+.shopping-bag small {
+    color: #225e6c;
+}
+
 .hover:hover {
     background-color: #225e6c;
     color: rgb(241 135 135);
