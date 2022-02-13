@@ -7,12 +7,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta charset="UTF-8">
     <meta name="keywords" content="vinyl, shop, records, music">
     <meta name="author" content="Natalie Kate Alexander">
     <meta name="Description" content="Vinyl record shop" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <title>Music To My Ears</title>
 </head>
@@ -21,12 +20,12 @@
     <!-- Header and Nav, modified bootstrap nav -->
     <header>
         <nav class="navbar navbar-expand-md">
-            <a class="navbar-brand fas fa-record-vinyl" href="{% url 'home' %}" aria-label="Logo and link to home"></a>
+            <a class="navbar-brand fas fa-record-vinyl" aria-hidden="true" href="{% url 'home' %}" aria-label="Logo and link to home"></a>
             <!-- Dropdown menu button for smaller screens -->
             <button class="navbar-toggler text-center" type="button" data-toggle="collapse"
                 data-target="#navdropdownmenu" aria-controls="navdropdownmenu" aria-expanded="false"
                 aria-label="Toggle navigation">
-                <span><i class="fas fa-bars"></i></span>
+                <span><i class="fas fa-bars" aria-hidden="true"></i></span>
             </button>
             <!-- Nav links -->
             <div class="collapse navbar-collapse text-center">
@@ -34,7 +33,7 @@
             </div>
             <div class="shopping-bag text-center">
                 <a class="shopping-bag" href="{% url 'view_basket' %}" aria-label="View basket">
-                    <i class="fas fa-shopping-basket fa-lg"></i></small><sup>({{ product_count }})</sup>
+                    <i class="fas fa-shopping-basket fa-lg" aria-hidden="true"></i></small><sup>({{ product_count }})</sup>
                     <p>
                         {% if basket_products %}
                         <small>£{{ grand_total|floatformat:2 }}</small>
@@ -52,11 +51,11 @@
     <!-- Banner, text display changes depending on conditions -->
     <div class="banner text-center">
         {% if request.user.is_authenticated and not in_events %}
-        <p>Check out our events page for live music events in your area!</p>
+        <a href="{% url 'events' %}" aria-label="Link opens events page">Check out our events page for live music events in your area!</a>
         {% elif in_events %}
         <p>Search for events in your area!</p>
         {% else %}
-        <p>Register today for access to our events page! </p>
+        <a href="{% url 'account_signup' %}" aria-label="Link opens register page">Register today for access to our events page!</a>
         {% endif %}
     </div>
 
