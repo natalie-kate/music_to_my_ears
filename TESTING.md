@@ -241,21 +241,86 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
              
    - #### Registered Frequent Visitor Goals
         1. As a frequent visitor, I want to be able to edit an event I’ve added to the event board.
-        2. As a frequent visitor, I want to be able to contact the owner.
-        3. As a frequent visitor, I want to be able to edit my profile information.
-        4. As a frequent visitor, I want to be able to delete my account
-        5. As a frequent visitor, I want to be able to see my order history
-        6. As a frequent visitor, I don't want to have never ending scrolling up or down.
+           On the event page, if a user created an event they will have the option to edit or delete the event.
 
-   - #### Admin goals
-        1. As admin, I want to be able to add, delete or edit a product.
-        2. As admin, I want to be able to add a genre.
-        3. As admin, I want to be able to delete or edit an event on the event board
-        4. As admin, I want to be able to delete a user.
-        5. As admin, I want to be able to make another user an admin.
-        6. As admin, I don’t want users to be able to order product if there is none left in stock.
-      
-         
+             ![Image showing edit event link](/docs/readme-assets/testing_images/edit_event.png)
+             ![Image showing edit event form](/docs/readme-assets/testing_images/edit_event_form.png)
+
+        2. As a frequent visitor, I want to be able to contact the owner.
+           In the main nav there is a link to the contact page which take user to the contact form
+           to complete. If user has completed their personal information, this will prefill the relevant fields.
+
+             ![Image showing contact us nav link](/docs/readme-assets/testing_images/nav.png)
+             ![Image showing contact form](/docs/readme-assets/testing_images/contact_form.png)
+
+        3. As a frequent visitor, I want to be able to edit my profile information.
+           On profile page, there is a My Info section with an edit info button,
+           this opens the edit info section.
+
+             ![Image showing edit info button](/docs/readme-assets/testing_images/edit_info.png)
+             ![Image showing edit info section](/docs/readme-assets/testing_images/edit_info_form.png)
+            
+        4. As a frequent visitor, I want to be able to delete my account
+           On profile page, under My account section is a delete account link,this opens a delete confirmation prior to deleting.
+
+             ![Image showing delete account link](/docs/readme-assets/testing_images/delete.png)
+
+        5. As a frequent visitor, I want to be able to see my order history.
+           On users profile page there is a My Orders section, this lists date and truncated order number, this is a link
+           which opens up original order confirmation page. Order table is horizontally scrollable on smaller screens.
+
+             ![Image showing past order link](/docs/readme-assets/testing_images/my_orders.png)
+             ![Image showing order information](/docs/readme-assets/testing_images/view_order.png)
+
+        6. As a frequent visitor, I don't want to have never ending scrolling up or down.
+           Every page has a back to top link in the footer.
+
+             ![Image showing back to top link](/docs/readme-assets/testing_images/links.png)
+
+        7. As a frequent visitor, I want to be able to search for events.
+           On the event page at the top is a search bar. The user can search for name, location or details.
+
+             ![Image showing events search bar](/docs/readme-assets/testing_images/search.png)
+
+   - #### Superuser goals
+        1. As superuser, I want to be able to add, delete or edit a product.
+           In nav menu for superusers there is an Add Product link which opens the add vinyl page.
+
+             ![Image showing add vinyl link in main menu](/docs/readme-assets/testing_images/add_vinyl.png)
+             ![Image showing add vinyl form](/docs/readme-assets/testing_images/add_vinyl_form.png)
+
+        2. As superuser, I want to be able to add a genre.
+           In superusers main menu is a link to the admin panel where they can add new genres.
+
+             ![Image showing add genre in admin panel](/docs/readme-assets/testing_images/add_genre.png)
+             
+        3. As superuser, I want to be able to delete or edit an event on the event board
+           Superuser can edit or delete any event on the event board. This can be via the edit and delete links 
+           at the bottom of each event card or via the admin panel.
+
+             ![Image showing delete user in admin panel](/docs/readme-assets/testing_images/delete_event.png)
+             ![Image showing delete event in admin panel](/docs/readme-assets/testing_images/admin_delete.png)
+             ![Image showing edit event in admin panel](/docs/readme-assets/testing_images/admin_edit.png)
+             
+        4. As superuser, I want to be able to delete a user.
+           User can enter admin through the Admin link on their main menu. In the admin panel they can select
+           users from the left hand side, select the user they want to delete and in drop down choose delete selected users. Alternatively they can inactivate the user via the permissions option when they open the users record.
+
+             ![Image showing delete user in admin panel](/docs/readme-assets/testing_images/delete_user.png)
+             ![Image showing inactivate user in admin panel](/docs/readme-assets/testing_images/inactivate_user.png)
+
+        5. As superuser, I want to be able to make another user an admin.
+           As above but for inactivating a user but under permissions select staff and superuser permissions.
+
+             ![Image showing admin permissisons in admin panel](/docs/readme-assets/testing_images/admin.png)
+
+        6. As superuser, I don’t want users to be able to order product if there is none left in stock.
+           If product has a stock_quantity of 0, the add to basket buttons are inactivated. In addition if user 
+           adds to basket but then someone purchases the last one prior to them checking out, it'll be removed from basket and they will be informed. 
+
+            ![Image showing out of stock message with no add to basket button available](/docs/readme-assets/testing_images/out_of_stock.png)
+            ![Image showing error message due to stock no longer available](/docs/readme-assets/testing_images/error.png)
+       
       
 ## Manual Testing
 
