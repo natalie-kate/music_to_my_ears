@@ -89,14 +89,15 @@ This website was created for Milestone 4
         4. As a frequent visitor, I want to be able to delete my account
         5. As a frequent visitor, I want to be able to see my order history
         6. As a frequent visitor, I don't want to have never ending scrolling up or down.
+        7. As a frequent visitor, I want to be able to search for events.
 
-   - #### Admin goals
-        1. As admin, I want to be able to add, delete or edit a product.
-        2. As admin, I want to be able to add a genre.
-        3. As admin, I want to be able to delete or edit an event on the event board
-        4. As admin, I want to be able to delete a user.
-        5. As admin, I want to be able to make another user an admin.
-        6. As admin, I don’t want users to be able to order product if there is none left in stock.
+   - #### Superuser goals
+        1. As superuser, I want to be able to add, delete or edit a product.
+        2. As superuser, I want to be able to add a genre.
+        3. As superuser, I want to be able to delete or edit an event on the event board
+        4. As superuser, I want to be able to delete a user.
+        5. As superuser, I want to be able to make another user an admin.
+        6. As superuser, I don’t want users to be able to order product if there is none left in stock.
 
    ### Scope
 
@@ -427,6 +428,7 @@ Testing and results can be found [here](TESTING.md)
 -   [Django Docs](https://docs.djangoproject.com/en/4.0/topics/forms/modelforms/): Helped with radio button CHOICES code for ratings section of contact page.
 -   [Juli Colombo](https://medium.com/ibisdev/upload-multiple-images-to-a-model-with-django-fd00d8551a1c): Helped me with dealing with product images. Knew that some products you would want more images than others e.g a special edition or multi disc album. So this article helped me decide to create a seperate image model. 
 -   [JQuery docs](https://api.jquery.com/each/): Used in display_image.js to send each file in the array to the displayImg function in turn.
+-   [Kaspar Etter](https://stackoverflow.com/questions/19794211/horizontal-scroll-on-overflow-of-table): For enabling my table in order confirmation to scroll horizontally for when table overflows small screens.
 
 ### Content
 
