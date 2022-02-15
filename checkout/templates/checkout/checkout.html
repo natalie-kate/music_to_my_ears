@@ -24,6 +24,7 @@
     <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
         <form method="POST" action="{% url 'checkout' %}" id="payment-form">
             {% csrf_token %}
+            <div class="text-center mb-2 mt-2" id="form-errors"></div>
             <fieldset class="col-10 offset-1 personal">
                 <legend> Personal Details</legend>
                 {{ order_form.first_name | as_crispy_field }}
@@ -56,7 +57,7 @@
                 <input type="checkbox" id="save-info" name="save-info"
                     checked>
                 {% else %}
-                <a href="{% url 'account_signup' %}" aria-label="Opens register page">>Register </a> or
+                <a href="{% url 'account_signup' %}" aria-label="Opens register page">Register </a> or
                 <a href="{% url 'account_login' %}" aria-label="Opens sign in page">Login</a> to save this information
                 {% endif %}
             </div>
