@@ -379,7 +379,7 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
   - Form can submit without delivery data filled in
   - Form will not submit without required fields completed
   - Form will not submit with white space as an entry
-    * I put empty space in the first name field, I got an internal server error. Went back and filled in the name and then got a processing error. When I checked admin this was because the order had actually went through via the webhook. In development environment repeated to see what error I would get. It said "The view checkout.views.checkout didn't return an HttpResponse object. It returned None instead." I wrote a validators.py file and added it into my required models and migrated, this did not fix the issue. I put return redirect('checkout') that seemed to solve the issue and now shows an error message. So didn't end up migrating changes to the model to Postgres database. I was wondering why the order and payment still went through, but I realised as stripe requires a name and my surname field was filled in, this was sufficient information for stripe but not for my model.
+    * I put empty space in the first name field, I got an internal server error. Went back and filled in the name and then got a processing error. When I checked admin this was because the order had actually went through via the webhook. In development environment repeated to see what error I would get. It said "The view checkout.views.checkout didn't return an HttpResponse object. It returned None instead." I wrote a validators.py file and added it into my required models and migrated, this did not fix the issue. I put return redirect('checkout') in the else block if form not valid, that seemed to solve the issue and now shows an error message. So didn't end up migrating changes to the model to Postgres database. I was wondering why the order and payment still went through, but I realised as stripe requires a name and my surname field was filled in, this was sufficient information for stripe but not for my model. Now however the stripe payment goes through twice and two orders appear in database as two intents created so two pids created. As this is due to stripe accepting just the first or surname in the name field, so in stripe_element.js added a check for both names and if not show an error message. Tried to make it a toast but I couldn't get it to work, tried creating and inserting an element for it and putting in the toast html but after spending hours on it I gave up due to time restraints and just put a similar error div that is used to display stripe errors. I'm sure it was something stupid I was doing so will revisit at a later date.
 
 ### Checkout Success Page
   - The success messages show, one for saving info if that was selected and one for order.
@@ -406,9 +406,10 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
   - Cannot add an existing product
   - Add product button works with product successfully added to database and success message shown.
   - Form will not submit without required fields completed
-    * Didn't like how Country genre was preselected, means that people could easily overlook that field and 
-    product would be added in with the wrong genre. Created 'Genre' genre in database. Then in js added selected 
-    and disabled attributes.
+    * Didn't like how Country genre was pre-selected, means that people could easily overlook that field and 
+    product would be added in with the wrong genre. Created 'Choose Genre' genre in database. Then in js added disabled
+    attribute. This did not work as the values for the options were numbers and the orders changed so I couldn't be certain that my 
+    choose genre option would always be the target. In form.py changed the choices. [Johnny Buchanan on Stack Overflow](https://stackoverflow.com/questions/5089396/django-form-field-choices-adding-an-attribute). Then in genre.js added in setting selected and disabled attributes. Had it in display_image.js initially but then in edit_vinyl current genre was replaced and user would have to select it again.
   - Form will not submit where required fields are just whitespace.
   - File input fields, shows images that have been selected.
 
