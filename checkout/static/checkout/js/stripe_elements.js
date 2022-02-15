@@ -59,15 +59,32 @@ form.addEventListener('submit', function(ev) {
     };
     var url = '/checkout/cache_checkout_data/';
 
-    // Get information from form and send to stripe
-    $.post(url, postData).done(function () {
-        stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: card,
-                billing_details: {
+    var firstName = $.trim(form.first_name.value)
+    var surname = $.trim(form.surname.value)
+
+    if (firstName && surname) {
+        // Get information from form and send to stripe
+        $.post(url, postData).done(function () {
+            stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        name: firstName + " " + surname,
+                        phone: $.trim(form.phone_number.value),
+                        email: $.trim(form.email.value),
+                        address:{
+                            line1: $.trim(form.street_address1.value),
+                            line2: $.trim(form.street_address2.value),
+                            city: $.trim(form.town_or_city.value),
+                            country: $.trim(form.country.value),
+                            postal_code: $.trim(form.postcode.value),
+                            state: $.trim(form.county.value),
+                        }
+                    }
+                },
+                shipping: {
                     name: $.trim(form.first_name.value) + " " +$.trim(form.surname.value),
                     phone: $.trim(form.phone_number.value),
-                    email: $.trim(form.email.value),
                     address:{
                         line1: $.trim(form.street_address1.value),
                         line2: $.trim(form.street_address2.value),
@@ -76,44 +93,44 @@ form.addEventListener('submit', function(ev) {
                         postal_code: $.trim(form.postcode.value),
                         state: $.trim(form.county.value),
                     }
+                },
+            }).then(function(result) {
+                // If stripe returns an error, show form again, error message
+                // and reactivate submit button
+                if (result.error) {
+                    var errorDiv = document.getElementById('card-errors');
+                    var html = `
+                        <span class="icon" role="alert">
+                        <i class="fas fa-times" aria-hidden="true"></i>
+                        </span>
+                        <span>${result.error.message}</span>`;
+                    $(errorDiv).html(html);
+                    card.update({ 'disabled': false});
+                    $('#payment-form').show();
+                    $('#loading-overlay').hide();
+                    $('#submit-button').attr('disabled', false);
+                } else {
+                    // If no error submit form to create order in our database
+                    if (result.paymentIntent.status === 'succeeded') {
+                        form.submit();
+                    }
                 }
-            },
-            shipping: {
-                name: $.trim(form.first_name.value) + " " +$.trim(form.surname.value),
-                phone: $.trim(form.phone_number.value),
-                address:{
-                    line1: $.trim(form.street_address1.value),
-                    line2: $.trim(form.street_address2.value),
-                    city: $.trim(form.town_or_city.value),
-                    country: $.trim(form.country.value),
-                    postal_code: $.trim(form.postcode.value),
-                    state: $.trim(form.county.value),
-                }
-            },
-        }).then(function(result) {
-            // If stripe returns an error, show form again, error message
-            // and reactivate submit button
-            if (result.error) {
-                var errorDiv = document.getElementById('card-errors');
-                var html = `
-                    <span class="icon" role="alert">
-                    <i class="fas fa-times" aria-hidden="true"></i>
-                    </span>
-                    <span>${result.error.message}</span>`;
-                $(errorDiv).html(html);
-                card.update({ 'disabled': false});
-                $('#payment-form').show();
-                $('#loading-overlay').hide();
-                $('#submit-button').attr('disabled', false);
-            } else {
-                // If no error submit form to create order in our database
-                if (result.paymentIntent.status === 'succeeded') {
-                    form.submit();
-                }
-            }
-        });
-    }).fail(function() {
-        // Reload the page if failure
-        location.reload();
-    })
+            });
+        }).fail(function() {
+            // Reload the page if failure
+            location.reload();
+        })
+    }
+    else {
+        var errorDiv = document.getElementById('form-errors');
+        var html = `
+            <span class="icon" role="alert">
+            <i class="fas fa-times" aria-hidden="true"></i>
+            </span>
+            <span>Form error, check your fields have been filled in.</span>`;
+        $(errorDiv).html(html);
+        $('#payment-form').show();
+        $('#loading-overlay').hide();
+        $('#submit-button').attr('disabled', false);
+    }
 });
