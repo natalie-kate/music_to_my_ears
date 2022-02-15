@@ -325,68 +325,125 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
 ## Manual Testing
 
 -  I generally test as I'm developing as well as at the end so some of the findings are from during development. The website was viewed with browsers: Google chrome, Safari, Microsoft Edge, Firefox and Opera. Viewed all pages on each and checked the following:
-  - Nav links work from all three pages to all links.
-  - Pocket Bookcase brand name takes user to home.
-  - Book search bar works for genre, added_by, series, book title and author for logged in and non logged in users.
-    * Got an error when I searched an empty input box for non-logged in user. Realised I hadn't put required attribute in the search box but now same thing happens when user searches for something that isn't there. Its when it redirects the user back to library the if session code is running and comes up with a KeyError at session["user"]. I thought only logged in users are in session but evidently not, so I have changed if session to if "user" in session and that seems to work.
-  - Pagination links work.
-  - All buttons take user to the correct page
-  - Add book button should only show for logged in user.
-  - Add book form doesn't allow user to add book without required fields being completed.
-    * Removed required from review as it occurred to me if a user was adding a book to their 'Books to Read' bookshelf they won't have a review yet.
-  - Add book form doesn't allow a book that already exists in library to be added.
-    * Yes and no, if you spell it exactly the same then it won't let you, but if there is a letter different or you miss out "The" at the beginning for example it can get added when really its the same book.
-  - Add book form doesn't allow a book with only spaces as a name to be added.
-  - Book successfully added to library
-  - If book url not supplied or broken, back up image shown.
-  - Flash messages pop up where required, providing feedback to users actions.
-    * Found that "Does not match our records" flash wasn't displaying full message. It was one of the flash messages that had to get split between two lines as the line was too long, put in a string concatenation.
-  - Correct buttons appear for the correct users beside books. e.g all three for admin, two against book that a user added, one for logged in users, none for non logged in users.
-  - Edit book form should prefill with current details, title should not be able to be edited except for admin.
-  - Edit book form will not submit wihout required information.
-  - Book information successfully edited.
-  - Delete book, only allowed for admin, confirmation before deletion required, successfully deleted from library.
+
+### Home Page/base.html 
+  - Nav links from main menu works
+  - Nav links change depending on users log in and superuser status.
+  - Logo takes user to home page.
+  - Shop vinyl spinning button takes user to shop page.
+  - Basket icon takes user to view basket page
+  - Banner takes user to event page if logged in.
+  - Banner takes user to register page if not logged in.
+  - Social links work and open in a new window.
+  - Back to top link works
+  - Other links in footer work and change according to user log in status.
+  - Hover effects work on all links and buttons.
+
+### Shop page
+  - Vinyl search bar works for song, title or artist for logged in and non logged in users.
+  - Genre header links allow user to see all products of that genre.
+  - Genre header links are underlined on small and medium screens to make it more obvious that they are clickable as hover effects aren't in play.
+  - View all link allows user to view all products
+  - Carousel arrows work for those genres with more than one product
+  - Details buttons open product page.
+  - All products should have an image, backup image shows if no default image or broken image.
+
+### Product Details page
+  - Back to shop link works.
+  - Add to basket button works, message shows with basket contents.
+  - Success message checkout button, close buttons and view basket link works.
+  - Basket in nav updates to show number of items in basket and current grand total.
+  - When a product has only one left in stock, a hurry paragraph shows. 
+  - When a product has no stock left, add to basket buttons aren't available and an Out of stock paragraph shows.
+  - Product Admin functionality only shows for superusers.
+  - Product admin edit button opens Edit Product Page.
+  - Product admin delete button opens a delete confirmation, cancel button closes it and delete button, successfully deletes product from database and success message shows.
+
+### View Basket Page
+  - Edit item opens a collapsible to edit quantity. Quantity values available are available stock.
+  - Update basket and cancel button in the edit collapsible both work.
+  - Upon basket update success message shows
+  - Delete product button opens a delete confirmation, cancel button closes it and "Yes, I'm sure" button, successfully deletes product from basket and success message shows.
+  - Success messages within basket page shouldn't show the basket contents as that would be pointless.
+  - Continue shoppping link takes user back to shop page.
+  - Checkout button takes user to checkout page
+  - When editing basket, totals and delivery update accordingly.
+  - Toast messages close button works.
+  - Toast message vinyl icon is a different colour depending on what type of toast it is, green for success, red for error etc.
+
+### Checkout Page
+  - Checkout form prefills if user has saved information on their profile page
+  - Back to basket link works
+  - Checking save info, saves users information
+  - Unchecking save info, does not save users info
+  - Form can submit without delivery data filled in
+  - Form will not submit without required fields completed
+  - Form will not submit with white space as an entry
+    * I put empty space in the first name field, I got an internal server error. Went back and filled in the name and then got a processing error. When I checked admin this was because the order had actually went through via the webhook. In development environment repeated to see what error I would get. It said "The view checkout.views.checkout didn't return an HttpResponse object. It returned None instead." I wrote a validators.py file and added it into my required models and migrated, this did not fix the issue. I put return redirect('checkout') that seemed to solve the issue and now shows an error message. So didn't end up migrating changes to the model to Postgres database. I was wondering why the order and payment still went through, but I realised as stripe requires a name and my surname field was filled in, this was sufficient information for stripe but not for my model.
+
+### Checkout Success Page
+  - The success messages show, one for saving info if that was selected and one for order.
+    * Noticed that when I have multiple messages the white background and border don't meet when I close one and when there are no 
+      messages there is a dot where they appear. Realised I'd applied the border styling to the message container div and not the 
+      toasts themselves.
+  - The information is all there and table filled with product information. Table should scroll horizontallly on smaller screens.
+  - Confirmation email should have sent to user with correct information.
+  - Back to shop button takes user back to shop page.
+
+### Edit Product page
+  - Need to add a product link takes user to add product page
+  - Cancel links at top and bottom of page take user back to product details page.
+    * Bottom cancel link took user back to shop page not product detail. Fixed href.
+  - Form is prefilled with current information
+  - File input, shows images that have been selected.
+  - Submit Changes button works and changes are reflected in database.
+  - Form will not submit without required fields completed
+  - Form will not submit where required fields are just whitespace.
+
+### Add Product Page
+  - Cancel links at top and bottom of page take user back to shop page.
+    * Realised I'd forgotten to put cancel link at top of page. Added in.
+  - Cannot add an existing product
+  - Add product button works with product successfully added to database and success message shown.
+  - Form will not submit without required fields completed
+    * Didn't like how Country genre was preselected, means that people could easily overlook that field and 
+    product would be added in with the wrong genre. Created 'Genre' genre in database. Then in js added selected 
+    and disabled attributes.
+  - Form will not submit where required fields are just whitespace.
+  - File input fields, shows images that have been selected.
+
+### Profile page
+  - Delete account should open confirmation and then successfully remove user if they proceed with deletion.
+  - Edit info form should be pre-filled with existing information if any.
+  - Edit info should successfully update a users information.
+
+
+### Events Page
+  - All events should have an image, backup image shows if no image supplied or broken.
+  - Correct buttons appear for the correct users beside events. e.g both for admin and the user that added it, none for other users.
+
+### Add event page
+
+### Edit event page
+  - Edit event form should prefill with current details.
+  - Edit event form will not submit wihout required information.
+
+### Contact Us Page
+  - Contact form will not submit without required personal details and comment box being completed . 
+  - Ratings work and on successful form submission, success message shown
+  - Upon contact form submission user receives a personalised acknowledgment email.
+  
+### Registration page
   - Registration form won't submit without required information.
   - Registration successfully adds a new user and their profile.
-  - Add to profile switches put books on the correct profile bookshelves.
-  - If user adds a book to profile that they have already added, duplicate book should not appear.
-      * Found during development that addToSet would stop this from happening so changed from push which is what I initially had.
-      * When testing, added a book to profile, then went back and added same book selecting the same options, this as expected didn’t give duplicate books in profile list. Then went back and added same book again, this time not selecting either switch. This resulted in the book being in the read and to read books. Added in a check to see if book is in profile already, if it is flash message will appear and user won't be taken to profile-add page. 
-  - Using book buttons on profile should move books correctly. Remove button should remove book from that bookshelf only.
-  - Edit account form should be pre-filled with existing information (not password)
-  - Edit account should successfully update a users information.
-  - Delete account should open confirmation and then successfully remove user if they proceed with deletion.
-     * Link did not open confirmation, had missed a # in the href to target the collapsible.
-  - If user tries to change their password, their existing password must be correct to proceed. And their new password must match the confirm password field.
-    * Realised I hadn't put the tooltips in to help user with required format.
-  - Manage genre page allows admin to successfully add a new genre.
-    * When trying to add a genre that was already in the database an error occurred, realised that I had redirected to add_genre rather than manage_genre.
-  - Manage genre page allows admin to update a genre.
-    * Science fiction edit collapsible wouldn't open. Had missed a genre.name.replace(' ', '').
-  - Manage genre page allows admin to successfully delete a genre after confirmation
-    * Found that Action & Adventure buttons wouldn't do anything, realised similar to a previous issue that this was due to the id being generated from it having an "&". So in add genre input added a pattern and tooltip attributes so that this could be prevented from occurring. 
-  - Manage users allows admin to search for admin users or a user by username.
-  - Manage users page allows admin to open a users edit user page to successfully make them an admin.
-  - Manage users page allows admin to open a users edit user page to successfully reset their password.
-  - Manage users page allows admin to successfully delete a user after confirmation.
-  - Cancel buttons take user off of the edit page/section they were on or close the delete confirmation.
-     * Hadn't put a cancel button in edit_user and edit_book pages.
-  - Clicking on social links work, opening in a new tab.
-  - Footer links all go to the correct place, back to top link correct on each page.
-     * Was having issued on mobile device clicking the correct link, put anchor into paragraph tags as that was the only way I could get them to space out.
-  - Footer links appearing appropriately, logged in vs non logged in. 
-  - Hover effects work on social icons and all links and buttons.
-  - Contact form will not submit without all three required personal details and comment box being completed . 
-  - Can type in contact form text area, star ratings work and on successful form submission, personalised modal appears
-  - Both modal close buttons take user back to home page.
-  - Upon successful submission, receive an email with details taken from the form by email.js and send button has changed to sent.
-  - Upon contact form submission user also recieves a personalised acknowledgment email.
+
+### Error pages
   - 404.html back to home button works.
   - 404 report issue link takes user to contact form.
-  - About modal close buttons work.
-  - Friends, family and slack peer review used. Devices and browsers were iphone 11: Safari (x3), iphone XS Max: Safari, iphone 6: Chrome, iphone XR: safari, iphone 11 Pro: Safari, iphone 10: Safari, Samsung S20 FE: Chrome, Samsung S10 and Sony Xperia I3: Chrome. 
-  - Chrome devtools used to test responsiveness throughout the development process see bugs found below. Viewed all pages on all of the available devices at the end of the project to ensure everything still looked good.
-  - Viewed physically on Macbook air 13", Huawei tablet, HP Chrome book, Dell 21" HD screen, iphone 11, Dell 17" laptop and Pixel 4XL phone to ensure that after all issues found and resolved that there was nothing else appearing
+
+- Friends, family and slack peer review used. Devices and browsers were iphone 11: Safari (x3), iphone XS Max: Safari, iphone 6: Chrome, iphone XR: safari, iphone 11 Pro: Safari, iphone 10: Safari, Samsung S20 FE: Chrome, Samsung S10 and Sony Xperia I3: Chrome. 
+- Chrome devtools used to test responsiveness throughout the development process see bugs found below. Viewed all pages on all of the available devices at the end of the project to ensure everything still looked good.
+- Viewed physically on Macbook air 13", Huawei tablet, HP Chrome book, Dell 21" HD screen, iphone 11, Dell 17" laptop and Pixel 4XL phone to ensure that after all issues found and resolved that there was nothing else appearing
  
 
 ## Bugs
@@ -395,7 +452,7 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
 
    In addition to those found in manual testing
 
-   - On peer code review channel a user had got an error when trying to edit a book they had added. 
+   - 
 
 
    ### Existing
