@@ -19,7 +19,7 @@ class ProductForm(forms.ModelForm):
         for field in self.fields:
             if self.fields[field].required:
                 self.fields[field].widget.attrs['required'] = True
-        choice_pairs = [(g.genre, g.get_friendly_name()) for g in genres]
+        friendly_names = [(g.id, g.get_friendly_name()) for g in genres]
         self.fields['title'].widget.attrs['autofocus'] = True
         self.fields['description'].widget.attrs['placeholder'] = (
             'e.g 2nd studio album')
@@ -27,4 +27,4 @@ class ProductForm(forms.ModelForm):
             'Add in tracklist e.g 1. Track Title, '
             'separating titles with a comma!')
         self.fields['track_list'].validators.append(validate_tracklist)
-        self.fields['genre'].choices = choice_pairs
+        self.fields['genre'].choices = friendly_names
