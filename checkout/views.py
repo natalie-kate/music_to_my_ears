@@ -125,6 +125,7 @@ def checkout(request):
             # If form not valid, display error message
             messages.error(request, 'There was an error with your form. \
                 Please double check your information.')
+            return redirect('checkout')
     else:
         # If method not POST create payment intent and render template
         basket = request.session.get('basket')
