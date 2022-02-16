@@ -205,7 +205,7 @@ a:hover,
     text-decoration-style: wavy;
 }
 
-h3 a {
+.genre h3 a {
     color: rgba(23, 162, 184, .85);
     text-decoration: underline;
     text-decoration-style: wavy;
@@ -221,7 +221,8 @@ h3 a {
     border: 5px solid #225e6c;
 }
 
-.banner a {
+.banner a,
+.banner p {
     color: black;
     font-size: 20px;
     margin: 0;
@@ -370,7 +371,8 @@ table {
     .nav-item .nav-link {
         font-size: 16px;
     }
-    .banner a {
+    .banner a,
+    .banner p {
         color: black;
         font-size: 24px;
         margin: 0;
@@ -388,7 +390,7 @@ table {
     .nav-item .nav-link {
         font-size: 18px;
     }
-    h3 a {
+    .genre h3 a {
         color: rgba(23, 162, 184, .85);
         text-decoration: none;
     }
