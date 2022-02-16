@@ -16,7 +16,11 @@
 {% block content %}
 <h2 class="text-center mt-4"> Contact Us </h2>
 <div class="row">
-  <div class="col-10 offset-1 text-center">
+  <div class="text-center col-12">
+    <a href="{% url 'shop' %}" aria-label="Takes you back to shop page">
+      <i class="fas fa-backward" aria-hidden="true"></i> Cancel </a> 
+  </div> 
+  <div class="col-10 offset-1 text-center mt-2">
     <p>We love to here any feedback, comments or concerns you may have.
     </p>
   </div>
@@ -28,7 +32,9 @@
         {% csrf_token %}
         {{ contact_form|crispy }}
         <div class="text-center">
-            <button id="submit-button" class="btn my-btn pay-btn hover">Send! </button>
+            <button id="submit-button" class="btn my-btn pay-btn hover">Send! </button><br>
+            <a href="{% url 'shop' %}" aria-label="Takes you back to shop page"> Cancel </a> 
+          </div> 
         </div>
     </form>
 </div>
