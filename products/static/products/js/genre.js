@@ -1,6 +1,6 @@
 // Make Choose genre selected and disabled
 $(document).ready(function () {
-    option = document.querySelector("[value='14']");
-    $(option).attr("selected", "true")
-    $(option).attr("disabled", "disabled")
+    var option = document.querySelector("[value='14']");
+    $(option).attr("selected", "true");
+    $(option).attr("disabled", "disabled");
 });
