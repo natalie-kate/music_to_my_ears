@@ -4,7 +4,20 @@
 body{
     font-family: 'Special Elite', cursive;
 }
+.text-left {
+    padding-left: 12vw;
+}
+strong {
+    font-weight: 800;
+    font-size: 20px;
+    color: #225e6c
+}
+h3,
+h4 {
+    color: rgb(239 112 102);
+}
 
+/*---- Containers ----*/
 .title-container {
     height: 75vh;
     background: url("/media/record-small.jpg") no-repeat center center;
@@ -12,11 +25,9 @@ body{
     padding: 0;
     border-radius: 10px;
 }
-
 .title-container h1 {
     margin-top: 20vh;
 }
-
 .image-container {
     height: 20vh;
     background: url("/media/record-shop.jpg") no-repeat bottom -50px center;
@@ -24,7 +35,6 @@ body{
     padding: 0;
     border-radius: 10px;
 }
-
 .header-container {
     height: 20vh;
     background: url("/media/guitar.jpg") no-repeat center center;
@@ -32,7 +42,6 @@ body{
     padding: 0;
     border-radius: 10px;
 }
-
 .contact-image-container {
     height: 20vh;
     background: url("/media/vinyls.jpg") no-repeat center center;
@@ -41,45 +50,39 @@ body{
     border-radius: 10px;
 }
 
+/*---- Buttons ----*/
 .my-btn {
     background-color:#f39c8a;
     height: 30px;
     padding: 5px;
 }
-
-.nav-item .nav-link {
-    font-size: 18px;
-}
-
 .checkout-btn {
     height: 50px;
     width: 200px;
     padding: 5px;
-    font-weight: 800px;
+    font-weight: 800;
     font-size: 30px;
     border-width: 3px;
     border-color: #f39c8a;
     background-color:#225e6c;
     color: #f39c8a;
 }
-
 .pay-btn {
     font-size: 20px;
     height: 40px;
     width: 200px;
     border: #225e6c solid 3px;
 }
-
 .checkout-btn:hover {
     background-color: #f39c8a;
     color: #225e6c;
 }
-
 .hover:hover {
     background-color: #225e6c;
     color: rgb(241 135 135);
 }
 
+/*---- Spinning Vinyl, loading  ----*/
 .spinning-record {
     background-color:#f39c8a;
     border-radius: 50%;
@@ -89,205 +92,10 @@ body{
     width: 150px;
     padding-top: 11px;
     font-size: 24px;
-  }
-
+}
 .spinning-record i {
     padding: 13.5px;
 }
-
-.message-container {
-    position: absolute;
-    top: 140px;
-    right: 15px;
-    z-index: 9999999999;
-}
-
-.toast {
-    overflow: visible;
-    background-color: white;
-    border: 3px solid #225e6c;
-    border-radius: 8px;
-}
-
-.toast .item-details {
-    padding: 0px;
-}
-
-.message-container .success {
-    color: green;
-    font-size: 30px;
-}
-
-.message-container .error {
-    color: red;
-    font-size: 30px;
-}
-
-.message-container .info {
-    color: blue;
-    font-size: 30px;
-}
-
-.message-container .warning {
-    color: orange;
-    font-size: 30px;
-}
-
-.orders hr {
-    color:#f39c8a;
-    width: 10%;
-}
-  
-.admin {
-    font-size: 30px;
-}
-
-.success-img {
-    width: 8vw;
-}
-
-#default-img-preview,
-#img-preview {
-    display: none;    
-}
-
-#default-img-preview img,
-#img-preview img {  
-    width: 75px;
-    height: auto; 
-    display: inline;  
-    margin-right: 5px; 
-}
-
-@keyframes record {
-    from {
-        transform: rotate(0);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
- 
-.footer-links p {
-    font-size: 24px;
-}
-
-.social,
-.nav-link,
-.fa-bars,
-.footer-link {
-    color: #225e6c;
-    font-size: 20px;
-}
-
-.navbar-brand {
-    color: rgb(239 112 102);
-    font-size: 40px;
-    margin: 0px;
-    padding: 0px
-}
-
-.navbar-brand:hover,
-.shopping-bag:hover,
-.total a:hover {
-    color: #225e6c;
-    text-decoration: none;
-}
-
-.nav-link:hover,
-.fa-bars,
-.footer-link:hover,
-.social:hover,
-.shopping-bag,
-a:hover,
-.total a {
-    color: rgb(239 112 102);
-    text-decoration-style: wavy;
-}
-
-.genre h3 a {
-    color: rgba(23, 162, 184, .85);
-    text-decoration: underline;
-    text-decoration-style: wavy;
-}
-
-.text-left {
-    padding-left: 12vw;
-}
-
-.banner {
-    background-color: #f39c8a;
-    border-radius: 8px;
-    border: 5px solid #225e6c;
-}
-
-.banner a,
-.banner p {
-    color: black;
-    font-size: 20px;
-    margin: 0;
-}
-
-hr {
-    width: 70vw;
-    background-color: rgb(239 112 102);
-    height: 5px;
-    border-radius: 5px;
-}
-
-hr.light {
-    width: 35%;
-    height: 2.5px;
-}
-
-.shopping-bag {
-    padding-top: 15px;
-}
-
-.shopping-bag p {
-    margin: 0px;
-}
-
-strong {
-    font-weight: 800;
-    font-size: 20px;
-    color: #225e6c
-}
-
-.details .text-left {
-    padding-left: 0px;
-}
-
-a {
-    color: #225e6c;
-}
-
-.highlight {
-    color: red;
-    font-weight: 800px;
-}
-
-select.quantity {
-    width: 100px;
-}
-
-fieldset.billing,
-fieldset.delivery,
-fieldset.payment,
-fieldset.total {
-    display: inline;
-}
-
-fieldset legend {
-    font-size: 22px; 
-    color:  rgb(239 112 102);
-}
-
-h3,
-h4 {
-    color: rgb(239 112 102);
-}
-
 #loading-overlay {
     display: none;
 	position: fixed;
@@ -298,7 +106,6 @@ h4 {
     background: rgba(23, 162, 184, .85);
     z-index: 9999;
 }
-
 .loading-spinner {
     display: flex;
     align-items: center;
@@ -306,32 +113,192 @@ h4 {
     margin: 0;
     height: 100%;
 }
+@keyframes record {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
 
-.form-check-label {
+/*---- Toasts  ----*/
+.message-container {
+    position: absolute;
+    top: 140px;
+    right: 15px;
+    z-index: 9999999999;
+}
+.toast {
+    overflow: visible;
+    background-color: white;
+    border: 3px solid #225e6c;
+    border-radius: 8px;
+}
+.toast .item-details {
+    padding: 0px;
+}
+.message-container .success {
+    color: green;
+    font-size: 30px;
+}
+.message-container .error {
+    color: red;
+    font-size: 30px;
+}
+.message-container .info {
+    color: blue;
+    font-size: 30px;
+}
+.message-container .warning {
+    color: orange;
+    font-size: 30px;
+}
+.success-img {
+    width: 8vw;
+}
+.admin {
+    font-size: 30px;
+}
+ 
+/*---- Links  ----*/
+a {
+    color: #225e6c;
+}
+.nav-item .nav-link {
+    font-size: 18px;
+}
+.footer-links p {
     font-size: 24px;
-    color:  rgb(239 112 102);
+}
+.social,
+.nav-link,
+.fa-bars,
+.footer-link {
+    color: #225e6c;
+    font-size: 20px;
+}
+.navbar-brand {
+    color: rgb(239 112 102);
+    font-size: 40px;
+    margin: 0px;
+    padding: 0px
+}
+.navbar-brand:hover,
+.shopping-bag:hover,
+.total a:hover {
+    color: #225e6c;
+    text-decoration: none;
+}
+.nav-link:hover,
+.fa-bars,
+.footer-link:hover,
+.social:hover,
+.shopping-bag,
+a:hover,
+.total a {
+    color: rgb(239 112 102);
+    text-decoration-style: wavy;
+}
+.genre h3 a {
+    color: rgba(23, 162, 184, .85);
+    text-decoration: underline;
+    text-decoration-style: wavy;
+}
+.banner {
+    background-color: #f39c8a;
+    border-radius: 8px;
+    border: 5px solid #225e6c;
+}
+.banner a,
+.banner p {
+    color: black;
+    font-size: 20px;
+    margin: 0;
 }
 
-input[name=rate_us],
-label[for=id_rate_us_0] {
-    display: none;
+/*---- Horizontal rules  ----*/
+hr {
+    width: 70vw;
+    background-color: rgb(239 112 102);
+    height: 5px;
+    border-radius: 5px;
+}
+hr.light {
+    width: 35%;
+    height: 2.5px;
+}
+.orders hr {
+    color:#f39c8a;
+    width: 10%;
 }
 
-input[name=rate_us]:checked~label {
-    color:rgba(23, 162, 184, .85);
+/*---- Basket  ----*/
+.shopping-bag {
+    padding-top: 15px;
+}
+.shopping-bag p {
+    margin: 0px;
+}
+.shopping-bag p,
+.shopping-bag sup {
+    color: #225e6c;
 }
 
+/*---- Products  ----*/
+.details .text-left {
+    padding-left: 0px;
+}
+.highlight {
+    color: red;
+    font-weight: 800;
+}
+
+/*---- Events  ----*/
 .card-img-top {
     width: 100%;
     height: 300px;
     object-fit: cover;
 }
 
-.shopping-bag p,
-.shopping-bag sup {
-    color: #225e6c;
+/*---- Forms  ----*/
+#default-img-preview,
+#img-preview {
+    display: none;    
+}
+#default-img-preview img,
+#img-preview img {  
+    width: 75px;
+    height: auto; 
+    display: inline;  
+    margin-right: 5px; 
+}
+select.quantity {
+    width: 100px;
+}
+fieldset.billing,
+fieldset.delivery,
+fieldset.payment,
+fieldset.total {
+    display: inline;
+}
+fieldset legend {
+    font-size: 22px; 
+    color:  rgb(239 112 102);
+}
+.form-check-label {
+    font-size: 24px;
+    color:  rgb(239 112 102);
+}
+input[name=rate_us],
+label[for=id_rate_us_0] {
+    display: none;
+}
+input[name=rate_us]:checked~label {
+    color:rgba(23, 162, 184, .85);
 }
 
+/*---- Table  ----*/
 /*---- https://stackoverflow.com/questions/19794211
 /horizontal-scroll-on-overflow-of-table----*/
 table {
