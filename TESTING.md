@@ -374,7 +374,8 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
 ### Checkout Page
   - Checkout form prefills if user has saved information on their profile page
   - Back to basket link works
-  - Checking save info, saves users information
+  - Checking save info, saves users information to profile.
+  - Checking save info saves users address & delivery address if provided to Address Book.
   - Unchecking save info, does not save users info
   - Form can submit without delivery data filled in
   - Form will not submit without required fields completed
@@ -409,30 +410,52 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
     * Didn't like how Country genre was pre-selected, means that people could easily overlook that field and 
     product would be added in with the wrong genre. Created 'Choose Genre' genre in database. Then in js added disabled
     attribute. This did not work as the values for the options were numbers and the orders changed so I couldn't be certain that my 
-    choose genre option would always be the target. In form.py changed the choices. [Johnny Buchanan on Stack Overflow](https://stackoverflow.com/questions/5089396/django-form-field-choices-adding-an-attribute). Then in genre.js added in setting selected and disabled attributes. Had it in display_image.js initially but then in edit_vinyl current genre was replaced and user would have to select it again.
+    choose genre option would always be the target. In form.py changed the choices. [Johnny Buchanan on Stack Overflow](https://stackoverflow.com/questions/5089396/django-form-field-choices-adding-an-attribute). Then in genre.js added in setting selected and disabled attributes. Had it in display_image.js initially but then in edit_vinyl current genre was replaced and user would have to select it again. After breaking everything realised the numbered values were actually the id's of the genre so needed them, reverted form.py back to what it was before and in js changed value="choose_genre" to value="14", which is the id in the postgres database.
   - Form will not submit where required fields are just whitespace.
   - File input fields, shows images that have been selected.
 
 ### Profile page
+  - Change Password link should open change password page
   - Delete account should open confirmation and then successfully remove user if they proceed with deletion.
+  - Edit info button opens edit info form
   - Edit info form should be pre-filled with existing information if any.
   - Edit info should successfully update a users information.
-
+  - Edit info form cancel button closes form 
+  - Clicking on order number opens order details.
 
 ### Events Page
   - All events should have an image, backup image shows if no image supplied or broken.
   - Correct buttons appear for the correct users beside events. e.g both for admin and the user that added it, none for other users.
+  - Add event button open add event page.
+  - Search box works for description, event name and location
+  - Edit link opens edit event page
+  - Delete link opens delete confirmation
+  - Cancel in delete confirmation closes section
+  - Delete button removes event from database.
 
 ### Add event page
+  - Cancel links at top and bottom of page take user back to events page
+    * Had forgotten cancel link at top.
+  - Form won't submit without required information
+  - File input field, shows chosen image
+  - Add event button updates database successfully.
 
 ### Edit event page
+  - Need to add an event link takes user to Add event page
+  - Cancel links at top and bottom of page take user back to events page
   - Edit event form should prefill with current details.
   - Edit event form will not submit wihout required information.
+  - File input field, shows chosen image
+  - Submit changes button updates database successfully.
 
 ### Contact Us Page
-  - Contact form will not submit without required personal details and comment box being completed . 
+  - Cancel buttons take user back to shop page.
+    * Hadn't added cancel buttons
+  - Contact form will prefill if user has saved information to their profile.
+  - Contact form will not submit without required personal details. 
   - Ratings work and on successful form submission, success message shown
   - Upon contact form submission user receives a personalised acknowledgment email.
+  - Send button works, displays success message and adds record to database.
   
 ### Registration page
   - Registration form won't submit without required information.
@@ -441,6 +464,8 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
 ### Error pages
   - 404.html back to home button works.
   - 404 report issue link takes user to contact form.
+  - 500.html back to home button works.
+  - 500 report issue link takes user to contact form.
 
 - Friends, family and slack peer review used. Devices and browsers were iphone 11: Safari (x3), iphone XS Max: Safari, iphone 6: Chrome, iphone XR: safari, iphone 11 Pro: Safari, iphone 10: Safari, Samsung S20 FE: Chrome, Samsung S10 and Sony Xperia I3: Chrome. 
 - Chrome devtools used to test responsiveness throughout the development process see bugs found below. Viewed all pages on all of the available devices at the end of the project to ensure everything still looked good.
