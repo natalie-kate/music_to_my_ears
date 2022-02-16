@@ -56,7 +56,7 @@
   <!-- For each genre, get the products with that genre and then get the image for it --> 
   {% if not search %}
   {% for genre in genres %}
-  <div class="col-10 offset-1 col-md-6 offset-md-0 col-lg-4" id="{{ genre }}_div">
+  <div class="genre col-10 offset-1 col-md-6 offset-md-0 col-lg-4" id="{{ genre }}_div">
     <h3><a href="{% url 'browse_genre' genre.id %}" aria-label="Shows all products in {{ genre }}">
       Browse {{ genre.friendly_name }}</a></h3>
     <div id="{{ genre.genre }}" class="carousel slide mb-3" data-ride="carousel">
