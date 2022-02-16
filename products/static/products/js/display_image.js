@@ -26,7 +26,7 @@ function getImgData(img, imgFiles) {
             arr.forEach(file => displayImg(file));
     } else {
         files = imgFiles.files[0];
-        displayImg(files)
+        displayImg(files);
     }
     
     // Takes each individual image file an displays in div

@@ -30,12 +30,12 @@ card.addEventListener('change', function(event) {
             <span class="icon" role="alert">
                 <i class="fas fa-times" aria-hidden="true"></i>
             </span>
-            <span>${event.error.message}</span>`
+            <span>${event.error.message}</span>`;
         $(errorDiv).html(html);
     } else {
         errorDiv.textContent = '';
     }
-})
+});
 
 // Handle form submit
 var form = document.getElementById('payment-form');
@@ -59,8 +59,8 @@ form.addEventListener('submit', function(ev) {
     };
     var url = '/checkout/cache_checkout_data/';
 
-    var firstName = $.trim(form.first_name.value)
-    var surname = $.trim(form.surname.value)
+    var firstName = $.trim(form.first_name.value);
+    var surname = $.trim(form.surname.value);
 
     if (firstName && surname) {
         // Get information from form and send to stripe
@@ -119,7 +119,7 @@ form.addEventListener('submit', function(ev) {
         }).fail(function() {
             // Reload the page if failure
             location.reload();
-        })
+        });
     }
     else {
         var errorDiv = document.getElementById('form-errors');

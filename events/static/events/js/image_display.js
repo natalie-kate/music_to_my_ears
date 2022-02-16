@@ -4,7 +4,7 @@ const imgPreview = document.getElementById("img-preview");
 
 // Add change event listener to file input field
 chooseDefault.addEventListener("change", function () {
-    var files = chooseDefault.files[0]
+    var files = chooseDefault.files[0];
     if (files) {
         const fileReader = new FileReader();
         fileReader.readAsDataURL(files);
