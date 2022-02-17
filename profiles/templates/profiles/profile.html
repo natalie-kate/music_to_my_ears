@@ -30,7 +30,7 @@
     <!-- Delete account confirmation -->
     <div id="delete_account" class="col-10 col-md-6 offset-1 offset-md-3 text-center collapse mt-2 mb-2">
       <p>Are you sure you want to delete your account?</p>
-      <a class="btn btn-md my-btn hover" href="{% url 'delete_user' user.id %}" class="mr-2" 
+      <a class="btn btn-md my-btn hover mr-2" href="{% url 'delete_user' user.id %}"
           aria-label="Will delete account"> Delete </a>
       <a data-toggle="collapse" href="#delete_account" class="ml-2" 
       aria-label="Will close delete account section">Cancel</a>
@@ -39,7 +39,7 @@
 
   <!-- My Information section -->
   <div class="col-10 col-md-5 offset-1 offset-md-0 text-center">
-    <h3 class="mt-4">My Info <a class="btn btn-md my-btn hover" data-toggle="collapse" href="#profile_edit" class="mr-2" 
+    <h3 class="mt-4">My Info <a class="btn btn-md my-btn hover mr-2" data-toggle="collapse" href="#profile_edit"
     aria-label="Will open edit information section"><i class="fas fa-pencil-alt" aria-hidden="true"></i> Edit info </a></h3>
     {% if profile.default_first_name %}
       <p>Name: {{ profile.default_first_name }} 
