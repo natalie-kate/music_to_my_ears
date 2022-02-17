@@ -342,11 +342,15 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
 ### Shop page
   - Vinyl search bar works for song, title or artist for logged in and non logged in users.
   - Genre header links allow user to see all products of that genre.
+    * Hover effect wasn't working, .genre h3 a styling was overriding the hover effect of a:hover. 
   - Genre header links are underlined on small and medium screens to make it more obvious that they are clickable as hover effects aren't in play.
   - View all link allows user to view all products
   - Carousel arrows work for those genres with more than one product
   - Details buttons open product page.
-  - All products should have an image, backup image shows if no default image or broken image.
+  - All products should have an image, backup image shows if a broken image. 
+    * Removed default image from one of the products and it broke the site. Fixed the default_images view to use 
+    one of the other images if no default image, else product not displayed. As adding a default image is required 
+    on the Add Vinyl page, this shouldn't happen. 
 
 ### Product Details page
   - Back to shop link works.
@@ -360,7 +364,7 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
   - Product admin delete button opens a delete confirmation, cancel button closes it and delete button, successfully deletes product from database and success message shows.
 
 ### View Basket Page
-  - Edit item opens a collapsible to edit quantity. Quantity values available are available stock.
+  - Edit item opens a collapsible to edit quantity. Quantity values available are will be stock quantity of that product so will differ between them.
   - Update basket and cancel button in the edit collapsible both work.
   - Upon basket update success message shows
   - Delete product button opens a delete confirmation, cancel button closes it and "Yes, I'm sure" button, successfully deletes product from basket and success message shows.
@@ -390,6 +394,7 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
   - The information is all there and table filled with product information. Table should scroll horizontallly on smaller screens.
   - Confirmation email should have sent to user with correct information.
   - Back to shop button takes user back to shop page.
+  - If showing an old order, back to profile button should do just that.
 
 ### Edit Product page
   - Need to add a product link takes user to add product page
@@ -397,9 +402,15 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
     * Bottom cancel link took user back to shop page not product detail. Fixed href.
   - Form is prefilled with current information
   - File input, shows images that have been selected.
+    * Input field was overflowing,causing horizontal scroll on mobile screen, changed bootstrap 
+      classes.
+    * On iphone a mini image view is beside the input field aswell as the image preview I coded. This is not on desktop or 
+    android phone so left in.
   - Submit Changes button works and changes are reflected in database.
   - Form will not submit without required fields completed
   - Form will not submit where required fields are just whitespace.
+    * I got an error and a success message at the same time. Realise in my view the getting files section
+      and success message weren't within the if form.is_valid() block.
 
 ### Add Product Page
   - Cancel links at top and bottom of page take user back to shop page.
@@ -411,6 +422,7 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
     product would be added in with the wrong genre. Created 'Choose Genre' genre in database. Then in js added disabled
     attribute. This did not work as the values for the options were numbers and the orders changed so I couldn't be certain that my 
     choose genre option would always be the target. In form.py changed the choices. [Johnny Buchanan on Stack Overflow](https://stackoverflow.com/questions/5089396/django-form-field-choices-adding-an-attribute). Then in genre.js added in setting selected and disabled attributes. Had it in display_image.js initially but then in edit_vinyl current genre was replaced and user would have to select it again. After breaking everything realised the numbered values were actually the id's of the genre so needed them, reverted form.py back to what it was before and in js changed value="choose_genre" to value="14", which is the id in the postgres database.
+    * When testing on different browsers, Opera and Firefox seemed to work having Choose genre as selected and disabled but Safari and Chrome(on mobile, desktop was fine) it was Classical that was selected. Changed selected=true to selected = selected to see if that would fix it.
   - Form will not submit where required fields are just whitespace.
   - File input fields, shows images that have been selected.
 
@@ -422,9 +434,11 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
   - Edit info should successfully update a users information.
   - Edit info form cancel button closes form 
   - Clicking on order number opens order details.
+  - Profile link should not be in footer on profile page.
 
 ### Events Page
   - All events should have an image, backup image shows if no image supplied or broken.
+    * Had forgotten to write in the if event.image statement to show backup image if none supplied.
   - Correct buttons appear for the correct users beside events. e.g both for admin and the user that added it, none for other users.
   - Add event button open add event page.
   - Search box works for description, event name and location
@@ -462,6 +476,13 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
   - Registration successfully adds a new user and their profile.
 
 ### Error pages
+  * Could not get error pages to display at all, I checked and they were in the correct location for django to find, 
+    as I had read django looks for them automatically, I then implemented the code set out by [Engineer to Developer]
+    (https://engineertodeveloper.com/serving-custom-error-pages-with-django/). Still nothing. Revisited it and noticed 
+    an error in the console, django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: ' 'home'' from 'url 'home'', didn't know where this error was so started checking files, knowing that I had no issues with links etc so checked 
+    error templates and yup I had put the links in {{}} instead of {%%}. Changed that in the error page templates and that was it.
+    Wasn't seeing any styling on them though whcih took my 10 minutes to realise it was because I'd made debug = False and therefore
+    the static would be being served by AWS which development environment isn't set up with. 
   - 404.html back to home button works.
   - 404 report issue link takes user to contact form.
   - 500.html back to home button works.
