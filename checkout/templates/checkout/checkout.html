@@ -53,7 +53,7 @@
              <!-- Save information checkbox with link to register or login to do so -->
             <div class="col-12 text-center mb-2 save-info">
                 {% if user.is_authenticated %}
-                <label for="#save-info">Save this information for next time?</label>
+                <label for="save-info">Save this information for next time?</label>
                 <input type="checkbox" id="save-info" name="save-info"
                     checked>
                 {% else %}
@@ -72,7 +72,7 @@
             </fieldset>
             <fieldset class="col-10 col-md-5 offset-1 offset-md-0 payment">
                 <legend>Payment <i class="far fa-credit-card" aria-hidden="true"></i></legend>
-                <label for="#card-element">Card Details</label>
+                <label for="card-element">Card Details</label>
                 <div class="mb-2 form-control" id="card-element"></div>
                 <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                 <input type="hidden" value="{{ client_secret }}" name="client_secret">
