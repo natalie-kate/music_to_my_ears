@@ -19,12 +19,18 @@ def genres():
 
 
 def default_images():
-    """ Contingency plan in case superuser make 2 images default=True """
+    """ Contingency plan in case superuser make 2 images default=True,
+    or none """
     products = Vinyl.objects.all()
     image_list = []
     for vinyl in products:
         image = Image.objects.filter(default=True, vinyl=vinyl.id)
-        image_list.append(image[0])
+        if image:
+            image_list.append(image[0])
+        else:
+            image = Image.objects.filter(vinyl=vinyl.id)
+            if image:
+                image_list.append(image[0])
     return image_list
 
 
@@ -181,23 +187,22 @@ def edit_vinyl(request, product_id):
         form = ProductForm(request.POST, instance=edit_product)
         if form.is_valid():
             form.save()
+            files = request.FILES.getlist('additional_images')
+            if files:
+                for file in files:
+                    image_name = str(file).split('.', maxsplit=1)[0]
+                    Image.objects.create(
+                        vinyl=edit_product,
+                        image=file,
+                        image_name=image_name,
+                        default=False,
+                    )
+            messages.success(request, 'Thats updated!')
+            return redirect(reverse('product', args=[edit_product.id]))
         else:
             messages.error(request, (
                 'Failed to update product. '
                 'Please ensure the form is valid.'))
-
-        files = request.FILES.getlist('additional_images')
-        if files:
-            for file in files:
-                image_name = str(file).split('.', maxsplit=1)[0]
-                Image.objects.create(
-                    vinyl=edit_product,
-                    image=file,
-                    image_name=image_name,
-                    default=False,
-                )
-        messages.success(request, 'Thats updated!')
-        return redirect(reverse('product', args=[edit_product.id]))
     else:
         form = ProductForm(instance=edit_product)
 
