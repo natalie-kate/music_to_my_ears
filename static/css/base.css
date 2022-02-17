@@ -190,6 +190,11 @@ a {
     color: #225e6c;
     text-decoration: none;
 }
+.genre h3 a {
+    color: rgba(23, 162, 184, .85);
+    text-decoration: underline;
+    text-decoration-style: wavy;
+}
 .nav-link:hover,
 .fa-bars,
 .footer-link:hover,
@@ -198,10 +203,10 @@ a {
 a:hover,
 .total a {
     color: rgb(239 112 102);
-    text-decoration-style: wavy;
+    text-decoration: none;
 }
-.genre h3 a {
-    color: rgba(23, 162, 184, .85);
+.genre h3 a:hover {
+    color: rgb(239 112 102);
     text-decoration: underline;
     text-decoration-style: wavy;
 }
