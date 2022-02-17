@@ -303,6 +303,14 @@ input[name=rate_us]:checked~label {
     color:rgba(23, 162, 184, .85);
 }
 
+/*---- Error pages  ----*/
+.error {
+    font-size: 70px;
+    font-weight: 800;
+    color: rgb(239 112 102);
+}
+
+
 /*---- Table  ----*/
 /*---- https://stackoverflow.com/questions/19794211
 /horizontal-scroll-on-overflow-of-table----*/
