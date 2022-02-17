@@ -22,17 +22,17 @@
         <a href="{% url 'product' product.id %}" aria-label="Takes you back to product page">
             <i class="fas fa-backward" aria-hidden="true"></i> Cancel</a>
     </div>
-    <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+    <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 mt-2">
         <!-- Edit vinyl form -->
         <form method="POST" action="{% url 'edit_vinyl' product.id %}" enctype="multipart/form-data">
             {% csrf_token %}
-            <fieldset class="col-10 offset-1">
+            <fieldset class="col-12">
                 <legend> Product Details</legend>
                 {% for field in form %}
                    {{ field | as_crispy_field }}
                 {% endfor %}
             </fieldset>
-            <fieldset class="col-10 offset-1">
+            <fieldset class="col-12">
                 <legend> Add more Images </legend>
                 <label class="mt-2" for="additional-images">Additional Images (optional)</label><br>
                 <input id="additional-images" name="additional_images" accept="image/*" type="file" multiple>
