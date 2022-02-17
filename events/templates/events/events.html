@@ -34,8 +34,12 @@
         <!-- Event card -->
         <div class="col-12 col-md-6 col-lg-4 mt-3">
             <div class="card">
+                {% if event.image %}
                 <img src="{{ MEDIA_URL }}{{ event.image }}" class="card-img-top" alt="Poster for {{ event.name }} event"
                 onerror="this.onerror=null;this.src='{{ MEDIA_URL }}/openmmic.jpg'">
+                {% else %}
+                <img src="{{ MEDIA_URL }}/openmic.jpg" class="card-img-top" alt="Poster for {{ event.name }} event">
+                {% endif %}
                 <div class="card-body">
                   <h3 class="card-title text-center">{{ event.name }}</h3>
                   <p>
