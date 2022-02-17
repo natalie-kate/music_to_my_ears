@@ -26,9 +26,15 @@
   </div>
 </form>
 <!-- View all products link -->
+{% if search %}
+<div class="col-12 mb-4 text-center">
+  <a href="{% url 'shop' %}" aria-label="back to shop">Back</a>
+</div>
+{% else %}
 <div class="col-12 mb-4 text-center">
   <a href="{% url 'view_all_products' %}" aria-label="View all products">View All</a>
 </div>
+{% endif %}
 
 <!-- Display products this way if search in context -->
 <div class="row">
