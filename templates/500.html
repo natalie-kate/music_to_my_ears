@@ -4,8 +4,8 @@
 <!-- Page header on image background -->
 {% block image %}
 <div class="image-container">
-    <div class="col-12 header text-center">
-        <h1>500 Error </h1>
+    <div class="col-12 error header text-center">
+        <h1>500</h1>
     </div>
 </div>
 {% endblock %}
@@ -14,9 +14,9 @@
 {% block content %}
 <!-- Error message with back to home button -->
 <div class="row text-center error-message">
-    <div class="col-12 col-md-4 offset-md-4">
-        <p>Oh no something went wrong with our server.<span> <i class="fas fa-sad-cry" aria-hidden="true"></i></span></p>
-        <p>Let's get you out of here!</p>
+    <div class="col-12 col-md-4 offset-md-4 mt-3">
+        <h2>Oh no something went wrong with our server.<span> <i class="fas fa-sad-cry" aria-hidden="true"></i></span></h2>
+        <h3>Let's get you out of here!</h3>
         <a class="btn btn-lg my-btn hover" href="{% url 'home' %}" aria-label="link back to home page">Back To Home Page</a>
     </div>
     <!-- Report issue button -->
