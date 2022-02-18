@@ -21,60 +21,117 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
 
 -   ## [W3C Markup Validator](https://validator.w3.org/) 
 
-    ### Initial testing
     - index.html
+       * No errors found.
 
-    - about.html
+       ![index.html validation](/docs/readme-assets/testing_images/home-html.png)
 
-    - contact.html
+    - shop.html
+       * No errors found.
+
+       ![shop.html validation](/docs/readme-assets/testing_images/shop-html.png)
+
+    - product.html
+       * Added the missing closing span tag and removed duplicate class attribute.
+
+       ![product.html validation](/docs/readme-assets/testing_images/product-html.png)
   
-    - edit-account.html
+    - basket.html
+       * No errors found.
 
-    - edit-user.html
+       ![basket.html validation](/docs/readme-assets/testing_images/basket-html.png)
 
-    - manage-genres.html
+    - checkout.html
+       * Had put for="#idname" in label element like you do for collapsibles, removed the hashtag.
 
-    - manage-users.html
+       ![checkout.html validation](/docs/readme-assets/testing_images/checkout-html.png)
+
+    - checkoutsuccess.html
+       * No errors found.
+
+       ![checkoutsuccess.html validation](/docs/readme-assets/testing_images/checkoutsuccess-html.png)
+
+    - add-vinyl.html
+       * Same error as checkout.html. Had a space in the wrong place between attributes. Removed 'True' from multiple="True". After trying for ages to get 'Choose Genre' option to have no vallue, or no string etc to get around the problem and changing the javascript and looking at how I could render the form in the template so that I could add the attributed to 'choose genre' myself, I ended up having to remove required from the form. It is still required in the model though so is still needed to create a new vinyl.
+
+       ![add-vinyl.html validation](/docs/readme-assets/testing_images/addproduct-html.png)
+
+    - edit-vinyl.html
+       * Same issues as add-vinyl bar the genre issue, clearly had copied and pasted.
+
+       ![edit-vinyl.html validation](/docs/readme-assets/testing_images/editvinyl-html.png)
+
+    - event.html
+       * Duplicate class element on each event card due to the for loop. Had introduced these duplicates when I was adding mr-2 class to everything, didn't obviously look for an existing class attribute first.
+
+       ![event.html validation](/docs/readme-assets/testing_images/event-html.png)
+      
+    - add-event.html
+       * No errors found
+
+       ![add-event.html validation](/docs/readme-assets/testing_images/addevent-html.png)
+
+    - edit-event.html
+       * No errors found
+
+       ![edit-event.html validation](/docs/readme-assets/testing_images/editevent-html.png)
 
     - profile.html
+       * Duplicate class as above. In forms.py my add placeholders section wasn't indented properly and therefore the "if field != 'default_country':" wasn't actually doing anything.
 
-    - profile-add.html
+       ![profile.html validation](/docs/readme-assets/testing_images/profile-html.png)
 
-    - register.html
+    - contact.html
+       * Had a stray closing div tag as soon as I deleted that. the form element could find its closing 
+       form tag.
 
-    - sign-in.html
+       ![contact.html validation](/docs/readme-assets/testing_images/contact-html.png)
 
-    - edit-book.html
-
-     ![Initial edit-book.html test](static/images/testing-images/validations/update-book-html.png)
-
-     Same issue as contact.html, with the aria-checked attribute.
-
-    - add-book.html
-
-     ![Initial add-book.html test](static/images/testing-images/validations/add-book-html.png)
-
-     Same issue as contact.html, with the aria-checked attribute.
-
-    - 404.html
-
-     ![Initial 404.html test](static/images/testing-images/validations/404-html.png)
-
-    - 500.html
-
-      Issues raised by inputting the 500.html code was due to the templating language and therefore raised errors of needing a head, doctype, language etc.
-    
-    ### Final testing (for those that needed fixed)
 
 -   ## [W3C CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) 
+       * Removed the px from the font-weight styles.
     
-    ### Initial testing
-
-    ### Final testing
+       ![css validation](/docs/readme-assets/testing_images/css.png)
+   
 
 -   ## [JSHint JavaScript Validator](https://jshint.com/) 
     
-    ### Initial/final testing
+    - base.js
+      * Added in missing semi-colons, left $ as this is required for jquery.
+
+       ![base.js validation](/docs/readme-assets/testing_images/basejs.png)
+
+    - carousel.js
+       * Same as base.js
+      
+       ![carousel.js validation](/docs/readme-assets/testing_images/carouseljs.png)
+
+    - stripe_elements.js
+       * Same as base.js plus stripe variable required by stripe so justified.
+
+       ![stripe_elements.js validation](/docs/readme-assets/testing_images/stripejs.png)
+       ![stripe_elements.js validation](/docs/readme-assets/testing_images/stripejs2.png)
+
+    - ratings.js
+       * Same as base.js
+
+       ![ratings.js validation](/docs/readme-assets/testing_images/contactjs.png)
+
+    - image_display.js
+       * Added in missing semi-colons
+
+       ![image_display.js validation](/docs/readme-assets/testing_images/eventjs.png)
+
+    - display_image.js
+       * Added in missing semi-colons
+
+       ![display_image.js validation](/docs/readme-assets/testing_images/imgjs.png)
+
+    - genre.js
+       * Same issue as other for jquerys $.
+
+       ![genre.js validation](/docs/readme-assets/testing_images/genrejs.png)
+
 
 -   ## [Pep8 validation](http://pep8online.com/) 
     
@@ -422,7 +479,7 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
     product would be added in with the wrong genre. Created 'Choose Genre' genre in database. Then in js added disabled
     attribute. This did not work as the values for the options were numbers and the orders changed so I couldn't be certain that my 
     choose genre option would always be the target. In form.py changed the choices. [Johnny Buchanan on Stack Overflow](https://stackoverflow.com/questions/5089396/django-form-field-choices-adding-an-attribute). Then in genre.js added in setting selected and disabled attributes. Had it in display_image.js initially but then in edit_vinyl current genre was replaced and user would have to select it again. After breaking everything realised the numbered values were actually the id's of the genre so needed them, reverted form.py back to what it was before and in js changed value="choose_genre" to value="14", which is the id in the postgres database.
-    * When testing on different browsers, Opera and Firefox seemed to work having Choose genre as selected and disabled but Safari and Chrome(on mobile, desktop was fine) it was Classical that was selected. Changed selected=true to selected = selected to see if that would fix it.
+    * When testing on different browsers, Opera and Firefox seemed to work having Choose genre as selected and disabled but Safari and Chrome(on mobile, desktop was fine) it was Classical that was selected. Changed selected=true to selected = selected to see if that would fix it. Found [this](https://stackoverflow.com/questions/7350953/jquery-disabled-disabled-not-working-in-safari), setting property rather than attribute and that worked across all browsers.
   - Form will not submit where required fields are just whitespace.
   - File input fields, shows images that have been selected.
 
@@ -482,7 +539,7 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
     an error in the console, django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: ' 'home'' from 'url 'home'', didn't know where this error was so started checking files, knowing that I had no issues with links etc so checked 
     error templates and yup I had put the links in {{}} instead of {%%}. Changed that in the error page templates and that was it.
     Wasn't seeing any styling on them though whcih took my 10 minutes to realise it was because I'd made debug = False and therefore
-    the static would be being served by AWS which development environment isn't set up with. 
+    the static would be being served by AWS which development environment isn't set up with. Removed all the code i'd wrote to render them now I didn't need it.
   - 404.html back to home button works.
   - 404 report issue link takes user to contact form.
   - 500.html back to home button works.
