@@ -136,34 +136,16 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
 -   ## [Pep8 validation](http://pep8online.com/) 
     
     ### Initial/final testing
+       Pasted all my python files into Pep8 validator. Suprisingly I only had one file with errors. This was the settings.py file
+       Which had line too long errors. Didn't think that I could change these lines but found 
+       [this on stack overflow](https://stackoverflow.com/questions/53158284/python-giving-a-e501-line-too-long-error?noredirect=1&lq=1) and so implemented it and didn't seem to break the auth_password_validators
 
-    
+       ![settings.py validation](/docs/readme-assets/testing_images/settings.png)
+       ![settings.py retest](/docs/readme-assets/testing_images/fixedsettings.png)
+
+
 -   ## [Lighthouse testing in devtools](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=en) 
     
-    
-    ### index.html
-
-     + 
-
-    ### about.html
-
-    ### profile.html
-
-    ### contact.html
-
-    ### register.html
-
-    ### manage-genres.html
-
-    ### manage-users.html
-
-    ### edit-book.html
-
-    ### sign-in.html
-
-    ### profile-add.html
-
-    ### edit-user.html
 
 -   ## Unit Testing 
 
@@ -496,6 +478,7 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
 ### Events Page
   - All events should have an image, backup image shows if no image supplied or broken.
     * Had forgotten to write in the if event.image statement to show backup image if none supplied.
+    * Deleted image from one of the events and backup image didn't display, realised that image name had a spelling mistake. couldn't figure out to change it in AWS so changed the name in the template.
   - Correct buttons appear for the correct users beside events. e.g both for admin and the user that added it, none for other users.
   - Add event button open add event page.
   - Search box works for description, event name and location
