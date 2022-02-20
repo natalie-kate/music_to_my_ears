@@ -29,6 +29,4 @@ class EventForm(forms.ModelForm):
                 if self.fields[field].required:
                     placeholder = placeholders[field]
                     self.fields[field].widget.attrs['required'] = True
-                else:
-                    placeholder = placeholders[field]
                 self.fields[field].widget.attrs['placeholder'] = placeholder
