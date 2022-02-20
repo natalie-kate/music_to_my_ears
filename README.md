@@ -158,7 +158,7 @@ This website was created for Milestone 4
 
 ### Structure
 
--   Created a database schema using [GraphizOnline](https://dreampuf.github.io/GraphvizOnline/), as per Emmets     instructions on [slack](https://code-institute-room.slack.com/archives/C7HS3U3AP/p1642276160282900) see [here](/static/readme_assets/readme-images/db-schema.png) to view better.
+-   Created a database schema using [GraphizOnline](https://dreampuf.github.io/GraphvizOnline/), as per Emmets     instructions on [slack](https://code-institute-room.slack.com/archives/C7HS3U3AP/p1642276160282900) see [here](/docs/readme_assets/readme-images/db-schema.png) to view better.
 
      ![image showing database schema](docs/readme-assets/readme-images/db-schema.png)
 
