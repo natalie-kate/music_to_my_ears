@@ -20,6 +20,7 @@ This website was created for Milestone 4
      + [Colour Scheme](#colour-scheme)
      + [Typography](#typography)
      + [Imagery](#imagery)
+     + [Design Choices](#design-choices)
 - [Technologies](#technologies)
    * [Languages used](#languages-used)
    * [Frameworks, Libraries & Programs Used](#frameworks-libraries-and-programs-used)
@@ -155,6 +156,7 @@ This website was created for Milestone 4
 - To be able to select one of their saved addresses to prefill the checkout form. I knew I wanted user to be able to save multiple addresses incase sending as a gift etc, so I've started the groundwork. But generally users billing and delivery addresses are the same and thats what they'll mostly use and so not a priority for initial launch.
 - To be able to change Vinyl default image from frontend rather than having to go into admin panel. Decided this wasn't a priority as more often than not the default image would be the front of the record so you really wouldn't want to change it unless you accidentally uploaded the wrong image but thats why I added the image previews for file input fields.
 - Would like to add customer reviews of vinyls and of the site.
+- Add a wishlist on users profile that the can add products to.
 
 ### Structure
 
@@ -186,6 +188,12 @@ Wireframes were created on Balsamiq (see links below)
 -   #### Imagery
 
     The images I've used on the top of each page were picked to create the feel and atmosphere of an old school music shop where you could leisurely peruse the music and pick out your next favourite band. The image for account pages are the same, as are those to do with the shop and products. The event and contact share another image.
+
+-   #### Design Choices
+
+    * Events form: Has just one field for location rather than address line 1 etc. This is because I find that users can be put off by forms with too many fields and as we depend on users to add events I wanted to keep it as simple as possible which is why image field is optional and for the location field, the user can add as little or as much as they want. 
+    In addition the date field is a charfield and not a date picker, this is so user can write "Every wednesday" or "Pay day Thursdays" for example.
+    * Contact form text field isn’t required incase people just want to rate us.
     
 ## Technologies 
 
