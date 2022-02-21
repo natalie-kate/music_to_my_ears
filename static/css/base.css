@@ -15,6 +15,7 @@ strong {
 h3,
 h4 {
     color: rgb(239 112 102);
+    font-weight: 800;
 }
 
 /*---- Containers ----*/
@@ -192,7 +193,7 @@ a {
     text-decoration: none;
 }
 .genre h3 a {
-    color: rgba(23, 162, 184, .85);
+    color: #225e6c;
     text-decoration: underline;
     text-decoration-style: wavy;
 }
@@ -372,7 +373,7 @@ table {
         font-size: 18px;
     }
     .genre h3 a {
-        color: rgba(23, 162, 184, .85);
+        color: #225e6c;
         text-decoration: none;
     }
 }
