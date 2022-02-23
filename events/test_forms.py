@@ -122,8 +122,9 @@ class TestEventForm(TestCase):
         self.assertEqual(form.fields['details'].widget.attrs['placeholder'],
                          "e.g Open Mic night, all welcome"
                          " we have everything bar your talent.")
-        self.assertEqual(form.fields['ticket_price'].widget.attrs['placeholder'],
-                         "e.g 22.00 or 0 if free")
+        self.assertEqual(
+            form.fields['ticket_price'].widget.attrs['placeholder'],
+            "e.g 22.00 or 0 if free")
 
     def test_form_fields(self):
         """ All fields displayed """
