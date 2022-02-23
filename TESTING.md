@@ -145,9 +145,28 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
 
 
 -   ## [Lighthouse testing in devtools](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=en) 
-    
+    Lighthouse scores aren't as high as I would like, report recommended eliminating unused JS which was for stripe. Stripe docs recommend having it on every page so left it in base.html.
+    Eliminate render blocking resources - this was my css files, left in the head.
+    Use HTTP/2- Not sure how I can dictate this, I think its dependent on the server.
+    Serve images in next-gen formats - I had never heard of these new formats before and so all my images were already on AWS as png. If I'd have time I would have changed them all, but I'll know for future.
+    Background and foreground colors do not have a sufficient contrast ratio - darkened the colour and made some bold to increase contrast. 
+    Tap targets not sized appropriately - added padding to increase them. 
+    Avoid enormous network payload - Realised that one of my image files was 10 times the size of the others, swapped it for a smaller file
+    Image elements do not have explicit width and height - Added them in and adjusted css.
 
+    ### Home page
+       + Mobile 
+
+          ![Mobile lighthouse scores for home page](/docs/readme-assets/testing_images/home.png)
+
+       + Desktop
+
+          ![Desktop lighthouse scores for home page](/docs/readme-assets/testing_images/home-desktop.png)
+        
+    
 -   ## Unit Testing 
+    I knew at the start that I wanted to try and implement automated testing. I was worried I'd spend too long trying to get the testing right that I wouldn't get all the project requirements done, so I left it to the end,which I realise is not how you do it.
+    Tried to get as much done in the time I had left, not as much as I would have liked but its something that I can improve and learn more about going forward.
 
 ## Testing User Stories 
 
