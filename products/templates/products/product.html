@@ -27,7 +27,8 @@
       <div class="carousel-inner">
         {% for image in images %}
         <div class="carousel-item">
-          <img src="{{ MEDIA_URL }}{{ image.image }}" class="d-block w-100" alt="Image of {{ product.title }} record"
+          <img src="{{ MEDIA_URL }}{{ image.image }}" class="d-block" 
+            alt="Image of {{ product.title }} record" width="300" height="300"
             onerror="this.onerror=null;this.src='{{ MEDIA_URL }}/backup-img.jpg'">
         </div>
         {% endfor %}
