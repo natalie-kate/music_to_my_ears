@@ -305,6 +305,12 @@ input[name=rate_us]:checked~label {
     color:rgba(23, 162, 184, .85);
 }
 
+.record img,
+.carousel-item img {
+    width: 100%;
+    height: auto;
+}
+
 /*---- Error pages  ----*/
 .error h1 {
     font-size: 70px;
