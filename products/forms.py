@@ -17,8 +17,9 @@ class ProductForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         genres = Genre.objects.all()
         for field in self.fields:
-            if self.fields[field].required and not 'genre':
-                self.fields[field].widget.attrs['required'] = True
+            if field != 'genre':
+                if self.fields[field].required:
+                    self.fields[field].widget.attrs['required'] = True
         friendly_names = [(g.id, g.get_friendly_name()) for g in genres]
         self.fields['title'].widget.attrs['autofocus'] = True
         self.fields['description'].widget.attrs['placeholder'] = (
