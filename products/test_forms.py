@@ -139,13 +139,11 @@ class TestProductForm(TestCase):
         form = ProductForm({})
         self.assertEqual(form.Meta.fields, '__all__')
 
-    def required_attribute(self):
+    def test_required_attribute(self):
         """ Correct fields have required attribute """
         form = ProductForm({})
         self.assertEqual(form.fields['title'].widget.attrs['required'], True)
         self.assertEqual(form.fields['artist'].widget.attrs['required'], True)
-        self.assertEqual(
-            form.fields['release_year'].widget.attrs['required'], True)
         self.assertEqual(
             form.fields['price'].widget.attrs['required'], True)
         self.assertEqual(
