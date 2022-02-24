@@ -29,7 +29,7 @@ class TestProductModels(TestCase):
 
     def test_genre_string(self):
         """ Test Genre string method """
-        self.assertEqual(str(self.genre.genre), "test")
+        self.assertEqual(str(self.genre), "test")
 
     def test_genre_friendly(self):
         """ Test Genre friendly_name string method """
@@ -37,8 +37,8 @@ class TestProductModels(TestCase):
 
     def test_vinyl_string(self):
         """ Test Vinyl string method """
-        self.assertEqual(str(self.vinyl.title), "Test Vinyl")
+        self.assertEqual(str(self.vinyl), "Test Vinyl")
 
     def test_image_string(self):
         """ Test Image string method """
-        self.assertEqual(str(self.image.image_name), "Test Image")
+        self.assertEqual(str(self.image), "Test Image")
