@@ -33,12 +33,10 @@ class OrderForm(forms.ModelForm):
         self.fields['first_name'].widget.attrs['autofocus'] = True
         for field in self.fields:
             if field != 'country':
-                if self.fields[field].required:
-                    placeholder = placeholders[field]
-                    self.fields[field].widget.attrs['required'] = True
-                else:
-                    placeholder = placeholders[field]
+                placeholder = placeholders[field]
                 self.fields[field].widget.attrs['placeholder'] = placeholder
+                if self.fields[field].required:
+                    self.fields[field].widget.attrs['required'] = True
 
 
 class DeliveryForm(forms.ModelForm):
