@@ -158,6 +158,8 @@ class TestOrderForm(TestCase):
         form = OrderForm({})
         self.assertEqual(
             form.fields['first_name'].widget.attrs['autofocus'], True)
+        self.assertEqual(
+            form.fields['first_name'].widget.attrs['required'], True)
         self.assertEqual(form.fields['surname'].widget.attrs['required'], True)
         self.assertEqual(
             form.fields['email'].widget.attrs['required'], True)
@@ -167,6 +169,31 @@ class TestOrderForm(TestCase):
             form.fields['street_address1'].widget.attrs['required'], True)
         self.assertEqual(
             form.fields['town_or_city'].widget.attrs['required'], True)
+
+    def test_placeholders(self):
+        """ Check placeholders """
+        form = OrderForm({})
+        self.assertEqual(form.fields['first_name'].widget.attrs['placeholder'],
+                         'Josephine')
+        self.assertEqual(form.fields['surname'].widget.attrs['placeholder'],
+                         'Smith')
+        self.assertEqual(form.fields['email'].widget.attrs['placeholder'],
+                         'js@example.com')
+        self.assertEqual(
+            form.fields['phone_number'].widget.attrs['placeholder'],
+            '01234 56789')
+        self.assertEqual(
+            form.fields['street_address1'].widget.attrs['placeholder'],
+            '33 Buchanan Street')
+        self.assertEqual(
+            form.fields['street_address2'].widget.attrs['placeholder'],
+            'Flat 2B')
+        self.assertEqual(
+            form.fields['county'].widget.attrs['placeholder'], 'Renfrewshire')
+        self.assertEqual(
+            form.fields['town_or_city'].widget.attrs['placeholder'], 'Glasgow')
+        self.assertEqual(
+            form.fields['postcode'].widget.attrs['placeholder'], 'G13 6LA')
 
 
 class TestDeliveryForm(TestCase):
