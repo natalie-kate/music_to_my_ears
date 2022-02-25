@@ -168,9 +168,9 @@ This website was created for Milestone 4
 
 Wireframes were created on Balsamiq (see links below)
 
-* [Mobile](/static/readme_assets/wireframes/ms4-mobile.pdf)
-* [Tablet](/static/readme_assets/wireframes/ms4-tablet.pdf)
-* [Desktop](/static/readme_assets/wireframes/ms4-desktop.pdf)
+* [Mobile](/docs/readme_assets/wireframes/ms4-mobile.pdf)
+* [Tablet](/docs/readme_assets/wireframes/ms4-tablet.pdf)
+* [Desktop](/docs/readme_assets/wireframes/ms4-desktop.pdf)
 
 ### Surface
 
@@ -194,6 +194,7 @@ Wireframes were created on Balsamiq (see links below)
     * Events form: Has just one field for location rather than address line 1 etc. This is because I find that users can be put off by forms with too many fields and as we depend on users to add events I wanted to keep it as simple as possible which is why image field is optional and for the location field, the user can add as little or as much as they want. 
     In addition the date field is a charfield and not a date picker, this is so user can write "Every wednesday" or "Pay day Thursdays" for example.
     * Contact form text field isn’t required incase people just want to rate us.
+    * Didn't add sort by functionality e.g price etc as usually when shopping for music you aren't looking for the cheapest, you are generally looking for a particular genre or artist.
     
 ## Technologies 
 
