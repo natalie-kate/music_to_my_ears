@@ -146,6 +146,8 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
 
 -   ## [Lighthouse testing in devtools](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=en) 
     Lighthouse scores aren't as high as I would like, report recommended eliminating unused JS which was for stripe. Stripe docs recommend having it on every page so left it in base.html.
+    Had an issue with the jquery version for security reasons- Updated it to newer version. I checked that everything still worked after, as I had issues with the verson of jquery I was initially using, see Challenges section of README.
+    Was losing points for best practice because I didn't have a favicon- Added one.
     Eliminate render blocking resources - this was my css files, left in the head.
     Use HTTP/2- Not sure how I can dictate this, I think its dependent on the server.
     Serve images in next-gen formats - I had never heard of these new formats before and so all my images were already on AWS as png. If I'd have time I would have changed them all, but I'll know for future.
@@ -558,9 +560,13 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
 
    In addition to those found in manual testing
 
-   - 
-
+   - On peer code review, Darina Kelly had thought that the banner was a link so though that was broken. So made it a link to avoid confusion. 
+   - Browse genre links weren't obviously links when on mobile, so added in text decoration to highlight them.
+   - Events page pictures- peoples heads were getting cut off when it got to nearer the medium screen size, added in a media query to help.
+   - On small mobile screens the search box on shop and event pages, search button went on to the next line and there was no margin between input box and top of button. Added in mb-2 to input.
 
    ### Existing
      
-   - 
+   - Valdating the track list field. I'm basically just hoping that the admin will put a comma between each track so it displays nicely on the product details page. I realised near the end of my project that I probably should have made tracks a seperate table in the database and then I wouldn't have this issue. I added in to check that there is a comma in the field but that doesn't cover it but as there could be 1 track to 40 or more on a vinyl, I can't say there should be a certain number, but if there is one then the hope is the user has used the correct format. In addition when it doesn't look right on product detail page, they can go and edit it to fix it. I've added a placeholder in the box explaining the format. Another obvious issue with this is there could be a comma in the actual track name which would then be split and displayed as two seperate song titles.
+   If i'd had time I would have created a new model and started over.
+  - I also think having a seperate table for artist may have been beneficial but again this didn't occur to me until I was looking at the above issue. User can search for artist though so user can still find the artist they are looking for.
