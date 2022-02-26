@@ -76,6 +76,7 @@ def add_event(request):
                 request, (
                     'Failed to add event. '
                     'Please ensure the form is valid.'))
+            return redirect(reverse('add_event'))
     else:
         # If not post method render template
         form = EventForm()
@@ -100,6 +101,8 @@ def edit_event(request, event_id):
             messages.error(request, (
                 'Failed to update event. '
                 'Please ensure the form is valid.'))
+            return redirect(reverse(
+                'edit_event', kwargs={'event_id': event_id}))
 
         messages.success(request, 'Thats updated!')
         return redirect(reverse('events'))
