@@ -40,7 +40,7 @@ def contact(request):
 
     else:
         if request.user.is_authenticated:
-            # If user is logged in try and prefil form with saved
+            # If user is logged in try and prefill form with saved
             # information if available
             try:
                 profile = UserProfile.objects.get(user=request.user)
