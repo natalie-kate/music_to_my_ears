@@ -664,6 +664,7 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
    - Browse genre links weren't obviously links when on mobile, so added in text decoration to highlight them.
    - Events page pictures- peoples heads were getting cut off when it got to nearer the medium screen size, added in a media query to help.
    - On small mobile screens the search box on shop and event pages, search button went on to the next line and there was no margin between input box and top of button. Added in mb-2 to input.
+   - Had an underline style of wavy on the browse genre links, but for some reason on a Google pixel 4L it had gaps in it, so changed it to a normal underline as don't know what other models of phones would have a similar issue.
 
    ### Existing
      
