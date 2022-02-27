@@ -239,8 +239,38 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
         
     
 -   ## Unit Testing 
-    I knew at the start that I wanted to try and implement automated testing. I was worried I'd spend too long trying to get the testing right that I wouldn't get all the project requirements done, so I left it to the end,which I realise is not how you do it.
+    I knew at the start that I wanted to try and implement automated testing. I was worried I'd spend too long trying to get the testing right that I wouldn't get all the project requirements done, so I left it to the end, which I realise is not how you do it.
     Tried to get as much done in the time I had left, not as much as I would have liked but its something that I can improve and learn more about going forward.
+
+      ![Coverage for project](/docs/readme-assets/testing_images/coverage-report.png)
+  
+    ### Home app
+
+      ![Coverage for home app](/docs/readme-assets/testing_images/home-coverage.png)
+
+    ### Contact app
+
+      ![Coverage for contact app](/docs/readme-assets/testing_images/contact-coverage.png)
+
+    ### Profile app
+
+      ![Coverage for profile app](/docs/readme-assets/testing_images/profiles-coverage.png)
+
+    ### Products app
+
+      ![Coverage for products app](/docs/readme-assets/testing_images/products-coverage.png)
+
+    ### Checkout app
+
+      ![Coverage for checkout app](/docs/readme-assets/testing_images/checkout-coverage.png)
+
+    ### Basket app
+
+      ![Coverage for basket app](/docs/readme-assets/testing_images/basket-coverage.png)
+
+    ### Events app
+
+      ![Coverage for events app](/docs/readme-assets/testing_images/events-coverage.png)
 
 ## Testing User Stories 
 
@@ -618,10 +648,8 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
     the static would be being served by AWS which development environment isn't set up with. Removed all the code i'd wrote to render them now I didn't need it.
   - 404.html back to home button works.
   - 404 report issue link takes user to contact form.
-  - 500.html back to home button works.
-  - 500 report issue link takes user to contact form.
 
-- Friends, family and slack peer review used. Devices and browsers were iphone 11: Safari (x3), iphone XS Max: Safari, iphone 6: Chrome, iphone XR: safari, iphone 11 Pro: Safari, iphone 10: Safari, Samsung S20 FE: Chrome, Samsung S10 and Sony Xperia I3: Chrome. 
+- Friends, family and slack peer review used- See Bugs found and fixed below. 
 - Chrome devtools used to test responsiveness throughout the development process see bugs found below. Viewed all pages on all of the available devices at the end of the project to ensure everything still looked good.
 - Viewed physically on Macbook air 13", Huawei tablet, HP Chrome book, Dell 21" HD screen, iphone 11, Dell 17" laptop and Pixel 4XL phone to ensure that after all issues found and resolved that there was nothing else appearing
  
