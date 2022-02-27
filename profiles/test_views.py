@@ -2,9 +2,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.shortcuts import reverse
-from django.contrib.messages import get_messages
-from .models import UserProfile
-from .forms import UserProfileForm
 from checkout.models import Order, OrderLineItem
 from products.models import Genre, Vinyl, Image
 
@@ -33,10 +30,10 @@ class TestViews(TestCase):
         )
 
         self.image = Image.objects.create(
-            vinyl = self.product,
-            image = "product.png",
-            image_name = "product",
-            default = True
+            vinyl=self.product,
+            image="product.png",
+            image_name="product",
+            default=True
         )
 
         self.order = Order.objects.create(
@@ -70,6 +67,7 @@ class TestViews(TestCase):
 
     def test_order_history_view(self):
         """ Test correct template used for order history rendered properly """
-        response = self.client.get(f'/profile/order_history/{self.order.order_number}')
+        response = self.client.get(
+            f'/profile/order_history/{self.order.order_number}')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'checkout/checkout_success.html')
