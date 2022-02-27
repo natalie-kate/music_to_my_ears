@@ -168,9 +168,12 @@ This website was created for Milestone 4
 
 Wireframes were created on Balsamiq (see links below)
 
-* [Mobile](/docs/readme_assets/wireframes/ms4-mobile.pdf)
-* [Tablet](/docs/readme_assets/wireframes/ms4-tablet.pdf)
-* [Desktop](/docs/readme_assets/wireframes/ms4-desktop.pdf)
+* [Mobile](/docs/readme-assets/wireframes/ms4-mobile.pdf)
+* [Tablet](/docs/readme-assets/wireframes/ms4-tablet.pdf)
+* [Desktop](/docs/readme-assets/wireframes/ms4-desktop.pdf)
+
+The finished project does differ from the wireframes. The profile sections that I initially planned, I re-thought as I think users prefer to see the information displayed rather than having to click into everythng separately. 
+In addition the carousels looked different than I invisioned so didn't need a row each which is why you get 3 on a row for bigger screens, 2 on medium and 1 on tablet. Other than that it's just tweaks.
 
 ### Surface
 
@@ -468,7 +471,7 @@ Testing and results can be found [here](TESTING.md)
  
 ### Acknowledgements
 
--   Code Institute for Boutique Ado walk through project. Used the videos a fair bit to get me started.
+-   Code Institute for Boutique Ado walk through project and automated testing course material. Used the videos a fair bit to get me started.
 -   My mentor Spencer Barriball for his time and feedback.
 -   My mini feb 2021 team on slack for their feedback and support.
 -   Dave Horrocks for getting on the phone with me and helping me figure out my jquery issue. And along with Manny Suzy and Abi for allowing me to join their group. Knowing that they would offer help and recommend resources when I needed them took some of the stress away.
