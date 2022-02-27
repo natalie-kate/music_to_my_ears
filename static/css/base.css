@@ -31,7 +31,11 @@ h4 {
 }
 
 .title-container.error-page {
-    height: 20vh;
+    height: 25vh;
+}
+
+.error-page h1 {
+    margin-top: 5vh;
 }
 
 .image-container {
