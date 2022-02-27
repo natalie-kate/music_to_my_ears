@@ -159,11 +159,83 @@ The W3C Markup Validator and W3C CSS Validator were used to validate every page 
     ### Home page
        + Mobile 
 
-          ![Mobile lighthouse scores for home page](/docs/readme-assets/testing_images/home.png)
+          ![Mobile lighthouse scores for home page](/docs/readme-assets/testing_images/home-lighthouse.png)
 
        + Desktop
 
           ![Desktop lighthouse scores for home page](/docs/readme-assets/testing_images/home-desktop.png)
+
+    ### Shop page
+       + Mobile 
+
+          ![Mobile lighthouse scores for shop page](/docs/readme-assets/testing_images/shop-mobile.png)
+
+       + Desktop
+
+          ![Desktop lighthouse scores for shop page](/docs/readme-assets/testing_images/shop-desktop.png)
+
+    ### Add Product page
+       + Mobile 
+
+          ![Mobile lighthouse scores for add product page](/docs/readme-assets/testing_images/add-product-mobile.png)
+
+       + Desktop
+
+          ![Desktop lighthouse scores for add product page](/docs/readme-assets/testing_images/add-product-desktop.png)
+
+    ### Edit Product page
+       + Mobile 
+
+          ![Mobile lighthouse scores for edit product page](/docs/readme-assets/testing_images/edit-product-mobile.png)
+
+       + Desktop
+
+          ![Desktop lighthouse scores for edit product page](/docs/readme-assets/testing_images/edit-product-desktop.png)
+
+    ### Profile page
+       + Mobile 
+
+          ![Mobile lighthouse scores for profile page](/docs/readme-assets/testing_images/profile-mobile.png)
+
+       + Desktop
+
+          ![Desktop lighthouse scores for profile page](/docs/readme-assets/testing_images/profile-desktop.png)
+
+    ### Event page
+       + Mobile 
+
+          ![Mobile lighthouse scores for event page](/docs/readme-assets/testing_images/events-mobile.png)
+
+       + Desktop
+
+          ![Desktop lighthouse scores for event page](/docs/readme-assets/testing_images/events-desktop.png)
+
+    ### Add Event page
+       + Mobile 
+
+          ![Mobile lighthouse scores for add event page](/docs/readme-assets/testing_images/add-event-mobile.png)
+
+       + Desktop
+
+          ![Desktop lighthouse scores for add event page](/docs/readme-assets/testing_images/add-event-desktop.png)
+
+     ### Edit Event page
+       + Mobile 
+
+          ![Mobile lighthouse scores for edit event page](/docs/readme-assets/testing_images/edit-event-mobile.png)
+
+       + Desktop
+
+          ![Desktop lighthouse scores for edit event page](/docs/readme-assets/testing_images/desktop-edit-event.png)
+
+    ### Contact page
+       + Mobile 
+
+          ![Mobile lighthouse scores for contact page](/docs/readme-assets/testing_images/contact-report-mobile.png)
+
+       + Desktop
+
+          ![Desktop lighthouse scores for contact page](/docs/readme-assets/testing_images/contact-desktop.png)
         
     
 -   ## Unit Testing 
