@@ -26,8 +26,7 @@ h4 {
     padding: 0;
     border-radius: 10px;
 }
-.title-container h1,
-.error h1 {
+.title-container h1 {
     margin-top: 20vh;
 }
 .image-container {
