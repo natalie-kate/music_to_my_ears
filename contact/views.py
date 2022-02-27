@@ -37,6 +37,7 @@ def contact(request):
         else:
             messages.error(request, 'There was an error with your form. \
                 Please double check your information.')
+            return redirect(reverse('contact'))
 
     else:
         if request.user.is_authenticated:
