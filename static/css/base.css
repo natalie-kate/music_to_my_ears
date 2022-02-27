@@ -29,6 +29,11 @@ h4 {
 .title-container h1 {
     margin-top: 20vh;
 }
+
+.title-container.error-page {
+    height: 20vh;
+}
+
 .image-container {
     height: 20vh;
     background: url("/media/record-shop.jpg") no-repeat bottom -50px center;
