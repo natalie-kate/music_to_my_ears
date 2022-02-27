@@ -280,6 +280,8 @@ Wireframes were created on Balsamiq (see links below)
      + <span style="color: grey;">Solution: Clean form data.</span> 
    - Carousel stopped working, and the edit and delete links in basket stopped working too. At the same time noticed in admin that the genres of the products said self.genre. One of the issues was in my attempt to get rid of pylint errors for __str__ does not return a string, I had in my wisdom put return "self.genre" and so I changed them all back. The carousel id's I changed from {genre} to {genre.genre} and that seemed to get them working again. The basket links not working seemed to only be for some products, specifically those with longer titles. Aretha Now for example worked but Sinatra's sinatra and 20 Golden Greats did not. Changed the id's to product_id which didn't work.
     + <span style="color: grey;">Solution: ID's should only contain numbers, letters and underscores and should not start with a number. So changed id's to "prod_{{ item.product_id }}_edit"</span> 
+   - Automated testing of messages. Wasn't working with what I had, realised it was because I'd put self.client.post instead of self.client.get for that particular test. [daveoncode on slackoverflow](https://stackoverflow.com/questions/2897609/how-can-i-unit-test-django-messages) helped me to extract the message to compare to the string it should be.
+   - Could not get higher than 87% for the contact test_views.py, I don't think three of my tests are actually doing anything, as the lines that I was targetting, still don't seem to be covered.
 
 ## Testing
 
