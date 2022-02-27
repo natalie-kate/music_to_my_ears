@@ -203,7 +203,6 @@ a {
 .genre h3 a {
     color: #225e6c;
     text-decoration: underline;
-    text-decoration-style: wavy;
 }
 .nav-link:hover,
 .fa-bars,
